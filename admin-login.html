@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login Administrativo | Canil</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+
+<body class="login-page">
+
+    <div class="login-layout">
+
+        <section class="login-photo">
+            <div class="login-overlay"></div>
+
+            <div class="login-photo-content">
+                <span>
+                    <i class="fa-solid fa-paw"></i>
+                    Administração
+                </span>
+
+                <h1>
+                    Cuidado em cada detalhe.
+                </h1>
+
+                <p>
+                    Área exclusiva para gerenciamento do canil.
+                </p>
+            </div>
+        </section>
+
+
+        <section class="login-area">
+
+            <div class="login-card">
+
+                <a href="index.html" class="back-site">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    Voltar ao site
+                </a>
+
+                <div class="login-logo">
+                    <div>
+                        <i class="fa-solid fa-paw"></i>
+                    </div>
+
+                    <h2>NOME DO CANIL</h2>
+
+                    <p>Painel Administrativo</p>
+                </div>
+
+
+                <form id="loginForm">
+
+                    <div class="form-group">
+                        <label for="email">
+                            E-mail
+                        </label>
+
+                        <div class="input-icon">
+                            <i class="fa-regular fa-envelope"></i>
+
+                            <input
+                                type="email"
+                                id="email"
+                                placeholder="seu@email.com"
+                                autocomplete="email"
+                                required
+                            >
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="password">
+                            Senha
+                        </label>
+
+                        <div class="input-icon">
+                            <i class="fa-solid fa-lock"></i>
+
+                            <input
+                                type="password"
+                                id="password"
+                                placeholder="Digite sua senha"
+                                autocomplete="current-password"
+                                required
+                            >
+
+                            <button
+                                type="button"
+                                id="togglePassword"
+                                class="password-button"
+                                aria-label="Mostrar senha"
+                            >
+                                <i class="fa-regular fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="login-button"
+                        id="loginButton"
+                    >
+                        <span>Entrar no painel</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+
+
+                    <p
+                        id="loginMessage"
+                        class="login-message"
+                    ></p>
+
+                </form>
+
+
+                <p class="login-security">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    Área protegida por autenticação.
+                </p>
+
+            </div>
+
+        </section>
+
+    </div>
+
+
+    <script type="module" src="js/admin-login.js"></script>
+
+</body>
+</html>
