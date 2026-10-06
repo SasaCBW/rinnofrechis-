@@ -8,164 +8,187 @@ import {
 
 
 const form =
-    document.getElementById("interestForm");
+    document.getElementById(
+        "interestForm"
+    );
 
 const statusMessage =
     document.getElementById(
         "interestMessageStatus"
     );
 
-
-if (form) {
-
-    form.addEventListener(
-        "submit",
-        async event => {
-
-            event.preventDefault();
+const submitButton =
+    document.getElementById(
+        "sendInterestButton"
+    );
 
 
-            const name =
-                document
-                    .getElementById(
-                        "interestName"
-                    )
-                    .value
-                    .trim();
+function showMessage(
+    message,
+    success = false
+) {
+
+    if (!statusMessage) {
+        return;
+    }
+
+    statusMessage.textContent =
+        message;
+
+    statusMessage.style.color =
+        success
+            ? "#315a43"
+            : "#a53d3d";
+}
 
 
-            const phone =
-                document
-                    .getElementById(
-                        "interestPhone"
-                    )
-                    .value
-                    .trim();
+form?.addEventListener(
+    "submit",
+    async event => {
+
+        event.preventDefault();
 
 
-            const email =
-                document
-                    .getElementById(
-                        "interestEmail"
-                    )
-                    .value
-                    .trim();
+        const nome =
+            document
+                .getElementById(
+                    "interestName"
+                )
+                .value
+                .trim();
 
 
-            const interest =
-                document
-                    .getElementById(
-                        "interestType"
-                    )
-                    .value;
+        const telefone =
+            document
+                .getElementById(
+                    "interestPhone"
+                )
+                .value
+                .trim();
 
 
-            const message =
-                document
-                    .getElementById(
-                        "interestMessage"
-                    )
-                    .value
-                    .trim();
+        const email =
+            document
+                .getElementById(
+                    "interestEmail"
+                )
+                .value
+                .trim();
 
 
-            const button =
-                form.querySelector(
-                    "button[type='submit']"
-                );
+        const interesse =
+            document
+                .getElementById(
+                    "interestType"
+                )
+                .value;
 
 
-            if (
-                !name ||
-                !phone ||
-                !interest
-            ) {
-
-                statusMessage.style.color =
-                    "#ffb8b8";
-
-                statusMessage.textContent =
-                    "Preencha nome, WhatsApp e interesse.";
-
-                return;
-            }
+        const mensagem =
+            document
+                .getElementById(
+                    "interestMessage"
+                )
+                .value
+                .trim();
 
 
-            try {
+        if (
+            !nome ||
+            !telefone ||
+            !interesse
+        ) {
 
-                button.disabled = true;
+            showMessage(
+                "Preencha os campos obrigatórios."
+            );
 
-                button.innerHTML = `
-                    <i class="fa-solid fa-spinner fa-spin"></i>
-                    Enviando...
+            return;
+        }
+
+
+        try {
+
+            if (submitButton) {
+
+                submitButton.disabled =
+                    true;
+
+                submitButton.innerHTML = `
+                    <i class="fa-solid fa-circle-notch fa-spin"></i>
+                    ENVIANDO...
                 `;
-
-
-                await addDoc(
-                    collection(
-                        db,
-                        "interessados"
-                    ),
-                    {
-
-                        nome: name,
-
-                        telefone: phone,
-
-                        email: email,
-
-                        interesse: interest,
-
-                        mensagem: message,
-
-                        status: "novo",
-
-                        criadoEm:
-                            serverTimestamp()
-
-                    }
-                );
-
-
-                statusMessage.style.color =
-                    "#b9e9c5";
-
-                statusMessage.textContent =
-                    "Mensagem enviada com sucesso! Entraremos em contato.";
-
-
-                form.reset();
-
             }
 
-            catch (error) {
 
-                console.error(
-                    "Erro ao enviar interesse:",
-                    error
-                );
+            showMessage(
+                "Enviando..."
+            );
 
 
-                statusMessage.style.color =
-                    "#ffb8b8";
+            await addDoc(
+                collection(
+                    db,
+                    "interessados"
+                ),
+                {
+                    nome,
+                    telefone,
+                    email,
+                    interesse,
+                    mensagem,
 
-                statusMessage.textContent =
-                    "Não foi possível enviar. Tente novamente.";
+                    status:
+                        "novo",
 
-            }
+                    criadoEm:
+                        serverTimestamp()
+                }
+            );
 
-            finally {
 
-                button.disabled = false;
+            form.reset();
 
-                button.innerHTML = `
-                    <i class="fa-solid fa-paper-plane"></i>
-                    Enviar interesse
+
+            showMessage(
+                "Mensagem enviada com sucesso! Obrigado pelo interesse.",
+                true
+            );
+
+        }
+
+        catch (error) {
+
+            console.error(
+                "Erro ao enviar interesse:",
+                error
+            );
+
+
+            showMessage(
+                "Não foi possível enviar agora. Tente novamente."
+            );
+
+        }
+
+        finally {
+
+            if (submitButton) {
+
+                submitButton.disabled =
+                    false;
+
+                submitButton.innerHTML = `
+                    <span>
+                        ENVIAR INTERESSE
+                    </span>
+
+                    <i class="fa-solid fa-arrow-right"></i>
                 `;
 
             }
 
         }
-    );
 
-}
+    }
+);
