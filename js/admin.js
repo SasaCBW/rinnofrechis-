@@ -7,8 +7,7 @@ import {
 import {
     onAuthStateChanged,
     signOut
-} from
-"https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
 
 
 import {
@@ -20,165 +19,259 @@ import {
     query,
     orderBy,
     serverTimestamp
-} from
-"https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
 
 
-/* ELEMENTOS */
+/* =========================================
+   ELEMENTOS
+========================================= */
 
 const logoutButton =
-    document.getElementById("logoutButton");
+    document.getElementById(
+        "logoutButton"
+    );
 
 const adminEmail =
-    document.getElementById("adminEmail");
+    document.getElementById(
+        "adminEmail"
+    );
 
 const settingsEmail =
-    document.getElementById("settingsEmail");
+    document.getElementById(
+        "settingsEmail"
+    );
 
 const sidebar =
-    document.getElementById("sidebar");
+    document.getElementById(
+        "sidebar"
+    );
 
 const sidebarButton =
-    document.getElementById("sidebarButton");
+    document.getElementById(
+        "sidebarButton"
+    );
 
 const pageTitle =
-    document.getElementById("pageTitle");
+    document.getElementById(
+        "pageTitle"
+    );
 
 const menuItems =
-    document.querySelectorAll(".menu-item");
+    document.querySelectorAll(
+        ".menu-item"
+    );
 
 const sections =
-    document.querySelectorAll(".admin-section");
+    document.querySelectorAll(
+        ".admin-section"
+    );
 
 
-/* PROTEGER PAINEL */
+/* =========================================
+   PROTEGER PAINEL
+========================================= */
 
-onAuthStateChanged(auth, user => {
+onAuthStateChanged(
+    auth,
+    user => {
 
-    if (!user) {
+        if (!user) {
 
-        window.location.href =
-            "admin-login.html";
+            window.location.href =
+                "admin-login.html";
 
-        return;
+            return;
+        }
+
+
+        if (adminEmail) {
+
+            adminEmail.textContent =
+                user.email ||
+                "Administrador";
+
+        }
+
+
+        if (settingsEmail) {
+
+            settingsEmail.textContent =
+                user.email ||
+                "Administrador";
+
+        }
+
+
+        carregarFilhotes();
+
+        carregarInteressados();
 
     }
+);
 
 
-    if (adminEmail) {
-        adminEmail.textContent =
-            user.email || "Administrador";
-    }
-
-    if (settingsEmail) {
-        settingsEmail.textContent =
-            user.email || "Administrador";
-    }
-
-
-    carregarFilhotes();
-    carregarInteressados();
-
-});
-
-
-/* LOGOUT */
+/* =========================================
+   SAIR
+========================================= */
 
 logoutButton?.addEventListener(
     "click",
     async () => {
 
-        await signOut(auth);
+        try {
 
-        window.location.href =
-            "admin-login.html";
+            await signOut(auth);
+
+            window.location.href =
+                "admin-login.html";
+
+        }
+
+        catch (error) {
+
+            console.error(
+                "Erro ao sair:",
+                error
+            );
+
+        }
 
     }
 );
 
 
-/* MENU */
+/* =========================================
+   MENU
+========================================= */
 
 menuItems.forEach(item => {
 
-    item.addEventListener("click", () => {
+    item.addEventListener(
+        "click",
+        () => {
 
-        const sectionId =
-            item.dataset.section;
-
-
-        menuItems.forEach(button =>
-            button.classList.remove("active")
-        );
+            const sectionId =
+                item.dataset.section;
 
 
-        sections.forEach(section =>
-            section.classList.remove("active")
-        );
+            menuItems.forEach(
+                button => {
+
+                    button.classList.remove(
+                        "active"
+                    );
+
+                }
+            );
 
 
-        item.classList.add("active");
+            sections.forEach(
+                section => {
+
+                    section.classList.remove(
+                        "active"
+                    );
+
+                }
+            );
 
 
-        const target =
-            document.getElementById(sectionId);
+            item.classList.add(
+                "active"
+            );
 
-        if (target) {
-            target.classList.add("active");
+
+            const target =
+                document.getElementById(
+                    sectionId
+                );
+
+
+            if (target) {
+
+                target.classList.add(
+                    "active"
+                );
+
+            }
+
+
+            if (pageTitle) {
+
+                pageTitle.textContent =
+                    item.innerText.trim();
+
+            }
+
+
+            sidebar?.classList.remove(
+                "active"
+            );
+
         }
-
-
-        pageTitle.textContent =
-            item.innerText.trim();
-
-
-        sidebar.classList.remove("active");
-
-    });
+    );
 
 });
 
 
-/* MENU MOBILE */
+/* =========================================
+   MENU MOBILE
+========================================= */
 
 sidebarButton?.addEventListener(
     "click",
     () => {
 
-        sidebar.classList.toggle("active");
+        sidebar?.classList.toggle(
+            "active"
+        );
 
     }
 );
 
 
-/* =============================
-   FILHOTES
-============================= */
+/* =========================================
+   MODAL FILHOTE
+========================================= */
 
 const newPuppyButton =
-    document.getElementById("newPuppyButton");
+    document.getElementById(
+        "newPuppyButton"
+    );
 
 const puppyModal =
-    document.getElementById("puppyModal");
+    document.getElementById(
+        "puppyModal"
+    );
 
 const closePuppyModal =
-    document.getElementById("closePuppyModal");
+    document.getElementById(
+        "closePuppyModal"
+    );
 
 const puppyForm =
-    document.getElementById("puppyForm");
+    document.getElementById(
+        "puppyForm"
+    );
 
 const puppiesAdminGrid =
-    document.getElementById("puppiesAdminGrid");
+    document.getElementById(
+        "puppiesAdminGrid"
+    );
 
 const puppyMessage =
-    document.getElementById("puppyMessage");
+    document.getElementById(
+        "puppyMessage"
+    );
 
 
 newPuppyButton?.addEventListener(
     "click",
     () => {
 
-        puppyModal.classList.add("active");
+        puppyModal?.classList.add(
+            "active"
+        );
 
     }
 );
@@ -188,7 +281,9 @@ closePuppyModal?.addEventListener(
     "click",
     () => {
 
-        puppyModal.classList.remove("active");
+        puppyModal?.classList.remove(
+            "active"
+        );
 
     }
 );
@@ -198,7 +293,10 @@ puppyModal?.addEventListener(
     "click",
     event => {
 
-        if (event.target === puppyModal) {
+        if (
+            event.target ===
+            puppyModal
+        ) {
 
             puppyModal.classList.remove(
                 "active"
@@ -210,7 +308,9 @@ puppyModal?.addEventListener(
 );
 
 
-/* SALVAR FILHOTE */
+/* =========================================
+   CADASTRAR FILHOTE
+========================================= */
 
 puppyForm?.addEventListener(
     "submit",
@@ -221,36 +321,87 @@ puppyForm?.addEventListener(
 
         const nome =
             document
-                .getElementById("puppyName")
+                .getElementById(
+                    "puppyName"
+                )
                 .value
                 .trim();
+
 
         const sexo =
             document
-                .getElementById("puppyGender")
+                .getElementById(
+                    "puppyGender"
+                )
                 .value;
+
 
         const status =
             document
-                .getElementById("puppyStatus")
+                .getElementById(
+                    "puppyStatus"
+                )
                 .value;
+
+
+        const foto =
+            document
+                .getElementById(
+                    "puppyPhoto"
+                )
+                .value;
+
 
         const descricao =
             document
-                .getElementById("puppyDescription")
+                .getElementById(
+                    "puppyDescription"
+                )
                 .value
                 .trim();
+
+
+        if (
+            !nome ||
+            !sexo ||
+            !status ||
+            !foto
+        ) {
+
+            puppyMessage.className =
+                "form-message error";
+
+            puppyMessage.textContent =
+                "Preencha todos os campos obrigatórios.";
+
+            return;
+        }
 
 
         try {
 
+            puppyMessage.className =
+                "form-message";
+
+            puppyMessage.textContent =
+                "Salvando...";
+
+
             await addDoc(
-                collection(db, "filhotes"),
+                collection(
+                    db,
+                    "filhotes"
+                ),
                 {
 
                     nome,
+
                     sexo,
+
                     status,
+
+                    foto,
+
                     descricao,
 
                     criadoEm:
@@ -273,27 +424,37 @@ puppyForm?.addEventListener(
             await carregarFilhotes();
 
 
-            setTimeout(() => {
+            setTimeout(
+                () => {
 
-                puppyModal.classList.remove(
-                    "active"
-                );
+                    puppyModal
+                        ?.classList
+                        .remove(
+                            "active"
+                        );
 
-                puppyMessage.textContent = "";
+                    puppyMessage.textContent =
+                        "";
 
-            }, 800);
+                },
+                900
+            );
 
         }
 
         catch (error) {
 
-            console.error(error);
+            console.error(
+                "Erro ao cadastrar:",
+                error
+            );
+
 
             puppyMessage.className =
                 "form-message error";
 
             puppyMessage.textContent =
-                "Não foi possível cadastrar.";
+                "Não foi possível cadastrar o filhote.";
 
         }
 
@@ -301,15 +462,25 @@ puppyForm?.addEventListener(
 );
 
 
-/* CARREGAR FILHOTES */
+/* =========================================
+   CARREGAR FILHOTES
+========================================= */
 
 async function carregarFilhotes() {
+
+    if (!puppiesAdminGrid) {
+        return;
+    }
+
 
     try {
 
         const snapshot =
             await getDocs(
-                collection(db, "filhotes")
+                collection(
+                    db,
+                    "filhotes"
+                )
             );
 
 
@@ -320,85 +491,166 @@ async function carregarFilhotes() {
         let disponiveis = 0;
 
 
-        snapshot.forEach(documento => {
+        snapshot.forEach(
+            documento => {
 
-            total++;
-
-            const dados =
-                documento.data();
+                total++;
 
 
-            if (
-                dados.status === "Disponível"
-            ) {
+                const dados =
+                    documento.data();
 
-                disponiveis++;
+
+                if (
+                    dados.status ===
+                    "Disponível"
+                ) {
+
+                    disponiveis++;
+
+                }
+
+
+                const nome =
+                    escapeHTML(
+                        dados.nome ||
+                        "Filhote"
+                    );
+
+
+                const sexo =
+                    escapeHTML(
+                        dados.sexo ||
+                        ""
+                    );
+
+
+                const status =
+                    escapeHTML(
+                        dados.status ||
+                        ""
+                    );
+
+
+                const descricao =
+                    escapeHTML(
+                        dados.descricao ||
+                        ""
+                    );
+
+
+                const foto =
+                    escapeHTML(
+                        dados.foto ||
+                        "imagens/cachorro-01.jpeg"
+                    );
+
+
+                html += `
+
+                    <article
+                        class="admin-puppy"
+                    >
+
+                        <img
+                            src="${foto}"
+                            alt="${nome}"
+                            style="
+                                width:100%;
+                                height:210px;
+                                object-fit:cover;
+                            "
+                        >
+
+                        <div
+                            class="admin-puppy-content"
+                        >
+
+                            <h3>
+                                ${nome}
+                            </h3>
+
+                            <p>
+                                ${sexo}
+                            </p>
+
+                            <span
+                                class="puppy-admin-status"
+                            >
+                                ${status}
+                            </span>
+
+                            <p
+                                style="
+                                    margin-top:12px;
+                                "
+                            >
+                                ${descricao}
+                            </p>
+
+
+                            <button
+                                class="delete-puppy"
+                                data-id="${documento.id}"
+                            >
+
+                                <i
+                                    class="fa-solid fa-trash"
+                                ></i>
+
+                                Excluir
+
+                            </button>
+
+                        </div>
+
+                    </article>
+
+                `;
 
             }
+        );
 
 
-            html += `
-
-                <article class="admin-puppy">
-
-                    <div class="admin-puppy-content">
-
-                        <h3>
-                            ${escapeHTML(dados.nome)}
-                        </h3>
-
-                        <p>
-                            ${escapeHTML(
-                                dados.sexo || ""
-                            )}
-                        </p>
-
-                        <span class="puppy-admin-status">
-                            ${escapeHTML(
-                                dados.status || ""
-                            )}
-                        </span>
-
-                        <p style="margin-top:12px;">
-                            ${escapeHTML(
-                                dados.descricao || ""
-                            )}
-                        </p>
-
-                        <button
-                            class="delete-puppy"
-                            data-id="${documento.id}"
-                        >
-                            <i class="fa-solid fa-trash"></i>
-                            Excluir
-                        </button>
-
-                    </div>
-
-                </article>
-
-            `;
-
-        });
+        const totalElement =
+            document.getElementById(
+                "totalFilhotes"
+            );
 
 
-        document
-            .getElementById("totalFilhotes")
-            .textContent = total;
+        const availableElement =
+            document.getElementById(
+                "totalDisponiveis"
+            );
 
 
-        document
-            .getElementById("totalDisponiveis")
-            .textContent = disponiveis;
+        if (totalElement) {
+
+            totalElement.textContent =
+                total;
+
+        }
+
+
+        if (availableElement) {
+
+            availableElement.textContent =
+                disponiveis;
+
+        }
 
 
         if (!html) {
 
             html = `
 
-                <div class="empty-state big">
+                <div
+                    class="empty-state big"
+                >
 
-                    <i class="fa-solid fa-dog"></i>
+                    <i
+                        class="fa-solid fa-dog"
+                    ></i>
 
                     <h3>
                         Nenhum filhote cadastrado
@@ -420,40 +672,7 @@ async function carregarFilhotes() {
             html;
 
 
-        document
-            .querySelectorAll(".delete-puppy")
-            .forEach(button => {
-
-                button.addEventListener(
-                    "click",
-                    async () => {
-
-                        const id =
-                            button.dataset.id;
-
-                        const confirmar =
-                            confirm(
-                                "Deseja excluir este filhote?"
-                            );
-
-                        if (!confirmar) return;
-
-
-                        await deleteDoc(
-                            doc(
-                                db,
-                                "filhotes",
-                                id
-                            )
-                        );
-
-
-                        carregarFilhotes();
-
-                    }
-                );
-
-            });
+        configurarExclusaoFilhotes();
 
     }
 
@@ -464,14 +683,110 @@ async function carregarFilhotes() {
             error
         );
 
+
+        puppiesAdminGrid.innerHTML = `
+
+            <div
+                class="empty-state big"
+            >
+
+                <i
+                    class="fa-solid fa-triangle-exclamation"
+                ></i>
+
+                <h3>
+                    Não foi possível carregar
+                </h3>
+
+                <p>
+                    Verifique o Firebase
+                    e as regras do Firestore.
+                </p>
+
+            </div>
+
+        `;
+
     }
 
 }
 
 
-/* =============================
+/* =========================================
+   EXCLUIR FILHOTE
+========================================= */
+
+function configurarExclusaoFilhotes() {
+
+    const buttons =
+        document.querySelectorAll(
+            ".delete-puppy"
+        );
+
+
+    buttons.forEach(
+        button => {
+
+            button.addEventListener(
+                "click",
+                async () => {
+
+                    const id =
+                        button.dataset.id;
+
+
+                    const confirmar =
+                        confirm(
+                            "Deseja realmente excluir este filhote?"
+                        );
+
+
+                    if (!confirmar) {
+                        return;
+                    }
+
+
+                    try {
+
+                        await deleteDoc(
+                            doc(
+                                db,
+                                "filhotes",
+                                id
+                            )
+                        );
+
+
+                        await carregarFilhotes();
+
+                    }
+
+                    catch (error) {
+
+                        console.error(
+                            "Erro ao excluir:",
+                            error
+                        );
+
+
+                        alert(
+                            "Não foi possível excluir o filhote."
+                        );
+
+                    }
+
+                }
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================
    INTERESSADOS
-============================= */
+========================================= */
 
 async function carregarInteressados() {
 
@@ -480,10 +795,20 @@ async function carregarInteressados() {
             "interestedTable"
         );
 
+
     const recentInterested =
         document.getElementById(
             "recentInterested"
         );
+
+
+    if (
+        !interestedTable ||
+        !recentInterested
+    ) {
+
+        return;
+    }
 
 
     try {
@@ -497,6 +822,7 @@ async function carregarInteressados() {
 
         let snapshot;
 
+
         try {
 
             const consulta =
@@ -508,12 +834,21 @@ async function carregarInteressados() {
                     )
                 );
 
+
             snapshot =
-                await getDocs(consulta);
+                await getDocs(
+                    consulta
+                );
 
         }
 
-        catch {
+        catch (queryError) {
+
+            console.warn(
+                "Ordenação indisponível:",
+                queryError
+            );
+
 
             snapshot =
                 await getDocs(
@@ -530,130 +865,159 @@ async function carregarInteressados() {
         let total = 0;
 
 
-        snapshot.forEach(documento => {
+        snapshot.forEach(
+            documento => {
 
-            total++;
-
-            const dados =
-                documento.data();
+                total++;
 
 
-            let data = "-";
+                const dados =
+                    documento.data();
 
 
-            if (dados.criadoEm?.toDate) {
-
-                data =
-                    dados
-                        .criadoEm
-                        .toDate()
-                        .toLocaleDateString(
-                            "pt-BR"
-                        );
-
-            }
+                const nome =
+                    escapeHTML(
+                        dados.nome ||
+                        "Contato"
+                    );
 
 
-            tableHTML += `
-
-                <tr>
-
-                    <td>
-                        ${escapeHTML(
-                            dados.nome || "-"
-                        )}
-                    </td>
-
-                    <td>
-                        ${escapeHTML(
-                            dados.telefone ||
-                            dados.email ||
-                            "-"
-                        )}
-                    </td>
-
-                    <td>
-                        ${escapeHTML(
-                            dados.interesse ||
-                            "Informações"
-                        )}
-                    </td>
-
-                    <td>
-                        ${data}
-                    </td>
-
-                    <td>
-                        Novo
-                    </td>
-
-                </tr>
-
-            `;
+                const contato =
+                    escapeHTML(
+                        dados.telefone ||
+                        dados.email ||
+                        "-"
+                    );
 
 
-            if (total <= 5) {
+                const interesse =
+                    escapeHTML(
+                        dados.interesse ||
+                        "Informações"
+                    );
 
-                recentHTML += `
 
-                    <div
-                        style="
-                            padding:15px 0;
-                            border-bottom:
-                            1px solid #e5e9e5;
-                        "
-                    >
+                const status =
+                    escapeHTML(
+                        dados.status ||
+                        "novo"
+                    );
 
-                        <strong>
-                            ${escapeHTML(
-                                dados.nome || "Contato"
-                            )}
-                        </strong>
 
-                        <p
-                            style="
-                                color:#78817b;
-                                font-size:12px;
-                                margin-top:4px;
-                            "
-                        >
-                            ${escapeHTML(
-                                dados.interesse ||
-                                "Solicitou informações"
-                            )}
-                        </p>
+                let data = "-";
 
-                    </div>
+
+                if (
+                    dados.criadoEm?.toDate
+                ) {
+
+                    data =
+                        dados
+                            .criadoEm
+                            .toDate()
+                            .toLocaleDateString(
+                                "pt-BR"
+                            );
+
+                }
+
+
+                tableHTML += `
+
+                    <tr>
+
+                        <td>
+                            ${nome}
+                        </td>
+
+                        <td>
+                            ${contato}
+                        </td>
+
+                        <td>
+                            ${interesse}
+                        </td>
+
+                        <td>
+                            ${data}
+                        </td>
+
+                        <td>
+                            ${status}
+                        </td>
+
+                    </tr>
 
                 `;
 
+
+                if (total <= 5) {
+
+                    recentHTML += `
+
+                        <div
+                            style="
+                                padding:15px 0;
+                                border-bottom:
+                                1px solid #e5e9e5;
+                            "
+                        >
+
+                            <strong>
+                                ${nome}
+                            </strong>
+
+                            <p
+                                style="
+                                    color:#78817b;
+                                    font-size:12px;
+                                    margin-top:4px;
+                                "
+                            >
+                                ${interesse}
+                            </p>
+
+                        </div>
+
+                    `;
+
+                }
+
             }
+        );
 
-        });
 
-
-        document
-            .getElementById(
+        const totalInterested =
+            document.getElementById(
                 "totalInteressados"
-            )
-            .textContent = total;
+            );
+
+
+        if (totalInterested) {
+
+            totalInterested.textContent =
+                total;
+
+        }
 
 
         interestedTable.innerHTML =
             tableHTML ||
             `
 
-            <tr>
+                <tr>
 
-                <td colspan="5">
+                    <td colspan="5">
 
-                    <div class="empty-state">
-                        Nenhum contato recebido.
-                    </div>
+                        <div
+                            class="empty-state"
+                        >
+                            Nenhum contato recebido.
+                        </div>
 
-                </td>
+                    </td>
 
-            </tr>
+                </tr>
 
             `;
 
@@ -662,15 +1026,19 @@ async function carregarInteressados() {
             recentHTML ||
             `
 
-            <div class="empty-state">
+                <div
+                    class="empty-state"
+                >
 
-                <i class="fa-regular fa-envelope"></i>
+                    <i
+                        class="fa-regular fa-envelope"
+                    ></i>
 
-                <p>
-                    Nenhum contato recebido ainda.
-                </p>
+                    <p>
+                        Nenhum contato recebido ainda.
+                    </p>
 
-            </div>
+                </div>
 
             `;
 
@@ -688,16 +1056,23 @@ async function carregarInteressados() {
 }
 
 
-/* SEGURANÇA PARA TEXTOS */
+/* =========================================
+   SEGURANÇA DE TEXTO
+========================================= */
 
 function escapeHTML(value) {
 
     const div =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
+
 
     div.textContent =
-        String(value ?? "");
+        String(
+            value ?? ""
+        );
+
 
     return div.innerHTML;
-
 }
