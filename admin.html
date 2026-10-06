@@ -1,13 +1,30 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Painel Administrativo | Canil</title>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <title>
+        Painel Administrativo | Rinno Frenchies
+    </title>
+
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
 
     <link
         href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
@@ -19,14 +36,23 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
     >
 
-    <link rel="stylesheet" href="css/admin.css">
+    <link
+        rel="stylesheet"
+        href="css/admin.css"
+    >
+
 </head>
+
 
 <body class="admin-body">
 
-    <!-- MENU LATERAL -->
 
-    <aside class="sidebar" id="sidebar">
+    <!-- MENU -->
+
+    <aside
+        class="sidebar"
+        id="sidebar"
+    >
 
         <div class="sidebar-logo">
 
@@ -35,8 +61,13 @@
             </div>
 
             <div>
-                <strong>NOME DO CANIL</strong>
-                <span>Administração</span>
+                <strong>
+                    RINNO FRENCHIES
+                </strong>
+
+                <span>
+                    Administração
+                </span>
             </div>
 
         </div>
@@ -44,29 +75,63 @@
 
         <nav class="sidebar-menu">
 
-            <button class="menu-item active" data-section="dashboard">
+            <button
+                class="menu-item active"
+                data-section="dashboard"
+            >
                 <i class="fa-solid fa-chart-pie"></i>
-                <span>Visão geral</span>
+
+                <span>
+                    Visão geral
+                </span>
             </button>
 
-            <button class="menu-item" data-section="filhotes">
+
+            <button
+                class="menu-item"
+                data-section="filhotes"
+            >
                 <i class="fa-solid fa-dog"></i>
-                <span>Filhotes</span>
+
+                <span>
+                    Filhotes
+                </span>
             </button>
 
-            <button class="menu-item" data-section="interessados">
+
+            <button
+                class="menu-item"
+                data-section="interessados"
+            >
                 <i class="fa-solid fa-users"></i>
-                <span>Interessados</span>
+
+                <span>
+                    Interessados
+                </span>
             </button>
 
-            <button class="menu-item" data-section="galeria">
+
+            <button
+                class="menu-item"
+                data-section="galeria"
+            >
                 <i class="fa-regular fa-images"></i>
-                <span>Galeria</span>
+
+                <span>
+                    Galeria
+                </span>
             </button>
 
-            <button class="menu-item" data-section="configuracoes">
+
+            <button
+                class="menu-item"
+                data-section="configuracoes"
+            >
                 <i class="fa-solid fa-gear"></i>
-                <span>Configurações</span>
+
+                <span>
+                    Configurações
+                </span>
             </button>
 
         </nav>
@@ -74,14 +139,22 @@
 
         <div class="sidebar-bottom">
 
-            <a href="index.html" target="_blank">
+            <a
+                href="index.html"
+                target="_blank"
+            >
                 <i class="fa-solid fa-arrow-up-right-from-square"></i>
+
                 Ver site
             </a>
 
+
             <button id="logoutButton">
+
                 <i class="fa-solid fa-right-from-bracket"></i>
+
                 Sair
+
             </button>
 
         </div>
@@ -93,19 +166,32 @@
 
     <main class="admin-main">
 
+
+        <!-- TOPO -->
+
         <header class="admin-header">
 
             <button
                 class="mobile-sidebar-button"
                 id="sidebarButton"
+                aria-label="Abrir menu"
             >
                 <i class="fa-solid fa-bars"></i>
             </button>
 
-            <div>
-                <span>Painel administrativo</span>
-                <h1 id="pageTitle">Visão geral</h1>
+
+            <div class="admin-title">
+
+                <span>
+                    Painel administrativo
+                </span>
+
+                <h1 id="pageTitle">
+                    Visão geral
+                </h1>
+
             </div>
+
 
             <div class="admin-profile">
 
@@ -114,8 +200,15 @@
                 </div>
 
                 <div>
-                    <strong>Administrador</strong>
-                    <span id="adminEmail">Carregando...</span>
+
+                    <strong>
+                        Administrador
+                    </strong>
+
+                    <span id="adminEmail">
+                        Carregando...
+                    </span>
+
                 </div>
 
             </div>
@@ -123,7 +216,7 @@
         </header>
 
 
-        <!-- DASHBOARD -->
+        <!-- VISÃO GERAL -->
 
         <section
             class="admin-section active"
@@ -133,26 +226,32 @@
             <div class="welcome-card">
 
                 <div>
+
                     <span class="welcome-small">
-                        Bem-vindo ao painel
+                        Rinno Frenchies
                     </span>
 
                     <h2>
-                        Gerencie o canil em um só lugar.
+                        Gerencie tudo em
+                        um só lugar.
                     </h2>
 
                     <p>
-                        Acompanhe filhotes e pessoas interessadas
-                        através desta área administrativa.
+                        Cadastre filhotes e acompanhe
+                        os contatos recebidos pelo site.
                     </p>
+
                 </div>
 
-                <i class="fa-solid fa-paw welcome-paw"></i>
+                <i
+                    class="fa-solid fa-paw welcome-paw"
+                ></i>
 
             </div>
 
 
             <div class="stats-grid">
+
 
                 <article class="stat-card">
 
@@ -161,8 +260,15 @@
                     </div>
 
                     <div>
-                        <span>Filhotes cadastrados</span>
-                        <strong id="totalFilhotes">0</strong>
+
+                        <span>
+                            Filhotes cadastrados
+                        </span>
+
+                        <strong id="totalFilhotes">
+                            0
+                        </strong>
+
                     </div>
 
                 </article>
@@ -175,8 +281,15 @@
                     </div>
 
                     <div>
-                        <span>Disponíveis</span>
-                        <strong id="totalDisponiveis">0</strong>
+
+                        <span>
+                            Disponíveis
+                        </span>
+
+                        <strong id="totalDisponiveis">
+                            0
+                        </strong>
+
                     </div>
 
                 </article>
@@ -189,11 +302,19 @@
                     </div>
 
                     <div>
-                        <span>Interessados</span>
-                        <strong id="totalInteressados">0</strong>
+
+                        <span>
+                            Interessados
+                        </span>
+
+                        <strong id="totalInteressados">
+                            0
+                        </strong>
+
                     </div>
 
                 </article>
+
 
             </div>
 
@@ -202,21 +323,32 @@
 
                 <div class="card-heading">
 
-                    <div>
-                        <span>Atividade</span>
-                        <h3>Últimos interessados</h3>
-                    </div>
+                    <span>
+                        Atividade
+                    </span>
+
+                    <h3>
+                        Últimos interessados
+                    </h3>
 
                 </div>
+
 
                 <div
                     id="recentInterested"
                     class="interested-list"
                 >
+
                     <div class="empty-state">
+
                         <i class="fa-regular fa-envelope"></i>
-                        <p>Nenhum contato recebido ainda.</p>
+
+                        <p>
+                            Nenhum contato recebido ainda.
+                        </p>
+
                     </div>
+
                 </div>
 
             </div>
@@ -234,16 +366,27 @@
             <div class="section-toolbar">
 
                 <div>
-                    <span>Gerenciamento</span>
-                    <h2>Filhotes</h2>
+
+                    <span>
+                        Gerenciamento
+                    </span>
+
+                    <h2>
+                        Filhotes
+                    </h2>
+
                 </div>
+
 
                 <button
                     class="primary-admin-button"
                     id="newPuppyButton"
                 >
+
                     <i class="fa-solid fa-plus"></i>
+
                     Novo filhote
+
                 </button>
 
             </div>
@@ -253,15 +396,22 @@
                 id="puppiesAdminGrid"
                 class="puppies-admin-grid"
             >
+
                 <div class="empty-state big">
+
                     <i class="fa-solid fa-dog"></i>
 
-                    <h3>Nenhum filhote cadastrado</h3>
+                    <h3>
+                        Nenhum filhote cadastrado
+                    </h3>
 
                     <p>
-                        Clique em "Novo filhote" para começar.
+                        Clique em Novo filhote
+                        para começar.
                     </p>
+
                 </div>
+
             </div>
 
         </section>
@@ -277,8 +427,15 @@
             <div class="section-toolbar">
 
                 <div>
-                    <span>Contatos</span>
-                    <h2>Pessoas interessadas</h2>
+
+                    <span>
+                        Contatos
+                    </span>
+
+                    <h2>
+                        Pessoas interessadas
+                    </h2>
+
                 </div>
 
             </div>
@@ -291,23 +448,46 @@
                     <table>
 
                         <thead>
+
                             <tr>
-                                <th>Nome</th>
-                                <th>Contato</th>
-                                <th>Interesse</th>
-                                <th>Data</th>
-                                <th>Status</th>
+
+                                <th>
+                                    Nome
+                                </th>
+
+                                <th>
+                                    Contato
+                                </th>
+
+                                <th>
+                                    Interesse
+                                </th>
+
+                                <th>
+                                    Data
+                                </th>
+
+                                <th>
+                                    Status
+                                </th>
+
                             </tr>
+
                         </thead>
+
 
                         <tbody id="interestedTable">
 
                             <tr>
+
                                 <td colspan="5">
+
                                     <div class="empty-state">
                                         Nenhum contato recebido.
                                     </div>
+
                                 </td>
+
                             </tr>
 
                         </tbody>
@@ -331,8 +511,15 @@
             <div class="section-toolbar">
 
                 <div>
-                    <span>Fotos</span>
-                    <h2>Galeria</h2>
+
+                    <span>
+                        Fotografias
+                    </span>
+
+                    <h2>
+                        Galeria
+                    </h2>
+
                 </div>
 
             </div>
@@ -345,24 +532,37 @@
                     <i class="fa-regular fa-images"></i>
 
                     <div>
-                        <h3>Galeria do site</h3>
+
+                        <h3>
+                            Fotos cadastradas no projeto
+                        </h3>
 
                         <p>
-                            As imagens atuais estão armazenadas na pasta
-                            <strong>imagens</strong> do seu projeto.
+                            Essas são as imagens que podem
+                            ser escolhidas no cadastro dos filhotes.
                         </p>
+
                     </div>
 
                 </div>
 
-                <div class="admin-gallery" id="adminGallery">
 
-                    <img src="imagens/cachorro-01.jpeg" alt="">
-                    <img src="imagens/cachorro-02.jpeg" alt="">
-                    <img src="imagens/cachorro-03.jpeg" alt="">
-                    <img src="imagens/cachorro-04.jpeg" alt="">
-                    <img src="imagens/cachorro-05.jpeg" alt="">
-                    <img src="imagens/cachorro-06.jpeg" alt="">
+                <div class="admin-gallery">
+
+                    <img src="imagens/cachorro-01.jpeg" alt="Foto 01">
+                    <img src="imagens/cachorro-02.jpeg" alt="Foto 02">
+                    <img src="imagens/cachorro-03.jpeg" alt="Foto 03">
+                    <img src="imagens/cachorro-04.jpeg" alt="Foto 04">
+                    <img src="imagens/cachorro-05.jpeg" alt="Foto 05">
+                    <img src="imagens/cachorro-06.jpeg" alt="Foto 06">
+                    <img src="imagens/cachorro-07.jpeg" alt="Foto 07">
+                    <img src="imagens/cachorro-08.jpeg" alt="Foto 08">
+                    <img src="imagens/cachorro-09.jpeg" alt="Foto 09">
+                    <img src="imagens/cachorro-10.jpeg" alt="Foto 10">
+                    <img src="imagens/cachorro-11.jpeg" alt="Foto 11">
+                    <img src="imagens/cachorro-12.jpeg" alt="Foto 12">
+                    <img src="imagens/cachorro-13.jpeg" alt="Foto 13">
+                    <img src="imagens/cachorro-14.jpeg" alt="Foto 14">
 
                 </div>
 
@@ -381,8 +581,15 @@
             <div class="section-toolbar">
 
                 <div>
-                    <span>Sistema</span>
-                    <h2>Configurações</h2>
+
+                    <span>
+                        Sistema
+                    </span>
+
+                    <h2>
+                        Configurações
+                    </h2>
+
                 </div>
 
             </div>
@@ -390,15 +597,23 @@
 
             <div class="settings-grid">
 
+
                 <div class="admin-card">
 
-                    <h3>Informações do administrador</h3>
+                    <h3>
+                        Administrador
+                    </h3>
 
                     <div class="settings-item">
-                        <span>E-mail conectado</span>
+
+                        <span>
+                            E-mail conectado
+                        </span>
+
                         <strong id="settingsEmail">
                             Carregando...
                         </strong>
+
                     </div>
 
                 </div>
@@ -406,10 +621,13 @@
 
                 <div class="admin-card">
 
-                    <h3>Site</h3>
+                    <h3>
+                        Site público
+                    </h3>
 
                     <p class="settings-description">
-                        Visualize a versão pública do site.
+                        Abra o site em uma nova aba
+                        para visualizar as alterações.
                     </p>
 
                     <a
@@ -417,11 +635,15 @@
                         target="_blank"
                         class="primary-admin-button inline-button"
                     >
+
                         <i class="fa-solid fa-arrow-up-right-from-square"></i>
+
                         Abrir site
+
                     </a>
 
                 </div>
+
 
             </div>
 
@@ -430,22 +652,38 @@
     </main>
 
 
-    <!-- MODAL NOVO FILHOTE -->
+    <!-- ======================================
+         MODAL NOVO FILHOTE
+    ======================================= -->
 
-    <div class="admin-modal" id="puppyModal">
+    <div
+        class="admin-modal"
+        id="puppyModal"
+    >
 
         <div class="modal-box">
+
 
             <div class="modal-header">
 
                 <div>
-                    <span>Cadastro</span>
-                    <h2>Novo filhote</h2>
+
+                    <span>
+                        Cadastro
+                    </span>
+
+                    <h2>
+                        Novo filhote
+                    </h2>
+
                 </div>
+
 
                 <button
                     id="closePuppyModal"
                     class="modal-close"
+                    type="button"
+                    aria-label="Fechar"
                 >
                     <i class="fa-solid fa-xmark"></i>
                 </button>
@@ -455,35 +693,66 @@
 
             <form id="puppyForm">
 
+
                 <div class="form-group">
-                    <label>Nome</label>
+
+                    <label for="puppyName">
+                        Nome *
+                    </label>
 
                     <input
                         type="text"
                         id="puppyName"
+                        maxlength="100"
                         placeholder="Ex.: Theo"
                         required
                     >
+
                 </div>
 
 
                 <div class="form-row">
 
-                    <div class="form-group">
-                        <label>Sexo</label>
 
-                        <select id="puppyGender" required>
-                            <option value="">Selecione</option>
-                            <option value="Macho">Macho</option>
-                            <option value="Fêmea">Fêmea</option>
+                    <div class="form-group">
+
+                        <label for="puppyGender">
+                            Sexo *
+                        </label>
+
+                        <select
+                            id="puppyGender"
+                            required
+                        >
+
+                            <option value="">
+                                Selecione
+                            </option>
+
+                            <option value="Macho">
+                                Macho
+                            </option>
+
+                            <option value="Fêmea">
+                                Fêmea
+                            </option>
+
                         </select>
+
                     </div>
 
 
                     <div class="form-group">
-                        <label>Status</label>
 
-                        <select id="puppyStatus" required>
+                        <label for="puppyStatus">
+                            Status *
+                        </label>
+
+                        <select
+                            id="puppyStatus"
+                            required
+                        >
+
                             <option value="Disponível">
                                 Disponível
                             </option>
@@ -495,20 +764,104 @@
                             <option value="Indisponível">
                                 Indisponível
                             </option>
+
                         </select>
+
                     </div>
+
 
                 </div>
 
 
                 <div class="form-group">
-                    <label>Descrição</label>
+
+                    <label for="puppyPhoto">
+                        Foto *
+                    </label>
+
+                    <select
+                        id="puppyPhoto"
+                        required
+                    >
+
+                        <option value="">
+                            Escolha uma foto
+                        </option>
+
+                        <option value="imagens/cachorro-01.jpeg">
+                            Foto 01
+                        </option>
+
+                        <option value="imagens/cachorro-02.jpeg">
+                            Foto 02
+                        </option>
+
+                        <option value="imagens/cachorro-03.jpeg">
+                            Foto 03
+                        </option>
+
+                        <option value="imagens/cachorro-04.jpeg">
+                            Foto 04
+                        </option>
+
+                        <option value="imagens/cachorro-05.jpeg">
+                            Foto 05
+                        </option>
+
+                        <option value="imagens/cachorro-06.jpeg">
+                            Foto 06
+                        </option>
+
+                        <option value="imagens/cachorro-07.jpeg">
+                            Foto 07
+                        </option>
+
+                        <option value="imagens/cachorro-08.jpeg">
+                            Foto 08
+                        </option>
+
+                        <option value="imagens/cachorro-09.jpeg">
+                            Foto 09
+                        </option>
+
+                        <option value="imagens/cachorro-10.jpeg">
+                            Foto 10
+                        </option>
+
+                        <option value="imagens/cachorro-11.jpeg">
+                            Foto 11
+                        </option>
+
+                        <option value="imagens/cachorro-12.jpeg">
+                            Foto 12
+                        </option>
+
+                        <option value="imagens/cachorro-13.jpeg">
+                            Foto 13
+                        </option>
+
+                        <option value="imagens/cachorro-14.jpeg">
+                            Foto 14
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="puppyDescription">
+                        Descrição
+                    </label>
 
                     <textarea
                         id="puppyDescription"
-                        rows="4"
+                        rows="5"
+                        maxlength="1000"
                         placeholder="Informações sobre o filhote..."
                     ></textarea>
+
                 </div>
 
 
@@ -516,11 +869,19 @@
                     type="submit"
                     class="primary-admin-button full-button"
                 >
+
                     <i class="fa-solid fa-floppy-disk"></i>
+
                     Salvar filhote
+
                 </button>
 
-                <p id="puppyMessage" class="form-message"></p>
+
+                <p
+                    id="puppyMessage"
+                    class="form-message"
+                ></p>
+
 
             </form>
 
@@ -529,7 +890,10 @@
     </div>
 
 
-    <script type="module" src="js/admin.js"></script>
+    <script
+        type="module"
+        src="js/admin.js"
+    ></script>
 
 </body>
 </html>
