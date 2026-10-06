@@ -22,63 +22,158 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
 
 
-/* =========================================
+/* =====================================================
+   ADMIN AUTORIZADO
+===================================================== */
+
+const ADMIN_UID =
+    "NlyCmP4wDwd5nEI6Wb0n2d8bMsK2";
+
+
+/* =====================================================
    ELEMENTOS
-========================================= */
-
-const logoutButton =
-    document.getElementById(
-        "logoutButton"
-    );
-
-const adminEmail =
-    document.getElementById(
-        "adminEmail"
-    );
-
-const settingsEmail =
-    document.getElementById(
-        "settingsEmail"
-    );
+===================================================== */
 
 const sidebar =
     document.getElementById(
         "sidebar"
     );
 
+
 const sidebarButton =
     document.getElementById(
         "sidebarButton"
     );
+
 
 const pageTitle =
     document.getElementById(
         "pageTitle"
     );
 
-const menuItems =
-    document.querySelectorAll(
-        ".menu-item"
-    );
 
-const sections =
-    document.querySelectorAll(
-        ".admin-section"
+const adminEmail =
+    document.getElementById(
+        "adminEmail"
     );
 
 
-/* =========================================
-   PROTEGER PAINEL
-========================================= */
+const settingsEmail =
+    document.getElementById(
+        "settingsEmail"
+    );
+
+
+const logoutButton =
+    document.getElementById(
+        "logoutButton"
+    );
+
+
+const newPuppyButton =
+    document.getElementById(
+        "newPuppyButton"
+    );
+
+
+const dashboardNewPuppy =
+    document.getElementById(
+        "dashboardNewPuppy"
+    );
+
+
+const puppyModal =
+    document.getElementById(
+        "puppyModal"
+    );
+
+
+const closePuppyModal =
+    document.getElementById(
+        "closePuppyModal"
+    );
+
+
+const puppyForm =
+    document.getElementById(
+        "puppyForm"
+    );
+
+
+const puppyMessage =
+    document.getElementById(
+        "puppyMessage"
+    );
+
+
+const savePuppyButton =
+    document.getElementById(
+        "savePuppyButton"
+    );
+
+
+const puppiesAdminGrid =
+    document.getElementById(
+        "puppiesAdminGrid"
+    );
+
+
+const interestedTable =
+    document.getElementById(
+        "interestedTable"
+    );
+
+
+const recentInterested =
+    document.getElementById(
+        "recentInterested"
+    );
+
+
+const totalFilhotes =
+    document.getElementById(
+        "totalFilhotes"
+    );
+
+
+const totalDisponiveis =
+    document.getElementById(
+        "totalDisponiveis"
+    );
+
+
+const totalInteressados =
+    document.getElementById(
+        "totalInteressados"
+    );
+
+
+/* =====================================================
+   AUTENTICAÇÃO
+===================================================== */
 
 onAuthStateChanged(
     auth,
-    user => {
+    async user => {
 
         if (!user) {
 
-            window.location.href =
-                "admin-login.html";
+            window.location.replace(
+                "./admin-login.html"
+            );
+
+            return;
+        }
+
+
+        if (user.uid !== ADMIN_UID) {
+
+            await signOut(auth);
+
+
+            window.location.replace(
+                "./admin-login.html"
+            );
 
             return;
         }
@@ -102,17 +197,15 @@ onAuthStateChanged(
         }
 
 
-        carregarFilhotes();
-
-        carregarInteressados();
+        await carregarPainel();
 
     }
 );
 
 
-/* =========================================
-   SAIR
-========================================= */
+/* =====================================================
+   LOGOUT
+===================================================== */
 
 logoutButton?.addEventListener(
     "click",
@@ -122,16 +215,12 @@ logoutButton?.addEventListener(
 
             await signOut(auth);
 
-            window.location.href =
-                "admin-login.html";
-
         }
 
-        catch (error) {
+        finally {
 
-            console.error(
-                "Erro ao sair:",
-                error
+            window.location.replace(
+                "./admin-login.html"
             );
 
         }
@@ -140,83 +229,134 @@ logoutButton?.addEventListener(
 );
 
 
-/* =========================================
-   MENU
-========================================= */
+/* =====================================================
+   NAVEGAÇÃO
+===================================================== */
 
-menuItems.forEach(item => {
+const titles = {
 
-    item.addEventListener(
-        "click",
-        () => {
+    dashboard:
+        "Visão geral",
 
-            const sectionId =
-                item.dataset.section;
+    filhotes:
+        "Frenchies",
 
+    interessados:
+        "Interessados",
 
-            menuItems.forEach(
-                button => {
+    galeria:
+        "Galeria",
 
-                    button.classList.remove(
-                        "active"
-                    );
-
-                }
-            );
+    configuracoes:
+        "Configurações"
+};
 
 
-            sections.forEach(
-                section => {
+function abrirSecao(sectionId) {
 
-                    section.classList.remove(
-                        "active"
-                    );
+    document
+        .querySelectorAll(
+            ".admin-section"
+        )
+        .forEach(section => {
 
-                }
-            );
-
-
-            item.classList.add(
+            section.classList.remove(
                 "active"
             );
 
-
-            const target =
-                document.getElementById(
-                    sectionId
-                );
+        });
 
 
-            if (target) {
+    document
+        .querySelectorAll(
+            ".menu-item"
+        )
+        .forEach(button => {
 
-                target.classList.add(
-                    "active"
-                );
-
-            }
-
-
-            if (pageTitle) {
-
-                pageTitle.textContent =
-                    item.innerText.trim();
-
-            }
-
-
-            sidebar?.classList.remove(
+            button.classList.remove(
                 "active"
             );
 
-        }
+        });
+
+
+    const section =
+        document.getElementById(
+            sectionId
+        );
+
+
+    section?.classList.add(
+        "active"
     );
 
-});
+
+    const menuButton =
+        document.querySelector(
+            `[data-section="${sectionId}"]`
+        );
 
 
-/* =========================================
-   MENU MOBILE
-========================================= */
+    menuButton?.classList.add(
+        "active"
+    );
+
+
+    if (pageTitle) {
+
+        pageTitle.textContent =
+            titles[sectionId] ||
+            "Painel";
+
+    }
+
+
+    sidebar?.classList.remove(
+        "active"
+    );
+
+}
+
+
+document
+    .querySelectorAll(
+        ".menu-item"
+    )
+    .forEach(button => {
+
+        button.addEventListener(
+            "click",
+            () => {
+
+                abrirSecao(
+                    button.dataset.section
+                );
+
+            }
+        );
+
+    });
+
+
+document
+    .querySelectorAll(
+        "[data-open-section]"
+    )
+    .forEach(button => {
+
+        button.addEventListener(
+            "click",
+            () => {
+
+                abrirSecao(
+                    button.dataset.openSection
+                );
+
+            }
+        );
+
+    });
+
 
 sidebarButton?.addEventListener(
     "click",
@@ -230,77 +370,102 @@ sidebarButton?.addEventListener(
 );
 
 
-/* =========================================
-   MODAL FILHOTE
-========================================= */
+/* =====================================================
+   MODAL
+===================================================== */
 
-const newPuppyButton =
-    document.getElementById(
-        "newPuppyButton"
+function abrirModal() {
+
+    if (!puppyModal) {
+        return;
+    }
+
+
+    puppyModal.classList.add(
+        "active"
     );
 
-const puppyModal =
-    document.getElementById(
-        "puppyModal"
+
+    puppyModal.setAttribute(
+        "aria-hidden",
+        "false"
     );
 
-const closePuppyModal =
-    document.getElementById(
-        "closePuppyModal"
+
+    document.body.style.overflow =
+        "hidden";
+
+
+    puppyMessage.textContent =
+        "";
+
+}
+
+
+function fecharModal() {
+
+    if (!puppyModal) {
+        return;
+    }
+
+
+    puppyModal.classList.remove(
+        "active"
     );
 
-const puppyForm =
-    document.getElementById(
-        "puppyForm"
+
+    puppyModal.setAttribute(
+        "aria-hidden",
+        "true"
     );
 
-const puppiesAdminGrid =
-    document.getElementById(
-        "puppiesAdminGrid"
-    );
 
-const puppyMessage =
-    document.getElementById(
-        "puppyMessage"
-    );
+    document.body.style.overflow =
+        "";
+
+}
 
 
 newPuppyButton?.addEventListener(
     "click",
-    () => {
+    abrirModal
+);
 
-        puppyModal?.classList.add(
-            "active"
-        );
 
-    }
+dashboardNewPuppy?.addEventListener(
+    "click",
+    abrirModal
 );
 
 
 closePuppyModal?.addEventListener(
     "click",
-    () => {
-
-        puppyModal?.classList.remove(
-            "active"
-        );
-
-    }
+    fecharModal
 );
 
 
-puppyModal?.addEventListener(
-    "click",
+puppyModal
+    ?.querySelector(
+        ".modal-backdrop"
+    )
+    ?.addEventListener(
+        "click",
+        fecharModal
+    );
+
+
+document.addEventListener(
+    "keydown",
     event => {
 
         if (
-            event.target ===
-            puppyModal
+            event.key === "Escape" &&
+            puppyModal?.classList.contains(
+                "active"
+            )
         ) {
 
-            puppyModal.classList.remove(
-                "active"
-            );
+            fecharModal();
 
         }
 
@@ -308,9 +473,9 @@ puppyModal?.addEventListener(
 );
 
 
-/* =========================================
-   CADASTRAR FILHOTE
-========================================= */
+/* =====================================================
+   CADASTRAR FRENCHIE
+===================================================== */
 
 puppyForm?.addEventListener(
     "submit",
@@ -368,11 +533,19 @@ puppyForm?.addEventListener(
             !foto
         ) {
 
-            puppyMessage.className =
-                "form-message error";
+            mostrarMensagemFilhote(
+                "Preencha os campos obrigatórios."
+            );
 
-            puppyMessage.textContent =
-                "Preencha todos os campos obrigatórios.";
+            return;
+        }
+
+
+        if (!fotoSegura(foto)) {
+
+            mostrarMensagemFilhote(
+                "A imagem selecionada não é válida."
+            );
 
             return;
         }
@@ -380,11 +553,7 @@ puppyForm?.addEventListener(
 
         try {
 
-            puppyMessage.className =
-                "form-message";
-
-            puppyMessage.textContent =
-                "Salvando...";
+            setSaving(true);
 
 
             await addDoc(
@@ -393,29 +562,22 @@ puppyForm?.addEventListener(
                     "filhotes"
                 ),
                 {
-
                     nome,
-
                     sexo,
-
                     status,
-
                     foto,
-
                     descricao,
 
                     criadoEm:
                         serverTimestamp()
-
                 }
             );
 
 
-            puppyMessage.className =
-                "form-message success";
-
-            puppyMessage.textContent =
-                "Filhote cadastrado com sucesso!";
+            mostrarMensagemFilhote(
+                "Frenchie cadastrado com sucesso.",
+                true
+            );
 
 
             puppyForm.reset();
@@ -425,19 +587,8 @@ puppyForm?.addEventListener(
 
 
             setTimeout(
-                () => {
-
-                    puppyModal
-                        ?.classList
-                        .remove(
-                            "active"
-                        );
-
-                    puppyMessage.textContent =
-                        "";
-
-                },
-                900
+                fecharModal,
+                700
             );
 
         }
@@ -450,11 +601,15 @@ puppyForm?.addEventListener(
             );
 
 
-            puppyMessage.className =
-                "form-message error";
+            mostrarMensagemFilhote(
+                "Não foi possível cadastrar. Verifique as permissões do Firebase."
+            );
 
-            puppyMessage.textContent =
-                "Não foi possível cadastrar o filhote.";
+        }
+
+        finally {
+
+            setSaving(false);
 
         }
 
@@ -462,9 +617,23 @@ puppyForm?.addEventListener(
 );
 
 
-/* =========================================
-   CARREGAR FILHOTES
-========================================= */
+/* =====================================================
+   CARREGAR TUDO
+===================================================== */
+
+async function carregarPainel() {
+
+    await Promise.all([
+        carregarFilhotes(),
+        carregarInteressados()
+    ]);
+
+}
+
+
+/* =====================================================
+   FILHOTES
+===================================================== */
 
 async function carregarFilhotes() {
 
@@ -473,361 +642,27 @@ async function carregarFilhotes() {
     }
 
 
-    try {
-
-        const snapshot =
-            await getDocs(
-                collection(
-                    db,
-                    "filhotes"
-                )
-            );
-
-
-        let html = "";
-
-        let total = 0;
-
-        let disponiveis = 0;
-
-
-        snapshot.forEach(
-            documento => {
-
-                total++;
-
-
-                const dados =
-                    documento.data();
-
-
-                if (
-                    dados.status ===
-                    "Disponível"
-                ) {
-
-                    disponiveis++;
-
-                }
-
-
-                const nome =
-                    escapeHTML(
-                        dados.nome ||
-                        "Filhote"
-                    );
-
-
-                const sexo =
-                    escapeHTML(
-                        dados.sexo ||
-                        ""
-                    );
-
-
-                const status =
-                    escapeHTML(
-                        dados.status ||
-                        ""
-                    );
-
-
-                const descricao =
-                    escapeHTML(
-                        dados.descricao ||
-                        ""
-                    );
-
-
-                const foto =
-                    escapeHTML(
-                        dados.foto ||
-                        "imagens/cachorro-01.jpeg"
-                    );
-
-
-                html += `
-
-                    <article
-                        class="admin-puppy"
-                    >
-
-                        <img
-                            src="${foto}"
-                            alt="${nome}"
-                            style="
-                                width:100%;
-                                height:210px;
-                                object-fit:cover;
-                            "
-                        >
-
-                        <div
-                            class="admin-puppy-content"
-                        >
-
-                            <h3>
-                                ${nome}
-                            </h3>
-
-                            <p>
-                                ${sexo}
-                            </p>
-
-                            <span
-                                class="puppy-admin-status"
-                            >
-                                ${status}
-                            </span>
-
-                            <p
-                                style="
-                                    margin-top:12px;
-                                "
-                            >
-                                ${descricao}
-                            </p>
-
-
-                            <button
-                                class="delete-puppy"
-                                data-id="${documento.id}"
-                            >
-
-                                <i
-                                    class="fa-solid fa-trash"
-                                ></i>
-
-                                Excluir
-
-                            </button>
-
-                        </div>
-
-                    </article>
-
-                `;
-
-            }
-        );
-
-
-        const totalElement =
-            document.getElementById(
-                "totalFilhotes"
-            );
-
-
-        const availableElement =
-            document.getElementById(
-                "totalDisponiveis"
-            );
-
-
-        if (totalElement) {
-
-            totalElement.textContent =
-                total;
-
-        }
-
-
-        if (availableElement) {
-
-            availableElement.textContent =
-                disponiveis;
-
-        }
-
-
-        if (!html) {
-
-            html = `
-
-                <div
-                    class="empty-state big"
-                >
-
-                    <i
-                        class="fa-solid fa-dog"
-                    ></i>
-
-                    <h3>
-                        Nenhum filhote cadastrado
-                    </h3>
-
-                    <p>
-                        Clique em "Novo filhote"
-                        para começar.
-                    </p>
-
-                </div>
-
-            `;
-
-        }
-
-
-        puppiesAdminGrid.innerHTML =
-            html;
-
-
-        configurarExclusaoFilhotes();
-
-    }
-
-    catch (error) {
-
-        console.error(
-            "Erro ao carregar filhotes:",
-            error
-        );
-
-
-        puppiesAdminGrid.innerHTML = `
-
-            <div
-                class="empty-state big"
-            >
-
-                <i
-                    class="fa-solid fa-triangle-exclamation"
-                ></i>
-
-                <h3>
-                    Não foi possível carregar
-                </h3>
-
-                <p>
-                    Verifique o Firebase
-                    e as regras do Firestore.
-                </p>
-
-            </div>
-
-        `;
-
-    }
-
-}
-
-
-/* =========================================
-   EXCLUIR FILHOTE
-========================================= */
-
-function configurarExclusaoFilhotes() {
-
-    const buttons =
-        document.querySelectorAll(
-            ".delete-puppy"
-        );
-
-
-    buttons.forEach(
-        button => {
-
-            button.addEventListener(
-                "click",
-                async () => {
-
-                    const id =
-                        button.dataset.id;
-
-
-                    const confirmar =
-                        confirm(
-                            "Deseja realmente excluir este filhote?"
-                        );
-
-
-                    if (!confirmar) {
-                        return;
-                    }
-
-
-                    try {
-
-                        await deleteDoc(
-                            doc(
-                                db,
-                                "filhotes",
-                                id
-                            )
-                        );
-
-
-                        await carregarFilhotes();
-
-                    }
-
-                    catch (error) {
-
-                        console.error(
-                            "Erro ao excluir:",
-                            error
-                        );
-
-
-                        alert(
-                            "Não foi possível excluir o filhote."
-                        );
-
-                    }
-
-                }
-            );
-
-        }
-    );
-
-}
-
-
-/* =========================================
-   INTERESSADOS
-========================================= */
-
-async function carregarInteressados() {
-
-    const interestedTable =
-        document.getElementById(
-            "interestedTable"
-        );
-
-
-    const recentInterested =
-        document.getElementById(
-            "recentInterested"
-        );
-
-
-    if (
-        !interestedTable ||
-        !recentInterested
-    ) {
-
-        return;
-    }
+    puppiesAdminGrid.innerHTML = `
+        <div class="admin-loading">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+            Carregando...
+        </div>
+    `;
 
 
     try {
-
-        const interessadosRef =
-            collection(
-                db,
-                "interessados"
-            );
-
 
         let snapshot;
 
 
         try {
 
-            const consulta =
+            const q =
                 query(
-                    interessadosRef,
+                    collection(
+                        db,
+                        "filhotes"
+                    ),
                     orderBy(
                         "criadoEm",
                         "desc"
@@ -836,211 +671,336 @@ async function carregarInteressados() {
 
 
             snapshot =
-                await getDocs(
-                    consulta
-                );
+                await getDocs(q);
 
         }
 
-        catch (queryError) {
-
-            console.warn(
-                "Ordenação indisponível:",
-                queryError
-            );
-
+        catch {
 
             snapshot =
                 await getDocs(
-                    interessadosRef
+                    collection(
+                        db,
+                        "filhotes"
+                    )
                 );
 
         }
 
 
-        let tableHTML = "";
-
-        let recentHTML = "";
-
-        let total = 0;
+        const items = [];
 
 
-        snapshot.forEach(
-            documento => {
+        snapshot.forEach(document => {
 
-                total++;
+            items.push({
+                id: document.id,
+                ...document.data()
+            });
 
-
-                const dados =
-                    documento.data();
-
-
-                const nome =
-                    escapeHTML(
-                        dados.nome ||
-                        "Contato"
-                    );
+        });
 
 
-                const contato =
-                    escapeHTML(
-                        dados.telefone ||
-                        dados.email ||
-                        "-"
-                    );
+        if (totalFilhotes) {
 
-
-                const interesse =
-                    escapeHTML(
-                        dados.interesse ||
-                        "Informações"
-                    );
-
-
-                const status =
-                    escapeHTML(
-                        dados.status ||
-                        "novo"
-                    );
-
-
-                let data = "-";
-
-
-                if (
-                    dados.criadoEm?.toDate
-                ) {
-
-                    data =
-                        dados
-                            .criadoEm
-                            .toDate()
-                            .toLocaleDateString(
-                                "pt-BR"
-                            );
-
-                }
-
-
-                tableHTML += `
-
-                    <tr>
-
-                        <td>
-                            ${nome}
-                        </td>
-
-                        <td>
-                            ${contato}
-                        </td>
-
-                        <td>
-                            ${interesse}
-                        </td>
-
-                        <td>
-                            ${data}
-                        </td>
-
-                        <td>
-                            ${status}
-                        </td>
-
-                    </tr>
-
-                `;
-
-
-                if (total <= 5) {
-
-                    recentHTML += `
-
-                        <div
-                            style="
-                                padding:15px 0;
-                                border-bottom:
-                                1px solid #e5e9e5;
-                            "
-                        >
-
-                            <strong>
-                                ${nome}
-                            </strong>
-
-                            <p
-                                style="
-                                    color:#78817b;
-                                    font-size:12px;
-                                    margin-top:4px;
-                                "
-                            >
-                                ${interesse}
-                            </p>
-
-                        </div>
-
-                    `;
-
-                }
-
-            }
-        );
-
-
-        const totalInterested =
-            document.getElementById(
-                "totalInteressados"
-            );
-
-
-        if (totalInterested) {
-
-            totalInterested.textContent =
-                total;
+            totalFilhotes.textContent =
+                items.length;
 
         }
 
 
-        interestedTable.innerHTML =
-            tableHTML ||
-            `
+        if (totalDisponiveis) {
 
-                <tr>
+            totalDisponiveis.textContent =
+                items.filter(
+                    item =>
+                        String(
+                            item.status
+                        ).toLowerCase() ===
+                        "disponível"
+                ).length;
 
-                    <td colspan="5">
+        }
 
-                        <div
-                            class="empty-state"
-                        >
-                            Nenhum contato recebido.
-                        </div>
 
-                    </td>
+        if (items.length === 0) {
 
-                </tr>
-
+            puppiesAdminGrid.innerHTML = `
+                <div class="admin-empty">
+                    Nenhum Frenchie cadastrado ainda.
+                </div>
             `;
 
+            return;
+        }
 
-        recentInterested.innerHTML =
-            recentHTML ||
-            `
 
-                <div
-                    class="empty-state"
+        puppiesAdminGrid.innerHTML =
+            items
+                .map(
+                    createAdminPuppyCard
+                )
+                .join("");
+
+
+        document
+            .querySelectorAll(
+                "[data-delete-puppy]"
+            )
+            .forEach(button => {
+
+                button.addEventListener(
+                    "click",
+                    async () => {
+
+                        const id =
+                            button.dataset.deletePuppy;
+
+
+                        const confirmed =
+                            window.confirm(
+                                "Deseja realmente excluir este Frenchie?"
+                            );
+
+
+                        if (!confirmed) {
+                            return;
+                        }
+
+
+                        await excluirFilhote(
+                            id
+                        );
+
+                    }
+                );
+
+            });
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Erro ao carregar Frenchies:",
+            error
+        );
+
+
+        puppiesAdminGrid.innerHTML = `
+            <div class="admin-empty">
+                Não foi possível carregar os Frenchies.
+            </div>
+        `;
+
+    }
+
+}
+
+
+function createAdminPuppyCard(item) {
+
+    const nome =
+        escapeHTML(
+            item.nome ||
+            "Frenchie"
+        );
+
+
+    const sexo =
+        escapeHTML(
+            item.sexo ||
+            ""
+        );
+
+
+    const status =
+        escapeHTML(
+            item.status ||
+            ""
+        );
+
+
+    const descricao =
+        escapeHTML(
+            item.descricao ||
+            "Sem descrição."
+        );
+
+
+    const foto =
+        fotoSegura(
+            item.foto
+        )
+            ? item.foto
+            : "imagens/cachorro-01.jpeg";
+
+
+    return `
+        <article class="admin-puppy-card">
+
+            <div class="admin-puppy-photo">
+
+                <img
+                    src="./${foto}"
+                    alt="${nome}"
                 >
 
-                    <i
-                        class="fa-regular fa-envelope"
-                    ></i>
+                <span>
+                    ${status}
+                </span>
 
-                    <p>
-                        Nenhum contato recebido ainda.
-                    </p>
+            </div>
+
+
+            <div class="admin-puppy-content">
+
+                <small>
+                    ${sexo}
+                </small>
+
+                <h3>
+                    ${nome}
+                </h3>
+
+                <p>
+                    ${descricao}
+                </p>
+
+
+                <div class="admin-puppy-actions">
+
+                    <button
+                        type="button"
+                        class="delete-button"
+                        data-delete-puppy="${item.id}"
+                    >
+                        <i class="fa-regular fa-trash-can"></i>
+
+                        Excluir
+                    </button>
 
                 </div>
 
-            `;
+            </div>
+
+        </article>
+    `;
+
+}
+
+
+/* =====================================================
+   EXCLUIR FILHOTE
+===================================================== */
+
+async function excluirFilhote(id) {
+
+    try {
+
+        await deleteDoc(
+            doc(
+                db,
+                "filhotes",
+                id
+            )
+        );
+
+
+        await carregarFilhotes();
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Erro ao excluir:",
+            error
+        );
+
+
+        window.alert(
+            "Não foi possível excluir."
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   INTERESSADOS
+===================================================== */
+
+async function carregarInteressados() {
+
+    try {
+
+        let snapshot;
+
+
+        try {
+
+            const q =
+                query(
+                    collection(
+                        db,
+                        "interessados"
+                    ),
+                    orderBy(
+                        "criadoEm",
+                        "desc"
+                    )
+                );
+
+
+            snapshot =
+                await getDocs(q);
+
+        }
+
+        catch {
+
+            snapshot =
+                await getDocs(
+                    collection(
+                        db,
+                        "interessados"
+                    )
+                );
+
+        }
+
+
+        const items = [];
+
+
+        snapshot.forEach(document => {
+
+            items.push({
+                id: document.id,
+                ...document.data()
+            });
+
+        });
+
+
+        if (totalInteressados) {
+
+            totalInteressados.textContent =
+                items.length;
+
+        }
+
+
+        renderInterestedTable(
+            items
+        );
+
+
+        renderRecentInterested(
+            items.slice(0,5)
+        );
 
     }
 
@@ -1051,28 +1011,388 @@ async function carregarInteressados() {
             error
         );
 
+
+        if (interestedTable) {
+
+            interestedTable.innerHTML = `
+                <tr>
+                    <td colspan="6">
+                        Não foi possível carregar os contatos.
+                    </td>
+                </tr>
+            `;
+
+        }
+
+
+        if (recentInterested) {
+
+            recentInterested.innerHTML = `
+                <div class="admin-empty">
+                    Não foi possível carregar os contatos.
+                </div>
+            `;
+
+        }
+
     }
 
 }
 
 
-/* =========================================
-   SEGURANÇA DE TEXTO
-========================================= */
+/* =====================================================
+   TABELA
+===================================================== */
 
-function escapeHTML(value) {
+function renderInterestedTable(items) {
 
-    const div =
-        document.createElement(
-            "div"
+    if (!interestedTable) {
+        return;
+    }
+
+
+    if (items.length === 0) {
+
+        interestedTable.innerHTML = `
+            <tr>
+                <td colspan="6">
+                    Nenhum contato recebido ainda.
+                </td>
+            </tr>
+        `;
+
+        return;
+    }
+
+
+    interestedTable.innerHTML =
+        items
+            .map(item => {
+
+                const nome =
+                    escapeHTML(
+                        item.nome ||
+                        "Sem nome"
+                    );
+
+
+                const telefone =
+                    escapeHTML(
+                        item.telefone ||
+                        ""
+                    );
+
+
+                const email =
+                    escapeHTML(
+                        item.email ||
+                        ""
+                    );
+
+
+                const interesse =
+                    escapeHTML(
+                        item.interesse ||
+                        ""
+                    );
+
+
+                const mensagem =
+                    escapeHTML(
+                        item.mensagem ||
+                        "Sem mensagem"
+                    );
+
+
+                const data =
+                    formatarData(
+                        item.criadoEm
+                    );
+
+
+                return `
+                    <tr>
+
+                        <td>
+                            <strong>
+                                ${nome}
+                            </strong>
+                        </td>
+
+                        <td>
+                            ${telefone || "-"}
+                            ${email
+                                ? `<br>${email}`
+                                : ""
+                            }
+                        </td>
+
+                        <td>
+                            ${interesse || "-"}
+                        </td>
+
+                        <td>
+                            <span
+                                class="table-message"
+                                title="${mensagem}"
+                            >
+                                ${mensagem}
+                            </span>
+                        </td>
+
+                        <td>
+                            ${data}
+                        </td>
+
+                        <td>
+                            <button
+                                type="button"
+                                class="table-delete"
+                                data-delete-interest="${item.id}"
+                                aria-label="Excluir contato"
+                            >
+                                <i class="fa-regular fa-trash-can"></i>
+                            </button>
+                        </td>
+
+                    </tr>
+                `;
+
+            })
+            .join("");
+
+
+    document
+        .querySelectorAll(
+            "[data-delete-interest]"
+        )
+        .forEach(button => {
+
+            button.addEventListener(
+                "click",
+                async () => {
+
+                    const confirmed =
+                        window.confirm(
+                            "Deseja excluir este contato?"
+                        );
+
+
+                    if (!confirmed) {
+                        return;
+                    }
+
+
+                    try {
+
+                        await deleteDoc(
+                            doc(
+                                db,
+                                "interessados",
+                                button.dataset.deleteInterest
+                            )
+                        );
+
+
+                        await carregarInteressados();
+
+                    }
+
+                    catch (error) {
+
+                        console.error(
+                            error
+                        );
+
+
+                        window.alert(
+                            "Não foi possível excluir o contato."
+                        );
+
+                    }
+
+                }
+            );
+
+        });
+
+}
+
+
+/* =====================================================
+   CONTATOS RECENTES
+===================================================== */
+
+function renderRecentInterested(items) {
+
+    if (!recentInterested) {
+        return;
+    }
+
+
+    if (items.length === 0) {
+
+        recentInterested.innerHTML = `
+            <div class="admin-empty">
+                Nenhum contato recebido ainda.
+            </div>
+        `;
+
+        return;
+    }
+
+
+    recentInterested.innerHTML =
+        items
+            .map(item => {
+
+                const nome =
+                    escapeHTML(
+                        item.nome ||
+                        "Interessado"
+                    );
+
+
+                const interesse =
+                    escapeHTML(
+                        item.interesse ||
+                        "Contato pelo site"
+                    );
+
+
+                return `
+                    <div class="recent-item">
+
+                        <span class="recent-avatar">
+                            <i class="fa-solid fa-user"></i>
+                        </span>
+
+                        <div class="recent-info">
+
+                            <strong>
+                                ${nome}
+                            </strong>
+
+                            <small>
+                                ${interesse}
+                            </small>
+
+                        </div>
+
+                    </div>
+                `;
+
+            })
+            .join("");
+
+}
+
+
+/* =====================================================
+   HELPERS
+===================================================== */
+
+function fotoSegura(value = "") {
+
+    return /^imagens\/cachorro-(0[1-9]|1[0-4])\.jpeg$/
+        .test(
+            String(value)
         );
 
-
-    div.textContent =
-        String(
-            value ?? ""
-        );
+}
 
 
-    return div.innerHTML;
+function escapeHTML(value = "") {
+
+    return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+
+}
+
+
+function formatarData(timestamp) {
+
+    if (
+        !timestamp ||
+        typeof timestamp.toDate !==
+        "function"
+    ) {
+
+        return "-";
+
+    }
+
+
+    try {
+
+        return timestamp
+            .toDate()
+            .toLocaleDateString(
+                "pt-BR",
+                {
+                    day: "2-digit",
+                    month: "2-digit",
+                    year: "numeric"
+                }
+            );
+
+    }
+
+    catch {
+
+        return "-";
+
+    }
+
+}
+
+
+function mostrarMensagemFilhote(
+    message,
+    success = false
+) {
+
+    if (!puppyMessage) {
+        return;
+    }
+
+
+    puppyMessage.textContent =
+        message;
+
+
+    puppyMessage.style.color =
+        success
+            ? "#315a43"
+            : "#a84747";
+
+}
+
+
+function setSaving(saving) {
+
+    if (!savePuppyButton) {
+        return;
+    }
+
+
+    savePuppyButton.disabled =
+        saving;
+
+
+    savePuppyButton.innerHTML =
+        saving
+            ? `
+                <i class="fa-solid fa-circle-notch fa-spin"></i>
+                SALVANDO...
+              `
+            : `
+                <i class="fa-solid fa-check"></i>
+                SALVAR FRENCHIE
+              `;
+
 }
