@@ -1,9 +1,17 @@
-import { auth } from "./firebase.js";
+import {
+    auth
+} from "./firebase.js";
+
 
 import {
     signInWithEmailAndPassword,
+    signOut,
     onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+
+
+const ADMIN_UID =
+    "NlyCmP4wDwd5nEI6Wb0n2d8bMsK2";
 
 
 const loginForm =
@@ -11,25 +19,30 @@ const loginForm =
         "loginForm"
     );
 
+
 const emailInput =
     document.getElementById(
         "email"
     );
+
 
 const passwordInput =
     document.getElementById(
         "password"
     );
 
+
 const loginMessage =
     document.getElementById(
         "loginMessage"
     );
 
+
 const loginButton =
     document.getElementById(
         "loginButton"
     );
+
 
 const togglePassword =
     document.getElementById(
@@ -37,15 +50,50 @@ const togglePassword =
     );
 
 
-/* MOSTRAR / ESCONDER SENHA */
+/* =====================================================
+   SE JÁ ESTIVER LOGADO
+===================================================== */
+
+onAuthStateChanged(
+    auth,
+    async user => {
+
+        if (!user) {
+            return;
+        }
+
+
+        if (user.uid === ADMIN_UID) {
+
+            window.location.replace(
+                "./admin.html"
+            );
+
+            return;
+        }
+
+
+        await signOut(auth);
+
+    }
+);
+
+
+/* =====================================================
+   MOSTRAR SENHA
+===================================================== */
 
 togglePassword?.addEventListener(
     "click",
     () => {
 
+        if (!passwordInput) {
+            return;
+        }
+
+
         const visible =
-            passwordInput.type ===
-            "text";
+            passwordInput.type === "text";
 
 
         passwordInput.type =
@@ -54,25 +102,18 @@ togglePassword?.addEventListener(
                 : "text";
 
 
-        togglePassword.innerHTML =
-            visible
-                ? '<i class="fa-regular fa-eye"></i>'
-                : '<i class="fa-regular fa-eye-slash"></i>';
-
-    }
-);
+        const icon =
+            togglePassword.querySelector(
+                "i"
+            );
 
 
-/* SE JÁ ESTIVER LOGADO */
+        if (icon) {
 
-onAuthStateChanged(
-    auth,
-    user => {
-
-        if (user) {
-
-            window.location.href =
-                "admin.html";
+            icon.className =
+                visible
+                    ? "fa-regular fa-eye"
+                    : "fa-regular fa-eye-slash";
 
         }
 
@@ -80,7 +121,9 @@ onAuthStateChanged(
 );
 
 
-/* LOGIN */
+/* =====================================================
+   LOGIN
+===================================================== */
 
 loginForm?.addEventListener(
     "submit",
@@ -97,39 +140,61 @@ loginForm?.addEventListener(
             passwordInput.value;
 
 
-        loginMessage.textContent =
-            "";
+        if (!email || !password) {
 
+            showMessage(
+                "Informe o e-mail e a senha."
+            );
 
-        loginButton.disabled =
-            true;
-
-
-        loginButton.innerHTML = `
-            <i class="fa-solid fa-spinner fa-spin"></i>
-            Entrando...
-        `;
+            return;
+        }
 
 
         try {
 
-            await signInWithEmailAndPassword(
-                auth,
-                email,
-                password
+            setLoading(true);
+
+
+            showMessage(
+                "Verificando acesso...",
+                true
             );
 
 
-            loginMessage.className =
-                "login-message success";
+            const credential =
+                await signInWithEmailAndPassword(
+                    auth,
+                    email,
+                    password
+                );
 
 
-            loginMessage.textContent =
-                "Login realizado com sucesso!";
+            if (
+                credential.user.uid !==
+                ADMIN_UID
+            ) {
+
+                await signOut(auth);
 
 
-            window.location.href =
-                "admin.html";
+                showMessage(
+                    "Esta conta não possui acesso administrativo."
+                );
+
+
+                return;
+            }
+
+
+            showMessage(
+                "Acesso autorizado.",
+                true
+            );
+
+
+            window.location.replace(
+                "./admin.html"
+            );
 
         }
 
@@ -141,8 +206,8 @@ loginForm?.addEventListener(
             );
 
 
-            loginMessage.className =
-                "login-message error";
+            let message =
+                "Não foi possível entrar. Verifique seus dados.";
 
 
             if (
@@ -150,57 +215,95 @@ loginForm?.addEventListener(
                 "auth/invalid-credential"
             ) {
 
-                loginMessage.textContent =
+                message =
                     "E-mail ou senha incorretos.";
 
             }
 
-            else if (
+
+            if (
                 error.code ===
                 "auth/too-many-requests"
             ) {
 
-                loginMessage.textContent =
+                message =
                     "Muitas tentativas. Aguarde um pouco e tente novamente.";
 
             }
 
-            else if (
+
+            if (
                 error.code ===
                 "auth/network-request-failed"
             ) {
 
-                loginMessage.textContent =
-                    "Verifique sua conexão com a internet.";
+                message =
+                    "Falha de conexão. Verifique sua internet.";
 
             }
 
-            else {
 
-                loginMessage.textContent =
-                    "Não foi possível entrar no painel.";
-
-            }
+            showMessage(message);
 
         }
 
         finally {
 
-            loginButton.disabled =
-                false;
-
-
-            loginButton.innerHTML = `
-                <span>
-                    Entrar no painel
-                </span>
-
-                <i
-                    class="fa-solid fa-arrow-right"
-                ></i>
-            `;
+            setLoading(false);
 
         }
 
     }
 );
+
+
+/* =====================================================
+   FUNÇÕES
+===================================================== */
+
+function showMessage(
+    message,
+    success = false
+) {
+
+    if (!loginMessage) {
+        return;
+    }
+
+
+    loginMessage.textContent =
+        message;
+
+
+    loginMessage.style.color =
+        success
+            ? "#315a43"
+            : "#a84747";
+}
+
+
+function setLoading(loading) {
+
+    if (!loginButton) {
+        return;
+    }
+
+
+    loginButton.disabled =
+        loading;
+
+
+    loginButton.innerHTML =
+        loading
+            ? `
+                <i class="fa-solid fa-circle-notch fa-spin"></i>
+                ENTRANDO...
+              `
+            : `
+                <span>
+                    ENTRAR NO PAINEL
+                </span>
+
+                <i class="fa-solid fa-arrow-right"></i>
+              `;
+}
