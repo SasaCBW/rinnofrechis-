@@ -1,18 +1,31 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Nome do Canil | Bulldog Francês</title>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <meta
         name="description"
-        content="Criação responsável de Bulldog Francês. Conheça nossos cães, filhotes e entre em contato."
+        content="Criação responsável de Bulldog Francês. Conheça nossos cães, filhotes e próximas ninhadas."
     >
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <title>Rinno Frenchies | Bulldog Francês</title>
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
 
     <link
         href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
@@ -24,28 +37,36 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
     >
 
-    <link rel="stylesheet" href="style.css">
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
 </head>
+
 
 <body>
 
-    <!-- =========================
-         CABEÇALHO
-    ========================== -->
+    <!-- ======================================
+         HEADER
+    ======================================= -->
 
-    <header class="header">
-        <div class="container nav">
+    <header class="header" id="header">
+
+        <div class="container header-container">
 
             <a href="#inicio" class="logo">
-                <span class="logo-icon">
+
+                <div class="logo-icon">
                     <i class="fa-solid fa-paw"></i>
-                </span>
+                </div>
 
                 <div>
-                    <strong>NOME DO CANIL</strong>
-                    <small>Bulldog Francês</small>
+                    <strong>RINNO</strong>
+                    <span>FRENCHIES</span>
                 </div>
+
             </a>
+
 
             <button
                 class="menu-button"
@@ -55,151 +76,182 @@
                 <i class="fa-solid fa-bars"></i>
             </button>
 
-            <nav class="menu" id="menu">
-                <a href="#inicio">Início</a>
-                <a href="#sobre">Sobre</a>
-                <a href="#filhotes">Filhotes</a>
-                <a href="#galeria">Galeria</a>
-                <a href="#contato">Contato</a>
+
+            <nav class="nav" id="nav">
+
+                <a href="#inicio">
+                    Início
+                </a>
+
+                <a href="#sobre">
+                    Sobre
+                </a>
+
+                <a href="#filhotes">
+                    Filhotes
+                </a>
+
+                <a href="#galeria">
+                    Galeria
+                </a>
+
+                <a href="#contato">
+                    Contato
+                </a>
 
                 <a
                     href="admin-login.html"
                     class="admin-link"
                 >
-                    <i class="fa-solid fa-user-shield"></i>
+                    <i class="fa-solid fa-lock"></i>
                     Admin
                 </a>
+
             </nav>
 
         </div>
+
     </header>
 
 
+    <!-- ======================================
+         HERO
+    ======================================= -->
+
     <main>
 
-        <!-- =========================
-             HERO / INÍCIO
-        ========================== -->
-
-        <section class="hero" id="inicio">
+        <section
+            class="hero"
+            id="inicio"
+        >
 
             <div class="hero-overlay"></div>
 
+
             <div class="container hero-content">
 
-                <div class="hero-text">
+                <span class="hero-label">
 
-                    <span class="eyebrow">
-                        <i class="fa-solid fa-paw"></i>
-                        Bulldog Francês
-                    </span>
+                    <i class="fa-solid fa-paw"></i>
 
-                    <h1>
-                        Amor que chega
-                        <span>em quatro patas.</span>
-                    </h1>
+                    Bulldog Francês
 
-                    <p>
-                        Conheça nossos Bulldogs Franceses e encontre
-                        um novo companheiro para fazer parte da sua família.
-                    </p>
+                </span>
 
-                    <div class="hero-buttons">
 
-                        <a
-                            href="#filhotes"
-                            class="btn btn-primary"
-                        >
-                            Conhecer os filhotes
-                            <i class="fa-solid fa-arrow-right"></i>
-                        </a>
+                <h1>
+                    Amor, cuidado e
+                    <span>excelência</span>
+                    em cada detalhe.
+                </h1>
 
-                        <a
-                            href="https://wa.me/55SEUNUMERO"
-                            target="_blank"
-                            class="btn btn-outline"
-                        >
-                            <i class="fa-brands fa-whatsapp"></i>
-                            Falar conosco
-                        </a>
 
-                    </div>
+                <p>
+                    Conheça nossos Frenchies e acompanhe
+                    nossos filhotes e próximas ninhadas.
+                </p>
 
-                </div>
 
-                <div class="hero-image-card">
+                <div class="hero-buttons">
 
-                    <img
-                        src="imagens/cachorro-01.jpeg"
-                        alt="Bulldog Francês"
+                    <a
+                        href="#filhotes"
+                        class="button button-primary"
                     >
+                        Conhecer filhotes
 
-                    <div class="hero-badge">
-                        <i class="fa-solid fa-heart"></i>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
 
-                        <div>
-                            <strong>Criados com amor</strong>
-                            <span>Cuidado e responsabilidade</span>
-                        </div>
-                    </div>
+
+                    <a
+                        href="#sobre"
+                        class="button button-outline"
+                    >
+                        Conheça nosso trabalho
+                    </a>
 
                 </div>
 
             </div>
 
+
+            <a
+                href="#sobre"
+                class="scroll-down"
+                aria-label="Continuar"
+            >
+                <i class="fa-solid fa-chevron-down"></i>
+            </a>
+
         </section>
 
 
-        <!-- =========================
+        <!-- ======================================
              DIFERENCIAIS
-        ========================== -->
+        ======================================= -->
 
         <section class="benefits">
 
             <div class="container benefits-grid">
 
                 <article class="benefit">
+
                     <div class="benefit-icon">
                         <i class="fa-solid fa-heart"></i>
                     </div>
 
                     <div>
-                        <h3>Amor e cuidado</h3>
+                        <h3>
+                            Criados com carinho
+                        </h3>
+
                         <p>
-                            Nossos cães recebem carinho e atenção
-                            durante todas as fases.
+                            Atenção e cuidado durante
+                            todas as fases.
                         </p>
                     </div>
+
                 </article>
 
 
                 <article class="benefit">
-                    <div class="benefit-icon">
-                        <i class="fa-solid fa-house"></i>
-                    </div>
 
-                    <div>
-                        <h3>Ambiente familiar</h3>
-                        <p>
-                            Desenvolvimento em ambiente preparado,
-                            confortável e acolhedor.
-                        </p>
-                    </div>
-                </article>
-
-
-                <article class="benefit">
                     <div class="benefit-icon">
                         <i class="fa-solid fa-shield-dog"></i>
                     </div>
 
                     <div>
-                        <h3>Responsabilidade</h3>
+                        <h3>
+                            Bem-estar
+                        </h3>
+
                         <p>
-                            Priorizamos o bem-estar e os cuidados
-                            necessários para cada cão.
+                            O bem-estar dos nossos cães
+                            está sempre em primeiro lugar.
                         </p>
                     </div>
+
+                </article>
+
+
+                <article class="benefit">
+
+                    <div class="benefit-icon">
+                        <i class="fa-solid fa-comments"></i>
+                    </div>
+
+                    <div>
+                        <h3>
+                            Atendimento
+                        </h3>
+
+                        <p>
+                            Entre em contato para conhecer
+                            disponibilidade e informações.
+                        </p>
+                    </div>
+
                 </article>
 
             </div>
@@ -207,11 +259,14 @@
         </section>
 
 
-        <!-- =========================
+        <!-- ======================================
              SOBRE
-        ========================== -->
+        ======================================= -->
 
-        <section class="section about" id="sobre">
+        <section
+            class="about section"
+            id="sobre"
+        >
 
             <div class="container about-grid">
 
@@ -220,75 +275,82 @@
                     <img
                         src="imagens/cachorro-02.jpeg"
                         alt="Bulldog Francês"
-                        class="about-main"
+                        class="about-main-image"
                     >
 
                     <img
                         src="imagens/cachorro-03.jpeg"
-                        alt="Filhote de Bulldog Francês"
-                        class="about-small"
+                        alt="Frenchie"
+                        class="about-small-image"
                     >
+
+                    <div class="about-badge">
+
+                        <i class="fa-solid fa-paw"></i>
+
+                        <span>
+                            Rinno
+                            <strong>Frenchies</strong>
+                        </span>
+
+                    </div>
 
                 </div>
 
 
                 <div class="about-content">
 
-                    <span class="section-tag">
-                        Nossa história
+                    <span class="section-label">
+                        Sobre nós
                     </span>
 
                     <h2>
-                        Muito mais que cães.
-                        <span>Novos membros da família.</span>
+                        Uma história construída
+                        com amor pelos
+                        <span>Frenchies.</span>
                     </h2>
 
                     <p>
-                        Nosso trabalho é dedicado aos Bulldogs Franceses,
-                        buscando proporcionar aos cães um ambiente de
-                        carinho, cuidado e atenção.
+                        A Rinno Frenchies apresenta seus cães
+                        e filhotes com carinho, responsabilidade
+                        e atenção aos detalhes.
                     </p>
 
                     <p>
-                        Cada filhote possui sua própria personalidade e
-                        merece encontrar uma família preparada para
-                        oferecer amor e responsabilidade.
+                        Nosso objetivo é proporcionar um contato
+                        próximo com as famílias interessadas,
+                        oferecendo informações sobre os filhotes
+                        e próximas ninhadas.
                     </p>
 
 
-                    <div class="about-checks">
+                    <div class="about-details">
 
                         <div>
-                            <i class="fa-solid fa-circle-check"></i>
-                            Acompanhamento
+                            <i class="fa-solid fa-paw"></i>
+
+                            <span>
+                                Bulldog Francês
+                            </span>
                         </div>
 
                         <div>
-                            <i class="fa-solid fa-circle-check"></i>
-                            Cuidado diário
+                            <i class="fa-solid fa-heart"></i>
+
+                            <span>
+                                Cuidado e carinho
+                            </span>
                         </div>
 
                         <div>
-                            <i class="fa-solid fa-circle-check"></i>
-                            Ambiente preparado
-                        </div>
+                            <i class="fa-solid fa-house"></i>
 
-                        <div>
-                            <i class="fa-solid fa-circle-check"></i>
-                            Atendimento personalizado
+                            <span>
+                                Acompanhamento
+                            </span>
                         </div>
 
                     </div>
-
-
-                    <a
-                        href="https://instagram.com/SEUINSTAGRAM"
-                        target="_blank"
-                        class="text-link"
-                    >
-                        Conheça nosso Instagram
-                        <i class="fa-solid fa-arrow-right"></i>
-                    </a>
 
                 </div>
 
@@ -297,166 +359,51 @@
         </section>
 
 
-        <!-- =========================
+        <!-- ======================================
              FILHOTES
-        ========================== -->
+        ======================================= -->
 
-        <section class="section puppies" id="filhotes">
+        <section
+            class="puppies section"
+            id="filhotes"
+        >
 
             <div class="container">
 
-                <div class="section-header">
+                <div class="section-heading">
 
-                    <div>
-                        <span class="section-tag">
-                            Nossos pequenos
-                        </span>
+                    <span class="section-label">
+                        Nossos pequenos
+                    </span>
 
-                        <h2>
-                            Conheça alguns dos
-                            <span>nossos Bulldogs</span>
-                        </h2>
+                    <h2>
+                        Conheça nossos
+                        <span>filhotes</span>
+                    </h2>
+
+                    <p>
+                        Os filhotes cadastrados pelo painel
+                        administrativo aparecerão aqui.
+                    </p>
+
+                </div>
+
+
+                <div
+                    class="puppies-grid"
+                    id="puppiesGrid"
+                >
+
+                    <div class="puppies-loading">
+
+                        <i class="fa-solid fa-spinner fa-spin"></i>
+
+                        <p>
+                            Carregando filhotes...
+                        </p>
+
                     </div>
 
-                    <p>
-                        Entre em contato para consultar informações
-                        e disponibilidade.
-                    </p>
-
-                </div>
-
-
-                <div class="puppies-grid">
-
-                    <!-- FILHOTE 1 -->
-
-                    <article class="puppy-card">
-
-                        <div class="puppy-image">
-
-                            <img
-                                src="imagens/cachorro-04.jpeg"
-                                alt="Bulldog Francês"
-                            >
-
-                            <span class="status available">
-                                Consulte disponibilidade
-                            </span>
-
-                        </div>
-
-                        <div class="puppy-info">
-
-                            <span class="breed">
-                                Bulldog Francês
-                            </span>
-
-                            <h3>Filhote 01</h3>
-
-                            <p>
-                                Para informações sobre idade,
-                                características e disponibilidade,
-                                fale conosco.
-                            </p>
-
-                            <a
-                                href="https://wa.me/55SEUNUMERO"
-                                target="_blank"
-                            >
-                                Tenho interesse
-                                <i class="fa-brands fa-whatsapp"></i>
-                            </a>
-
-                        </div>
-
-                    </article>
-
-
-                    <!-- FILHOTE 2 -->
-
-                    <article class="puppy-card">
-
-                        <div class="puppy-image">
-
-                            <img
-                                src="imagens/cachorro-05.jpeg"
-                                alt="Bulldog Francês"
-                            >
-
-                            <span class="status available">
-                                Consulte disponibilidade
-                            </span>
-
-                        </div>
-
-                        <div class="puppy-info">
-
-                            <span class="breed">
-                                Bulldog Francês
-                            </span>
-
-                            <h3>Filhote 02</h3>
-
-                            <p>
-                                Entre em contato para conhecer mais
-                                detalhes sobre este pequeno.
-                            </p>
-
-                            <a
-                                href="https://wa.me/55SEUNUMERO"
-                                target="_blank"
-                            >
-                                Tenho interesse
-                                <i class="fa-brands fa-whatsapp"></i>
-                            </a>
-
-                        </div>
-
-                    </article>
-
-
-                    <!-- FILHOTE 3 -->
-
-                    <article class="puppy-card">
-
-                        <div class="puppy-image">
-
-                            <img
-                                src="imagens/cachorro-06.jpeg"
-                                alt="Bulldog Francês"
-                            >
-
-                            <span class="status available">
-                                Consulte disponibilidade
-                            </span>
-
-                        </div>
-
-                        <div class="puppy-info">
-
-                            <span class="breed">
-                                Bulldog Francês
-                            </span>
-
-                            <h3>Filhote 03</h3>
-
-                            <p>
-                                Fale diretamente conosco para
-                                informações e disponibilidade.
-                            </p>
-
-                            <a
-                                href="https://wa.me/55SEUNUMERO"
-                                target="_blank"
-                            >
-                                Tenho interesse
-                                <i class="fa-brands fa-whatsapp"></i>
-                            </a>
-
-                        </div>
-
-                    </article>
-
                 </div>
 
             </div>
@@ -464,123 +411,134 @@
         </section>
 
 
-        <!-- =========================
+        <!-- ======================================
              GALERIA
-        ========================== -->
+        ======================================= -->
 
-        <section class="section gallery" id="galeria">
+        <section
+            class="gallery-section section"
+            id="galeria"
+        >
 
             <div class="container">
 
-                <div class="gallery-heading">
+                <div class="section-heading light">
 
-                    <span class="section-tag">
-                        Momentos especiais
+                    <span class="section-label">
+                        Galeria
                     </span>
 
                     <h2>
-                        Nossa <span>galeria</span>
+                        Momentos
+                        <span>especiais</span>
                     </h2>
 
                     <p>
-                        Um pouquinho dos nossos Bulldogs e
-                        dos momentos especiais registrados por aqui.
+                        Alguns registros dos nossos Frenchies.
                     </p>
 
                 </div>
 
 
-                <div class="gallery-grid">
+                <div class="gallery">
 
                     <button class="gallery-item">
-                        <img src="imagens/cachorro-07.jpeg" alt="Bulldog Francês">
-                    </button>
-
-                    <button class="gallery-item tall">
-                        <img src="imagens/cachorro-08.jpeg" alt="Bulldog Francês">
-                    </button>
-
-                    <button class="gallery-item">
-                        <img src="imagens/cachorro-09.jpeg" alt="Bulldog Francês">
-                    </button>
-
-                    <button class="gallery-item">
-                        <img src="imagens/cachorro-10.jpeg" alt="Bulldog Francês">
-                    </button>
-
-                    <button class="gallery-item wide">
-                        <img src="imagens/cachorro-11.jpeg" alt="Bulldog Francês">
-                    </button>
-
-                    <button class="gallery-item">
-                        <img src="imagens/cachorro-12.jpeg" alt="Bulldog Francês">
-                    </button>
-
-                    <button class="gallery-item">
-                        <img src="imagens/cachorro-13.jpeg" alt="Bulldog Francês">
-                    </button>
-
-                    <button class="gallery-item">
-                        <img src="imagens/cachorro-14.jpeg" alt="Bulldog Francês">
-                    </button>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- =========================
-             VÍDEO
-        ========================== -->
-
-        <section class="section video-section">
-
-            <div class="container video-grid">
-
-                <div class="video-text">
-
-                    <span class="section-tag">
-                        Veja de pertinho
-                    </span>
-
-                    <h2>
-                        Momentos que
-                        <span>derretem o coração.</span>
-                    </h2>
-
-                    <p>
-                        Veja um pouco mais dos nossos cães e acompanhe
-                        outros momentos através das nossas redes sociais.
-                    </p>
-
-                    <a
-                        href="https://instagram.com/SEUINSTAGRAM"
-                        target="_blank"
-                        class="btn btn-primary"
-                    >
-                        <i class="fa-brands fa-instagram"></i>
-                        Seguir no Instagram
-                    </a>
-
-                </div>
-
-
-                <div class="video-container">
-
-                    <video
-                        controls
-                        preload="metadata"
-                        poster="imagens/cachorro-01.jpeg"
-                    >
-                        <source
-                            src="videos/filhotes.mp4"
-                            type="video/mp4"
+                        <img
+                            src="imagens/cachorro-01.jpeg"
+                            alt="Bulldog Francês"
                         >
+                    </button>
 
-                        Seu navegador não suporta vídeo.
-                    </video>
+                    <button class="gallery-item">
+                        <img
+                            src="imagens/cachorro-02.jpeg"
+                            alt="Bulldog Francês"
+                        >
+                    </button>
+
+                    <button class="gallery-item">
+                        <img
+                            src="imagens/cachorro-03.jpeg"
+                            alt="Bulldog Francês"
+                        >
+                    </button>
+
+                    <button class="gallery-item">
+                        <img
+                            src="imagens/cachorro-04.jpeg"
+                            alt="Bulldog Francês"
+                        >
+                    </button>
+
+                    <button class="gallery-item">
+                        <img
+                            src="imagens/cachorro-05.jpeg"
+                            alt="Bulldog Francês"
+                        >
+                    </button>
+
+                    <button class="gallery-item">
+                        <img
+                            src="imagens/cachorro-06.jpeg"
+                            alt="Bulldog Francês"
+                        >
+                    </button>
+
+                    <button class="gallery-item">
+                        <img
+                            src="imagens/cachorro-07.jpeg"
+                            alt="Bulldog Francês"
+                        >
+                    </button>
+
+                    <button class="gallery-item">
+                        <img
+                            src="imagens/cachorro-08.jpeg"
+                            alt="Bulldog Francês"
+                        >
+                    </button>
+
+                    <button class="gallery-item">
+                        <img
+                            src="imagens/cachorro-09.jpeg"
+                            alt="Bulldog Francês"
+                        >
+                    </button>
+
+                    <button class="gallery-item">
+                        <img
+                            src="imagens/cachorro-10.jpeg"
+                            alt="Bulldog Francês"
+                        >
+                    </button>
+
+                    <button class="gallery-item">
+                        <img
+                            src="imagens/cachorro-11.jpeg"
+                            alt="Bulldog Francês"
+                        >
+                    </button>
+
+                    <button class="gallery-item">
+                        <img
+                            src="imagens/cachorro-12.jpeg"
+                            alt="Bulldog Francês"
+                        >
+                    </button>
+
+                    <button class="gallery-item">
+                        <img
+                            src="imagens/cachorro-13.jpeg"
+                            alt="Bulldog Francês"
+                        >
+                    </button>
+
+                    <button class="gallery-item">
+                        <img
+                            src="imagens/cachorro-14.jpeg"
+                            alt="Bulldog Francês"
+                        >
+                    </button>
 
                 </div>
 
@@ -589,65 +547,217 @@
         </section>
 
 
-        <!-- =========================
+        <!-- ======================================
              CONTATO
-        ========================== -->
+        ======================================= -->
 
-        <section class="section contact" id="contato">
+        <section
+            class="contact section"
+            id="contato"
+        >
 
-            <div class="container contact-box">
+            <div class="container contact-grid">
 
-                <div class="contact-content">
+                <div class="contact-information">
 
-                    <span class="section-tag light">
+                    <span class="section-label">
                         Entre em contato
                     </span>
 
                     <h2>
-                        Está procurando um
-                        novo companheiro?
+                        Encontrou seu
+                        <span>novo companheiro?</span>
                     </h2>
 
                     <p>
-                        Converse conosco para saber mais sobre os cães,
-                        disponibilidade e outras informações.
+                        Preencha o formulário para receber
+                        informações sobre filhotes disponíveis
+                        ou próximas ninhadas.
                     </p>
 
 
-                    <div class="contact-buttons">
+                    <div class="contact-feature">
 
-                        <a
-                            href="https://wa.me/55SEUNUMERO"
-                            target="_blank"
-                            class="btn whatsapp"
-                        >
-                            <i class="fa-brands fa-whatsapp"></i>
+                        <i class="fa-brands fa-whatsapp"></i>
 
-                            Conversar no WhatsApp
-                        </a>
+                        <div>
+                            <strong>
+                                Atendimento
+                            </strong>
+
+                            <span>
+                                Fale conosco para mais informações.
+                            </span>
+                        </div>
+
+                    </div>
 
 
-                        <a
-                            href="https://instagram.com/SEUINSTAGRAM"
-                            target="_blank"
-                            class="btn instagram"
-                        >
-                            <i class="fa-brands fa-instagram"></i>
+                    <div class="contact-feature">
 
-                            Instagram
-                        </a>
+                        <i class="fa-brands fa-instagram"></i>
+
+                        <div>
+                            <strong>
+                                Instagram
+                            </strong>
+
+                            <span>
+                                Acompanhe nossas novidades.
+                            </span>
+                        </div>
 
                     </div>
 
                 </div>
 
 
-                <div class="contact-dog">
+                <div class="contact-form-card">
 
-                    <img
-                        src="imagens/cachorro-03.jpeg"
-                        alt="Bulldog Francês"
+                    <div class="form-heading">
+
+                        <span>
+                            Formulário
+                        </span>
+
+                        <h3>
+                            Tenho interesse
+                        </h3>
+
+                        <p>
+                            Envie seus dados e entraremos
+                            em contato.
+                        </p>
+
+                    </div>
+
+
+                    <form
+                        id="interestForm"
+                        class="interest-form"
                     >
+
+                        <div class="interest-row">
+
+                            <div class="field">
+
+                                <label for="interestName">
+                                    Nome
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="interestName"
+                                    placeholder="Seu nome"
+                                    maxlength="100"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <div class="field">
+
+                                <label for="interestPhone">
+                                    WhatsApp
+                                </label>
+
+                                <input
+                                    type="tel"
+                                    id="interestPhone"
+                                    placeholder="Seu telefone"
+                                    maxlength="30"
+                                    required
+                                >
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="field">
+
+                            <label for="interestEmail">
+                                E-mail
+                            </label>
+
+                            <input
+                                type="email"
+                                id="interestEmail"
+                                placeholder="seuemail@exemplo.com"
+                                maxlength="150"
+                            >
+
+                        </div>
+
+
+                        <div class="field">
+
+                            <label for="interestType">
+                                Interesse
+                            </label>
+
+                            <select
+                                id="interestType"
+                                required
+                            >
+
+                                <option value="">
+                                    Selecione
+                                </option>
+
+                                <option value="Filhote disponível">
+                                    Filhote disponível
+                                </option>
+
+                                <option value="Próximas ninhadas">
+                                    Próximas ninhadas
+                                </option>
+
+                                <option value="Informações sobre Bulldog Francês">
+                                    Informações sobre Bulldog Francês
+                                </option>
+
+                                <option value="Outras informações">
+                                    Outras informações
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="field">
+
+                            <label for="interestMessage">
+                                Mensagem
+                            </label>
+
+                            <textarea
+                                id="interestMessage"
+                                rows="5"
+                                maxlength="1500"
+                                placeholder="Como podemos ajudar?"
+                            ></textarea>
+
+                        </div>
+
+
+                        <button
+                            type="submit"
+                            class="interest-submit"
+                        >
+
+                            <i class="fa-solid fa-paper-plane"></i>
+
+                            Enviar interesse
+
+                        </button>
+
+
+                        <p id="interestMessageStatus"></p>
+
+                    </form>
 
                 </div>
 
@@ -658,9 +768,9 @@
     </main>
 
 
-    <!-- =========================
-         RODAPÉ
-    ========================== -->
+    <!-- ======================================
+         FOOTER
+    ======================================= -->
 
     <footer class="footer">
 
@@ -668,56 +778,63 @@
 
             <div>
 
-                <a href="#inicio" class="logo footer-logo">
+                <a
+                    href="#inicio"
+                    class="logo footer-logo"
+                >
 
-                    <span class="logo-icon">
+                    <div class="logo-icon">
                         <i class="fa-solid fa-paw"></i>
-                    </span>
+                    </div>
 
                     <div>
-                        <strong>NOME DO CANIL</strong>
-                        <small>Bulldog Francês</small>
+                        <strong>RINNO</strong>
+                        <span>FRENCHIES</span>
                     </div>
 
                 </a>
 
                 <p>
-                    Amor, responsabilidade e cuidado em cada detalhe.
+                    Bulldog Francês com carinho
+                    e dedicação.
                 </p>
 
             </div>
 
 
-            <div class="footer-links">
+            <div>
 
-                <h4>Navegação</h4>
+                <h3>
+                    Navegação
+                </h3>
 
-                <a href="#inicio">Início</a>
-                <a href="#sobre">Sobre</a>
-                <a href="#filhotes">Filhotes</a>
-                <a href="#galeria">Galeria</a>
+                <a href="#inicio">
+                    Início
+                </a>
+
+                <a href="#sobre">
+                    Sobre
+                </a>
+
+                <a href="#filhotes">
+                    Filhotes
+                </a>
+
+                <a href="#galeria">
+                    Galeria
+                </a>
 
             </div>
 
 
-            <div class="footer-links">
+            <div>
 
-                <h4>Contato</h4>
+                <h3>
+                    Administração
+                </h3>
 
-                <a
-                    href="https://wa.me/55SEUNUMERO"
-                    target="_blank"
-                >
-                    <i class="fa-brands fa-whatsapp"></i>
-                    WhatsApp
-                </a>
-
-                <a
-                    href="https://instagram.com/SEUINSTAGRAM"
-                    target="_blank"
-                >
-                    <i class="fa-brands fa-instagram"></i>
-                    @SEUINSTAGRAM
+                <a href="admin-login.html">
+                    Área administrativa
                 </a>
 
             </div>
@@ -728,34 +845,23 @@
         <div class="container footer-bottom">
 
             <p>
-                © <span id="year"></span>
-                NOME DO CANIL. Todos os direitos reservados.
+                © <span id="currentYear"></span>
+                Rinno Frenchies. Todos os direitos reservados.
             </p>
-
-            <a href="admin-login.html">
-                Área administrativa
-            </a>
 
         </div>
 
     </footer>
 
 
-    <!-- BOTÃO FLUTUANTE -->
+    <!-- ======================================
+         LIGHTBOX
+    ======================================= -->
 
-    <a
-        href="https://wa.me/55SEUNUMERO"
-        target="_blank"
-        class="floating-whatsapp"
-        aria-label="WhatsApp"
+    <div
+        class="lightbox"
+        id="lightbox"
     >
-        <i class="fa-brands fa-whatsapp"></i>
-    </a>
-
-
-    <!-- VISUALIZADOR DA GALERIA -->
-
-    <div class="lightbox" id="lightbox">
 
         <button
             class="lightbox-close"
@@ -764,6 +870,7 @@
         >
             <i class="fa-solid fa-xmark"></i>
         </button>
+
 
         <img
             src=""
@@ -774,18 +881,21 @@
     </div>
 
 
+    <!-- ======================================
+         JAVASCRIPT
+    ======================================= -->
+
     <script src="script.js"></script>
+
+    <script
+        type="module"
+        src="js/contato.js"
+    ></script>
+
+    <script
+        type="module"
+        src="js/filhotes.js"
+    ></script>
 
 </body>
 </html>
-<script src="script.js"></script>
-
-<script
-    type="module"
-    src="js/contato.js"
-></script>
-
-<script
-    type="module"
-    src="js/filhotes.js"
-></script>
