@@ -6,8 +6,7 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
 
 
-const puppiesGrid =
-    document.getElementById("puppiesGrid");
+const puppiesGrid = document.getElementById("puppiesGrid");
 
 
 async function carregarFilhotesPublicos() {
@@ -17,18 +16,15 @@ async function carregarFilhotesPublicos() {
     puppiesGrid.innerHTML = `
         <div class="puppies-loading">
             <i class="fa-solid fa-spinner fa-spin"></i>
-            Carregando filhotes...
+            <p>Carregando filhotes...</p>
         </div>
     `;
 
-
     try {
 
-        const snapshot =
-            await getDocs(
-                collection(db, "filhotes")
-            );
-
+        const snapshot = await getDocs(
+            collection(db, "filhotes")
+        );
 
         if (snapshot.empty) {
 
@@ -36,14 +32,16 @@ async function carregarFilhotesPublicos() {
                 <div class="public-empty">
                     <i class="fa-solid fa-paw"></i>
 
-                    <h3>
-                        Novidades em breve
-                    </h3>
+                    <h3>Novidades em breve</h3>
 
                     <p>
                         Entre em contato para saber
                         sobre nossas próximas ninhadas.
                     </p>
+
+                    <a href="#contato" class="empty-contact-button">
+                        Entrar em contato
+                    </a>
                 </div>
             `;
 
@@ -56,44 +54,40 @@ async function carregarFilhotesPublicos() {
 
         snapshot.forEach(documento => {
 
-            const filhote =
-                documento.data();
+            const filhote = documento.data();
 
+            const nome = escapeHTML(
+                filhote.nome || "Filhote"
+            );
 
-            const nome =
-                escapeHTML(
-                    filhote.nome ||
-                    "Filhote"
-                );
+            const sexo = escapeHTML(
+                filhote.sexo || ""
+            );
 
-            const sexo =
-                escapeHTML(
-                    filhote.sexo ||
-                    ""
-                );
+            const status = escapeHTML(
+                filhote.status || "Disponível"
+            );
 
-            const status =
-                escapeHTML(
-                    filhote.status ||
-                    "Disponível"
-                );
+            const descricao = escapeHTML(
+                filhote.descricao ||
+                "Entre em contato para mais informações."
+            );
 
-            const descricao =
-                escapeHTML(
-                    filhote.descricao ||
-                    "Entre em contato para mais informações."
-                );
+            const foto = escapeHTML(
+                filhote.foto ||
+                "imagens/cachorro-01.jpeg"
+            );
 
 
             html += `
-
                 <article class="puppy-card">
 
                     <div class="puppy-image">
 
                         <img
-                            src="imagens/cachorro-01.jpeg"
-                            alt="${nome}"
+                            src="${foto}"
+                            alt="Foto de ${nome}"
+                            loading="lazy"
                         >
 
                         <span class="puppy-status">
@@ -109,18 +103,16 @@ async function carregarFilhotesPublicos() {
                             ${sexo}
                         </span>
 
-                        <h3>
-                            ${nome}
-                        </h3>
+                        <h3>${nome}</h3>
 
                         <p>
                             ${descricao}
                         </p>
 
-
                         <a
                             href="#contato"
                             class="puppy-contact"
+                            data-puppy="${nome}"
                         >
                             Tenho interesse
 
@@ -130,14 +122,14 @@ async function carregarFilhotesPublicos() {
                     </div>
 
                 </article>
-
             `;
 
         });
 
 
-        puppiesGrid.innerHTML =
-            html;
+        puppiesGrid.innerHTML = html;
+
+        configurarBotoesInteresse();
 
     }
 
@@ -148,25 +140,71 @@ async function carregarFilhotesPublicos() {
             error
         );
 
-
         puppiesGrid.innerHTML = `
             <div class="public-empty">
 
                 <i class="fa-solid fa-paw"></i>
 
-                <h3>
-                    Conheça nossos filhotes
-                </h3>
+                <h3>Conheça nossos filhotes</h3>
 
                 <p>
-                    Entre em contato conosco
-                    para consultar disponibilidade.
+                    Entre em contato conosco para
+                    consultar disponibilidade.
                 </p>
+
+                <a href="#contato" class="empty-contact-button">
+                    Entrar em contato
+                </a>
 
             </div>
         `;
 
     }
+
+}
+
+
+function configurarBotoesInteresse() {
+
+    const buttons = document.querySelectorAll(
+        ".puppy-contact"
+    );
+
+    buttons.forEach(button => {
+
+        button.addEventListener("click", () => {
+
+            const nome = button.dataset.puppy;
+
+            setTimeout(() => {
+
+                const select =
+                    document.getElementById(
+                        "interestType"
+                    );
+
+                const message =
+                    document.getElementById(
+                        "interestMessage"
+                    );
+
+
+                if (select) {
+                    select.value =
+                        "Filhote disponível";
+                }
+
+
+                if (message) {
+                    message.value =
+                        `Olá! Tenho interesse no filhote ${nome}. Gostaria de receber mais informações.`;
+                }
+
+            }, 100);
+
+        });
+
+    });
 
 }
 
