@@ -1,29 +1,31 @@
-// ==========================================
-// FIREBASE - RINNO FRENCHIES
-// ==========================================
-
-import { initializeApp } from
-"https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
-
-import { getAuth } from
-"https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
-
-import { getFirestore } from
-"https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+import {
+    initializeApp
+} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
 
 
-// CONFIGURAÇÃO DO FIREBASE
+import {
+    getAuth
+} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+
+
+import {
+    getFirestore
+} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+
 
 const firebaseConfig = {
 
-    apiKey: "AIzaSyB291UGL0-ITISE69Uxns9pPHqvlr7opxI",
+    apiKey:
+        "AIzaSyB291UGL0-ITISE69Uxns9pPHqvlr7opxI",
 
-    authDomain: "rinnofrenchies.firebaseapp.com",
+    authDomain:
+        "rinnofrenchies.firebaseapp.com",
 
     databaseURL:
         "https://rinnofrenchies-default-rtdb.firebaseio.com",
 
-    projectId: "rinnofrenchies",
+    projectId:
+        "rinnofrenchies",
 
     storageBucket:
         "rinnofrenchies.firebasestorage.app",
@@ -39,22 +41,19 @@ const firebaseConfig = {
 };
 
 
-// INICIALIZA O FIREBASE
-
-const app = initializeApp(firebaseConfig);
-
-
-// AUTENTICAÇÃO
-
-const auth = getAuth(app);
+const app =
+    initializeApp(
+        firebaseConfig
+    );
 
 
-// FIRESTORE
+const auth =
+    getAuth(app);
 
-const db = getFirestore(app);
 
+const db =
+    getFirestore(app);
 
-// EXPORTA PARA OS OUTROS ARQUIVOS
 
 export {
     app,
