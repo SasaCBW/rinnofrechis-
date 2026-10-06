@@ -4,13 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Login Administrativo | Canil</title>
+    <meta name="robots" content="noindex, nofollow">
+
+    <title>Admin | Rinno Frenchies</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <link
-        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap"
         rel="stylesheet"
     >
 
@@ -19,133 +21,206 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
     >
 
-    <link rel="stylesheet" href="css/admin.css">
+    <link
+        rel="stylesheet"
+        href="./css/admin.css?v=10"
+    >
 </head>
 
 <body class="login-page">
 
-    <div class="login-layout">
+    <main class="login-layout">
 
-        <section class="login-photo">
-            <div class="login-overlay"></div>
+        <section class="login-visual">
 
-            <div class="login-photo-content">
-                <span>
+            <div class="login-visual-overlay"></div>
+
+            <a
+                href="./index.html"
+                class="login-site-logo"
+            >
+                <span class="login-site-logo-icon">
                     <i class="fa-solid fa-paw"></i>
-                    Administração
+                </span>
+
+                <span>
+                    <strong>RINNO</strong>
+                    <small>FRENCHIES</small>
+                </span>
+            </a>
+
+            <div class="login-visual-content">
+
+                <span class="login-eyebrow">
+                    ÁREA ADMINISTRATIVA
                 </span>
 
                 <h1>
-                    Cuidado em cada detalhe.
+                    Gestão
+                    <em>Rinno.</em>
                 </h1>
 
                 <p>
-                    Área exclusiva para gerenciamento do canil.
+                    Acesso exclusivo para administração
+                    dos Frenchies e contatos recebidos
+                    pelo site.
                 </p>
+
             </div>
+
+            <div class="login-visual-footer">
+                <i class="fa-solid fa-lock"></i>
+                Acesso restrito
+            </div>
+
         </section>
 
 
-        <section class="login-area">
+        <section class="login-form-area">
 
             <div class="login-card">
 
-                <a href="index.html" class="back-site">
+                <a
+                    href="./index.html"
+                    class="back-site"
+                >
                     <i class="fa-solid fa-arrow-left"></i>
                     Voltar ao site
                 </a>
 
-                <div class="login-logo">
-                    <div>
+
+                <div class="login-mobile-logo">
+
+                    <span>
                         <i class="fa-solid fa-paw"></i>
+                    </span>
+
+                    <div>
+                        <strong>RINNO</strong>
+                        <small>FRENCHIES</small>
                     </div>
 
-                    <h2>NOME DO CANIL</h2>
+                </div>
 
-                    <p>Painel Administrativo</p>
+
+                <div class="login-heading">
+
+                    <span>
+                        BEM-VINDO
+                    </span>
+
+                    <h2>
+                        Painel administrativo
+                    </h2>
+
+                    <p>
+                        Entre com a conta autorizada
+                        para administrar o site.
+                    </p>
+
                 </div>
 
 
                 <form id="loginForm">
 
-                    <div class="form-group">
+                    <div class="admin-field">
+
                         <label for="email">
                             E-mail
                         </label>
 
-                        <div class="input-icon">
+                        <div class="input-wrapper">
+
                             <i class="fa-regular fa-envelope"></i>
 
                             <input
                                 type="email"
                                 id="email"
-                                placeholder="seu@email.com"
-                                autocomplete="email"
+                                autocomplete="username"
+                                placeholder="E-mail do administrador"
                                 required
                             >
+
                         </div>
+
                     </div>
 
 
-                    <div class="form-group">
+                    <div class="admin-field">
+
                         <label for="password">
                             Senha
                         </label>
 
-                        <div class="input-icon">
+                        <div class="input-wrapper">
+
                             <i class="fa-solid fa-lock"></i>
 
                             <input
                                 type="password"
                                 id="password"
-                                placeholder="Digite sua senha"
                                 autocomplete="current-password"
+                                placeholder="Sua senha"
                                 required
                             >
 
                             <button
                                 type="button"
+                                class="password-toggle"
                                 id="togglePassword"
-                                class="password-button"
-                                aria-label="Mostrar senha"
+                                aria-label="Mostrar ou ocultar senha"
                             >
                                 <i class="fa-regular fa-eye"></i>
                             </button>
+
                         </div>
+
                     </div>
 
 
                     <button
                         type="submit"
-                        class="login-button"
+                        class="login-submit"
                         id="loginButton"
                     >
-                        <span>Entrar no painel</span>
+                        <span>
+                            ENTRAR NO PAINEL
+                        </span>
+
                         <i class="fa-solid fa-arrow-right"></i>
                     </button>
 
 
                     <p
-                        id="loginMessage"
                         class="login-message"
+                        id="loginMessage"
                     ></p>
 
                 </form>
 
 
-                <p class="login-security">
+                <div class="login-security">
+
                     <i class="fa-solid fa-shield-halved"></i>
-                    Área protegida por autenticação.
-                </p>
+
+                    <p>
+                        Esta área é protegida e destinada
+                        somente ao administrador autorizado.
+                    </p>
+
+                </div>
 
             </div>
 
         </section>
 
-    </div>
+    </main>
 
 
-    <script type="module" src="js/admin-login.js"></script>
+    <script
+        type="module"
+        src="./js/admin-login.js?v=10"
+    ></script>
 
 </body>
 </html>
