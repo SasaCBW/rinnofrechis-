@@ -1,148 +1,66 @@
-/* =====================================================
-   RINNO FRENCHIES
-   JAVASCRIPT PRINCIPAL
-===================================================== */
+const header = document.getElementById("siteHeader");
+const menuButton = document.getElementById("menuButton");
+const mainNav = document.getElementById("mainNav");
 
+function updateHeader() {
+    if (!header) return;
 
-/* =====================================================
-   ELEMENTOS
-===================================================== */
-
-const header =
-    document.getElementById("header");
-
-const mobileMenuButton =
-    document.getElementById("mobileMenuButton");
-
-const navigation =
-    document.getElementById("navigation");
-
-const navigationLinks =
-    document.querySelectorAll(
-        ".navigation a"
+    header.classList.toggle(
+        "scrolled",
+        window.scrollY > 35
     );
-
-const galleryItems =
-    document.querySelectorAll(
-        ".gallery-item"
-    );
-
-const lightbox =
-    document.getElementById("lightbox");
-
-const lightboxImage =
-    document.getElementById("lightboxImage");
-
-const lightboxClose =
-    document.getElementById("lightboxClose");
-
-const currentYear =
-    document.getElementById("currentYear");
-
-
-/* =====================================================
-   HEADER AO ROLAR
-===================================================== */
-
-function atualizarHeader() {
-
-    if (!header) {
-        return;
-    }
-
-    if (window.scrollY > 30) {
-
-        header.classList.add(
-            "scrolled"
-        );
-
-    }
-
-    else {
-
-        header.classList.remove(
-            "scrolled"
-        );
-
-    }
-
 }
 
+updateHeader();
 
 window.addEventListener(
     "scroll",
-    atualizarHeader
+    updateHeader
 );
 
 
-atualizarHeader();
+/* MENU MOBILE */
 
-
-/* =====================================================
-   MENU MOBILE
-===================================================== */
-
-mobileMenuButton?.addEventListener(
+menuButton?.addEventListener(
     "click",
     () => {
 
-        navigation?.classList.toggle(
-            "active"
-        );
+        const opened =
+            mainNav.classList.toggle("active");
 
         document.body.classList.toggle(
-            "menu-open"
+            "menu-open",
+            opened
         );
 
+        menuButton.setAttribute(
+            "aria-expanded",
+            String(opened)
+        );
 
         const icon =
-            mobileMenuButton.querySelector(
-                "i"
-            );
+            menuButton.querySelector("i");
 
-
-        if (
-            navigation?.classList.contains(
-                "active"
-            )
-        ) {
-
-            icon?.classList.remove(
-                "fa-bars"
-            );
-
-            icon?.classList.add(
-                "fa-xmark"
-            );
-
+        if (opened) {
+            icon.className =
+                "fa-solid fa-xmark";
+        } else {
+            icon.className =
+                "fa-solid fa-bars";
         }
-
-        else {
-
-            icon?.classList.remove(
-                "fa-xmark"
-            );
-
-            icon?.classList.add(
-                "fa-bars"
-            );
-
-        }
-
     }
 );
 
 
-/* FECHAR MENU AO CLICAR */
-
-navigationLinks.forEach(
-    link => {
+document
+    .querySelectorAll("#mainNav a")
+    .forEach(link => {
 
         link.addEventListener(
             "click",
             () => {
 
-                navigation?.classList.remove(
+                mainNav?.classList.remove(
                     "active"
                 );
 
@@ -150,118 +68,104 @@ navigationLinks.forEach(
                     "menu-open"
                 );
 
+                menuButton?.setAttribute(
+                    "aria-expanded",
+                    "false"
+                );
 
                 const icon =
-                    mobileMenuButton
-                        ?.querySelector(
-                            "i"
-                        );
+                    menuButton?.querySelector("i");
 
-
-                icon?.classList.remove(
-                    "fa-xmark"
-                );
-
-                icon?.classList.add(
-                    "fa-bars"
-                );
-
+                if (icon) {
+                    icon.className =
+                        "fa-solid fa-bars";
+                }
             }
         );
 
-    }
-);
+    });
 
 
-/* =====================================================
-   LIGHTBOX DA GALERIA
-===================================================== */
+/* GALERIA */
 
-galleryItems.forEach(
-    item => {
+const lightbox =
+    document.getElementById("lightbox");
+
+const lightboxImage =
+    document.getElementById(
+        "lightboxImage"
+    );
+
+const lightboxClose =
+    document.getElementById(
+        "lightboxClose"
+    );
+
+
+document
+    .querySelectorAll(".gallery-item")
+    .forEach(item => {
 
         item.addEventListener(
             "click",
             () => {
 
                 const image =
-                    item.querySelector(
-                        "img"
-                    );
-
+                    item.querySelector("img");
 
                 if (
                     !image ||
                     !lightbox ||
                     !lightboxImage
                 ) {
-
                     return;
-
                 }
-
 
                 lightboxImage.src =
                     image.src;
 
-
                 lightboxImage.alt =
                     image.alt ||
-                    "Bulldog Francês";
-
+                    "Imagem ampliada";
 
                 lightbox.classList.add(
                     "active"
                 );
-
 
                 lightbox.setAttribute(
                     "aria-hidden",
                     "false"
                 );
 
-
                 document.body.style.overflow =
                     "hidden";
-
             }
         );
 
-    }
-);
+    });
 
 
-/* =====================================================
-   FECHAR LIGHTBOX
-===================================================== */
+function closeLightbox() {
 
-function fecharLightbox() {
-
-    if (!lightbox) {
-        return;
-    }
-
+    if (!lightbox) return;
 
     lightbox.classList.remove(
         "active"
     );
-
 
     lightbox.setAttribute(
         "aria-hidden",
         "true"
     );
 
-
     document.body.style.overflow =
         "";
-
 }
 
 
 lightboxClose?.addEventListener(
     "click",
-    fecharLightbox
+    closeLightbox
 );
 
 
@@ -269,90 +173,67 @@ lightbox?.addEventListener(
     "click",
     event => {
 
-        if (
-            event.target === lightbox
-        ) {
-
-            fecharLightbox();
-
+        if (event.target === lightbox) {
+            closeLightbox();
         }
 
     }
 );
 
-
-/* ESC */
 
 document.addEventListener(
     "keydown",
     event => {
 
-        if (
-            event.key === "Escape" &&
-            lightbox?.classList.contains(
-                "active"
-            )
-        ) {
-
-            fecharLightbox();
-
+        if (event.key === "Escape") {
+            closeLightbox();
         }
 
     }
 );
 
 
-/* =====================================================
-   ANO AUTOMÁTICO
-===================================================== */
+/* ANO */
+
+const currentYear =
+    document.getElementById(
+        "currentYear"
+    );
 
 if (currentYear) {
-
     currentYear.textContent =
         new Date().getFullYear();
-
 }
 
 
-/* =====================================================
-   FECHAR MENU SE A TELA AUMENTAR
-===================================================== */
+/* RESIZE */
 
 window.addEventListener(
     "resize",
     () => {
 
-        if (
-            window.innerWidth > 980
-        ) {
+        if (window.innerWidth > 980) {
 
-            navigation?.classList.remove(
+            mainNav?.classList.remove(
                 "active"
             );
-
 
             document.body.classList.remove(
                 "menu-open"
             );
 
+            menuButton?.setAttribute(
+                "aria-expanded",
+                "false"
+            );
 
             const icon =
-                mobileMenuButton
-                    ?.querySelector(
-                        "i"
-                    );
+                menuButton?.querySelector("i");
 
-
-            icon?.classList.remove(
-                "fa-xmark"
-            );
-
-
-            icon?.classList.add(
-                "fa-bars"
-            );
-
+            if (icon) {
+                icon.className =
+                    "fa-solid fa-bars";
+            }
         }
-
     }
 );
