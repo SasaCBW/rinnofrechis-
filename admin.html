@@ -1,856 +1,194 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+  <title>Painel | Rinno Frenchies</title>
 
-    <meta
-        name="robots"
-        content="noindex, nofollow"
-    >
-
-    <title>Painel | Rinno Frenchies</title>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-
-    <link rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossorigin>
-
-    <link
-        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap"
-        rel="stylesheet"
-    >
-
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-    >
-
-    <link
-        rel="stylesheet"
-        href="./css/admin.css?v=10"
-    >
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./css/admin.css?v=20261010-1">
 </head>
 
-<body class="admin-page">
-
-
-    <!-- SIDEBAR -->
-
-    <aside
-        class="sidebar"
-        id="sidebar"
-    >
-
-        <div class="sidebar-brand">
-
-            <span class="sidebar-logo">
-                <i class="fa-solid fa-paw"></i>
-            </span>
-
-            <div>
-                <strong>RINNO</strong>
-                <small>FRENCHIES</small>
-            </div>
-
-        </div>
-
-
-        <div class="sidebar-label">
-            ADMINISTRAÇÃO
-        </div>
-
-
-        <nav class="sidebar-menu">
-
-            <button
-                class="menu-item active"
-                data-section="dashboard"
-                type="button"
-            >
-                <i class="fa-solid fa-chart-pie"></i>
-
-                <span>
-                    Visão geral
-                </span>
-            </button>
-
-
-            <button
-                class="menu-item"
-                data-section="filhotes"
-                type="button"
-            >
-                <i class="fa-solid fa-paw"></i>
-
-                <span>
-                    Frenchies
-                </span>
-            </button>
-
-
-            <button
-                class="menu-item"
-                data-section="interessados"
-                type="button"
-            >
-                <i class="fa-solid fa-users"></i>
-
-                <span>
-                    Interessados
-                </span>
-            </button>
-
-
-            <button
-                class="menu-item"
-                data-section="galeria"
-                type="button"
-            >
-                <i class="fa-regular fa-images"></i>
-
-                <span>
-                    Galeria
-                </span>
-            </button>
-
-
-            <button
-                class="menu-item"
-                data-section="configuracoes"
-                type="button"
-            >
-                <i class="fa-solid fa-gear"></i>
-
-                <span>
-                    Configurações
-                </span>
-            </button>
-
-        </nav>
-
-
-        <div class="sidebar-bottom">
-
-            <a
-                href="./index.html"
-                target="_blank"
-                rel="noopener"
-            >
-                <i class="fa-solid fa-arrow-up-right-from-square"></i>
-
-                Ver site
-            </a>
-
-
-            <button
-                type="button"
-                id="logoutButton"
-            >
-                <i class="fa-solid fa-right-from-bracket"></i>
-
-                Sair
-            </button>
-
-        </div>
-
-    </aside>
-
-
-    <!-- CONTEÚDO -->
-
-    <main class="admin-main">
-
-
-        <!-- HEADER -->
-
-        <header class="admin-header">
-
-            <div class="admin-header-left">
-
-                <button
-                    class="sidebar-toggle"
-                    id="sidebarButton"
-                    type="button"
-                    aria-label="Abrir menu"
-                >
-                    <i class="fa-solid fa-bars"></i>
-                </button>
-
-
-                <div>
-                    <span>
-                        PAINEL ADMINISTRATIVO
-                    </span>
-
-                    <h1 id="pageTitle">
-                        Visão geral
-                    </h1>
-                </div>
-
-            </div>
-
-
-            <div class="admin-user">
-
-                <div class="admin-avatar">
-                    <i class="fa-solid fa-user"></i>
-                </div>
-
-                <div>
-                    <strong>
-                        Administrador
-                    </strong>
-
-                    <small id="adminEmail">
-                        Carregando...
-                    </small>
-                </div>
-
-            </div>
-
-        </header>
-
-
-        <div class="admin-content">
-
-
-            <!-- DASHBOARD -->
-
-            <section
-                class="admin-section active"
-                id="dashboard"
-            >
-
-                <div class="welcome-card">
-
-                    <div>
-
-                        <span>
-                            RINNO FRENCHIES
-                        </span>
-
-                        <h2>
-                            Bem-vindo ao seu painel.
-                        </h2>
-
-                        <p>
-                            Gerencie os Frenchies e acompanhe
-                            os contatos enviados pelo site.
-                        </p>
-
-                    </div>
-
-                    <i class="fa-solid fa-paw"></i>
-
-                </div>
-
-
-                <div class="stats-grid">
-
-                    <article class="stat-card">
-
-                        <span class="stat-icon">
-                            <i class="fa-solid fa-paw"></i>
-                        </span>
-
-                        <div>
-
-                            <small>
-                                FRENCHIES CADASTRADOS
-                            </small>
-
-                            <strong id="totalFilhotes">
-                                0
-                            </strong>
-
-                        </div>
-
-                    </article>
-
-
-                    <article class="stat-card">
-
-                        <span class="stat-icon">
-                            <i class="fa-solid fa-heart"></i>
-                        </span>
-
-                        <div>
-
-                            <small>
-                                DISPONÍVEIS
-                            </small>
-
-                            <strong id="totalDisponiveis">
-                                0
-                            </strong>
-
-                        </div>
-
-                    </article>
-
-
-                    <article class="stat-card">
-
-                        <span class="stat-icon">
-                            <i class="fa-solid fa-users"></i>
-                        </span>
-
-                        <div>
-
-                            <small>
-                                INTERESSADOS
-                            </small>
-
-                            <strong id="totalInteressados">
-                                0
-                            </strong>
-
-                        </div>
-
-                    </article>
-
-                </div>
-
-
-                <div class="dashboard-grid">
-
-                    <div class="panel-card">
-
-                        <div class="panel-heading">
-
-                            <div>
-                                <span>
-                                    CONTATOS
-                                </span>
-
-                                <h3>
-                                    Interessados recentes
-                                </h3>
-                            </div>
-
-
-                            <button
-                                type="button"
-                                class="text-button"
-                                data-open-section="interessados"
-                            >
-                                Ver todos
-                            </button>
-
-                        </div>
-
-
-                        <div
-                            class="recent-list"
-                            id="recentInterested"
-                        >
-                            <div class="admin-loading">
-                                <i class="fa-solid fa-circle-notch fa-spin"></i>
-                                Carregando...
-                            </div>
-                        </div>
-
-                    </div>
-
-
-                    <div class="quick-card">
-
-                        <span>
-                            ACESSO RÁPIDO
-                        </span>
-
-                        <h3>
-                            Novo Frenchie
-                        </h3>
-
-                        <p>
-                            Cadastre um novo Frenchie
-                            para aparecer automaticamente
-                            no site.
-                        </p>
-
-                        <button
-                            type="button"
-                            class="primary-admin-button"
-                            id="dashboardNewPuppy"
-                        >
-                            <i class="fa-solid fa-plus"></i>
-                            Cadastrar
-                        </button>
-
-                    </div>
-
-                </div>
-
-            </section>
-
-
-            <!-- FILHOTES -->
-
-            <section
-                class="admin-section"
-                id="filhotes"
-            >
-
-                <div class="section-toolbar">
-
-                    <div>
-                        <span>
-                            GERENCIAMENTO
-                        </span>
-
-                        <h2>
-                            Frenchies cadastrados
-                        </h2>
-
-                        <p>
-                            Cadastre e remova os cães
-                            exibidos na página pública.
-                        </p>
-                    </div>
-
-
-                    <button
-                        type="button"
-                        class="primary-admin-button"
-                        id="newPuppyButton"
-                    >
-                        <i class="fa-solid fa-plus"></i>
-
-                        NOVO FRENCHIE
-                    </button>
-
-                </div>
-
-
-                <div
-                    class="admin-puppies-grid"
-                    id="puppiesAdminGrid"
-                >
-                    <div class="admin-loading">
-                        <i class="fa-solid fa-circle-notch fa-spin"></i>
-                        Carregando...
-                    </div>
-                </div>
-
-            </section>
-
-
-            <!-- INTERESSADOS -->
-
-            <section
-                class="admin-section"
-                id="interessados"
-            >
-
-                <div class="section-toolbar">
-
-                    <div>
-
-                        <span>
-                            CONTATOS DO SITE
-                        </span>
-
-                        <h2>
-                            Pessoas interessadas
-                        </h2>
-
-                        <p>
-                            Mensagens enviadas pelo formulário
-                            público da Rinno Frenchies.
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <div class="table-card">
-
-                    <div class="table-responsive">
-
-                        <table>
-
-                            <thead>
-
-                                <tr>
-                                    <th>Nome</th>
-                                    <th>Contato</th>
-                                    <th>Interesse</th>
-                                    <th>Mensagem</th>
-                                    <th>Data</th>
-                                    <th></th>
-                                </tr>
-
-                            </thead>
-
-                            <tbody id="interestedTable">
-
-                                <tr>
-                                    <td colspan="6">
-                                        Carregando contatos...
-                                    </td>
-                                </tr>
-
-                            </tbody>
-
-                        </table>
-
-                    </div>
-
-                </div>
-
-            </section>
-
-
-            <!-- GALERIA -->
-
-            <section
-                class="admin-section"
-                id="galeria"
-            >
-
-                <div class="section-toolbar">
-
-                    <div>
-
-                        <span>
-                            IMAGENS DO SITE
-                        </span>
-
-                        <h2>
-                            Galeria Rinno
-                        </h2>
-
-                        <p>
-                            Estas são as imagens disponíveis
-                            atualmente no projeto.
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <div class="admin-gallery">
-
-                    <img src="./imagens/cachorro-01.jpeg" alt="Imagem 1">
-                    <img src="./imagens/cachorro-02.jpeg" alt="Imagem 2">
-                    <img src="./imagens/cachorro-03.jpeg" alt="Imagem 3">
-                    <img src="./imagens/cachorro-04.jpeg" alt="Imagem 4">
-                    <img src="./imagens/cachorro-05.jpeg" alt="Imagem 5">
-                    <img src="./imagens/cachorro-06.jpeg" alt="Imagem 6">
-                    <img src="./imagens/cachorro-07.jpeg" alt="Imagem 7">
-                    <img src="./imagens/cachorro-08.jpeg" alt="Imagem 8">
-                    <img src="./imagens/cachorro-09.jpeg" alt="Imagem 9">
-                    <img src="./imagens/cachorro-10.jpeg" alt="Imagem 10">
-                    <img src="./imagens/cachorro-11.jpeg" alt="Imagem 11">
-                    <img src="./imagens/cachorro-12.jpeg" alt="Imagem 12">
-                    <img src="./imagens/cachorro-13.jpeg" alt="Imagem 13">
-                    <img src="./imagens/cachorro-14.jpeg" alt="Imagem 14">
-
-                </div>
-
-            </section>
-
-
-            <!-- CONFIGURAÇÕES -->
-
-            <section
-                class="admin-section"
-                id="configuracoes"
-            >
-
-                <div class="section-toolbar">
-
-                    <div>
-
-                        <span>
-                            CONTA
-                        </span>
-
-                        <h2>
-                            Configurações
-                        </h2>
-
-                        <p>
-                            Informações da sessão administrativa.
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <div class="settings-card">
-
-                    <div class="settings-row">
-
-                        <span>
-                            <i class="fa-solid fa-user-shield"></i>
-                        </span>
-
-                        <div>
-                            <small>
-                                TIPO DE ACESSO
-                            </small>
-
-                            <strong>
-                                Administrador
-                            </strong>
-                        </div>
-
-                    </div>
-
-
-                    <div class="settings-row">
-
-                        <span>
-                            <i class="fa-regular fa-envelope"></i>
-                        </span>
-
-                        <div>
-                            <small>
-                                E-MAIL
-                            </small>
-
-                            <strong id="settingsEmail">
-                                Carregando...
-                            </strong>
-                        </div>
-
-                    </div>
-
-
-                    <div class="settings-row">
-
-                        <span>
-                            <i class="fa-solid fa-shield-halved"></i>
-                        </span>
-
-                        <div>
-                            <small>
-                                SEGURANÇA
-                            </small>
-
-                            <strong>
-                                Conta protegida pelo Firebase Authentication
-                            </strong>
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </section>
-
-        </div>
-
-    </main>
-
-
-    <!-- MODAL -->
-
-    <div
-        class="admin-modal"
-        id="puppyModal"
-        aria-hidden="true"
-    >
-
-        <div class="modal-backdrop"></div>
-
-
-        <div class="modal-card">
-
-            <button
-                type="button"
-                class="modal-close"
-                id="closePuppyModal"
-                aria-label="Fechar"
-            >
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-
-
-            <div class="modal-heading">
-
-                <span>
-                    NOVO CADASTRO
-                </span>
-
-                <h2>
-                    Cadastrar Frenchie
-                </h2>
-
-                <p>
-                    As informações aparecerão
-                    automaticamente na página pública.
-                </p>
-
-            </div>
-
-
-            <form id="puppyForm">
-
-                <div class="modal-grid">
-
-                    <div class="admin-field">
-
-                        <label for="puppyName">
-                            Nome *
-                        </label>
-
-                        <input
-                            type="text"
-                            id="puppyName"
-                            maxlength="80"
-                            placeholder="Nome do Frenchie"
-                            required
-                        >
-
-                    </div>
-
-
-                    <div class="admin-field">
-
-                        <label for="puppyGender">
-                            Sexo *
-                        </label>
-
-                        <select
-                            id="puppyGender"
-                            required
-                        >
-                            <option value="">
-                                Selecione
-                            </option>
-
-                            <option value="Macho">
-                                Macho
-                            </option>
-
-                            <option value="Fêmea">
-                                Fêmea
-                            </option>
-                        </select>
-
-                    </div>
-
-                </div>
-
-
-                <div class="modal-grid">
-
-                    <div class="admin-field">
-
-                        <label for="puppyStatus">
-                            Status *
-                        </label>
-
-                        <select
-                            id="puppyStatus"
-                            required
-                        >
-                            <option value="Disponível">
-                                Disponível
-                            </option>
-
-                            <option value="Reservado">
-                                Reservado
-                            </option>
-
-                            <option value="Indisponível">
-                                Indisponível
-                            </option>
-                        </select>
-
-                    </div>
-
-
-                    <div class="admin-field">
-
-                        <label for="puppyPhoto">
-                            Foto *
-                        </label>
-
-                        <select
-                            id="puppyPhoto"
-                            required
-                        >
-                            <option value="">
-                                Selecione
-                            </option>
-
-                            <option value="imagens/cachorro-01.jpeg">Foto 01</option>
-                            <option value="imagens/cachorro-02.jpeg">Foto 02</option>
-                            <option value="imagens/cachorro-03.jpeg">Foto 03</option>
-                            <option value="imagens/cachorro-04.jpeg">Foto 04</option>
-                            <option value="imagens/cachorro-05.jpeg">Foto 05</option>
-                            <option value="imagens/cachorro-06.jpeg">Foto 06</option>
-                            <option value="imagens/cachorro-07.jpeg">Foto 07</option>
-                            <option value="imagens/cachorro-08.jpeg">Foto 08</option>
-                            <option value="imagens/cachorro-09.jpeg">Foto 09</option>
-                            <option value="imagens/cachorro-10.jpeg">Foto 10</option>
-                            <option value="imagens/cachorro-11.jpeg">Foto 11</option>
-                            <option value="imagens/cachorro-12.jpeg">Foto 12</option>
-                            <option value="imagens/cachorro-13.jpeg">Foto 13</option>
-                            <option value="imagens/cachorro-14.jpeg">Foto 14</option>
-                        </select>
-
-                    </div>
-
-                </div>
-
-
-                <div class="admin-field">
-
-                    <label for="puppyDescription">
-                        Descrição
-                    </label>
-
-                    <textarea
-                        id="puppyDescription"
-                        maxlength="500"
-                        rows="5"
-                        placeholder="Escreva uma pequena descrição..."
-                    ></textarea>
-
-                </div>
-
-
-                <button
-                    type="submit"
-                    class="primary-admin-button modal-submit"
-                    id="savePuppyButton"
-                >
-                    <i class="fa-solid fa-check"></i>
-
-                    SALVAR FRENCHIE
-                </button>
-
-
-                <p
-                    class="puppy-message"
-                    id="puppyMessage"
-                ></p>
-
-            </form>
-
-        </div>
-
-    </div>
-
-
-    <script
-        type="module"
-        src="./js/admin.js?v=10"
-    ></script>
-
+<body class="admin-body">
+
+  <aside class="sidebar">
+    <a class="sidebar-brand" href="./index.html">
+      ✿ RINNO <em>Frenchies</em>
+    </a>
+
+    <p>PAINEL ADMINISTRATIVO</p>
+
+    <button class="tab active" data-target="dashboard">
+      ⌂ Visão geral
+    </button>
+
+    <button class="tab" data-target="filhotes">
+      ♡ Frenchies
+    </button>
+
+    <button class="tab" data-target="interessados">
+      ✉ Interessados
+    </button>
+
+    <button class="tab" data-target="galeria">
+      ▦ Galeria
+    </button>
+
+    <a href="./index.html" target="_blank" rel="noopener">
+      ↗ Ver site
+    </a>
+
+    <button id="logout">Sair da conta</button>
+  </aside>
+
+  <main class="admin-main">
+
+    <header>
+      <div>
+        <span class="eyebrow">RINNO FRENCHIES</span>
+        <h1 id="sectionTitle">Visão geral</h1>
+      </div>
+
+      <span id="adminEmail">Verificando acesso...</span>
+    </header>
+
+    <div id="adminError" role="status"></div>
+
+    <section id="dashboard" class="panel-section active">
+      <div class="welcome">
+        <h2>Bem-vindo ao painel ♡</h2>
+        <p>Gerencie os Frenchies e acompanhe os contatos do site.</p>
+      </div>
+
+      <div class="stats">
+        <article>
+          <small>FRENCHIES</small>
+          <strong id="countPuppies">0</strong>
+        </article>
+
+        <article>
+          <small>DISPONÍVEIS</small>
+          <strong id="countAvailable">0</strong>
+        </article>
+
+        <article>
+          <small>INTERESSADOS</small>
+          <strong id="countInterested">0</strong>
+        </article>
+      </div>
+
+      <h2>Contatos recentes</h2>
+      <div id="recentInterested" class="box">
+        Carregando...
+      </div>
+    </section>
+
+    <section id="filhotes" class="panel-section">
+      <div class="section-heading">
+        <h2>Frenchies cadastrados</h2>
+
+        <button class="btn" id="newPuppy">
+          + Novo Frenchie
+        </button>
+      </div>
+
+      <div id="adminPuppies" class="cards">
+        Carregando...
+      </div>
+    </section>
+
+    <section id="interessados" class="panel-section">
+      <h2>Mensagens recebidas</h2>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Telefone</th>
+              <th>E-mail</th>
+              <th>Interesse</th>
+              <th>Mensagem</th>
+              <th>Data</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+
+          <tbody id="interestedRows">
+            <tr>
+              <td colspan="7">Carregando...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="galeria" class="panel-section">
+      <h2>Fotos disponíveis</h2>
+      <p>Estas fotos estão na pasta imagens do seu repositório.</p>
+
+      <div id="adminGallery" class="gallery-admin"></div>
+    </section>
+
+  </main>
+
+  <dialog id="puppyDialog">
+    <form id="puppyForm" class="dialog-form">
+
+      <button type="button" id="closeDialog" class="close">
+        ✕
+      </button>
+
+      <h2 id="dialogTitle">Cadastrar Frenchie</h2>
+
+      <input type="hidden" id="editId">
+
+      <label>
+        Nome *
+        <input id="puppyName" maxlength="80" required>
+      </label>
+
+      <label>
+        Sexo *
+        <select id="puppyGender" required>
+          <option value="Macho">Macho</option>
+          <option value="Fêmea">Fêmea</option>
+        </select>
+      </label>
+
+      <label>
+        Status *
+        <select id="puppyStatus" required>
+          <option>Disponível</option>
+          <option>Reservado</option>
+          <option>Indisponível</option>
+        </select>
+      </label>
+
+      <label>
+        Foto *
+        <select id="puppyPhoto" required></select>
+      </label>
+
+      <label>
+        Descrição
+        <textarea
+          id="puppyDescription"
+          maxlength="500"
+          rows="4"
+        ></textarea>
+      </label>
+
+      <button class="btn" id="savePuppy" type="submit">
+        Salvar Frenchie
+      </button>
+
+      <p id="puppyMessage" role="status"></p>
+    </form>
+  </dialog>
+
+  <script type="module" src="./js/admin.js?v=20261010-1"></script>
 </body>
 </html>
