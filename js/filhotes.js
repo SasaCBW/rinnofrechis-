@@ -1,256 +1,94 @@
 import { db } from "./firebase.js";
 
 import {
-    collection,
-    getDocs
+  collection,
+  getDocs
 } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
 
+const grid = document.getElementById("puppiesGrid");
 
-const puppiesGrid =
-    document.getElementById(
-        "puppiesGrid"
-    );
-
-
-function escapeHTML(value = "") {
-
-    return String(value)
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
+function escapeHTML(value) {
+  return String(value ?? "").replace(/[&<>"']/g, char => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;"
+  }[char]));
 }
 
+function safePhoto(path) {
+  return /^imagens\/cachorro-(0[1-9]|1[0-4])\.jpeg$/.test(path)
+    ? path
+    : "imagens/cachorro-01.jpeg";
+}
 
-function validPhoto(photo) {
+async function carregarFrenchies() {
+  try {
+    const snapshot = await getDocs(collection(db, "filhotes"));
 
-    const allowed =
-        /^imagens\/cachorro-(0[1-9]|1[0-4])\.jpeg$/;
-
-    if (allowed.test(photo || "")) {
-        return photo;
+    if (snapshot.empty) {
+      grid.innerHTML = `
+        <p class="empty">
+          ♡ Em breve teremos novidades!
+          Entre em contato para consultar a disponibilidade.
+        </p>
+      `;
+      return;
     }
 
-    return "imagens/cachorro-01.jpeg";
-}
+    grid.innerHTML = snapshot.docs.map(documento => {
+      const cachorro = documento.data();
 
-
-function createPuppyCard(data) {
-
-    const nome =
-        escapeHTML(
-            data.nome || "Frenchie"
-        );
-
-    const sexo =
-        escapeHTML(
-            data.sexo || "Bulldog Francês"
-        );
-
-    const status =
-        escapeHTML(
-            data.status || "Consulte"
-        );
-
-    const descricao =
-        escapeHTML(
-            data.descricao ||
-            "Entre em contato para mais informações."
-        );
-
-    const foto =
-        validPhoto(data.foto);
-
-
-    return `
+      return `
         <article class="puppy-card">
+          <div class="puppy-photo">
+            <img
+              src="./${safePhoto(cachorro.foto)}"
+              alt="${escapeHTML(cachorro.nome || "Frenchie")}"
+              loading="lazy"
+            >
+            <span class="status">
+              ${escapeHTML(cachorro.status || "Consulte")}
+            </span>
+          </div>
 
-            <div class="puppy-image">
+          <div class="puppy-info">
+            <small>${escapeHTML(cachorro.sexo || "Bulldog Francês")}</small>
+            <h3>${escapeHTML(cachorro.nome || "Frenchie")}</h3>
+            <p>${escapeHTML(cachorro.descricao || "Entre em contato para saber mais.")}</p>
 
-                <img
-                    src="./${foto}"
-                    alt="${nome}"
-                    loading="lazy"
-                >
-
-                <span class="puppy-status">
-                    ${status}
-                </span>
-
-            </div>
-
-            <div class="puppy-content">
-
-                <span class="puppy-gender">
-                    ${sexo}
-                </span>
-
-                <h3>
-                    ${nome}
-                </h3>
-
-                <p>
-                    ${descricao}
-                </p>
-
-                <a
-                    href="#contato"
-                    class="puppy-contact"
-                    data-puppy="${nome}"
-                >
-                    TENHO INTERESSE
-                    <i class="fa-solid fa-arrow-right"></i>
-                </a>
-
-            </div>
-
+            <a
+              href="#contato"
+              data-name="${escapeHTML(cachorro.nome || "Frenchie")}"
+            >
+              Tenho interesse ↗
+            </a>
+          </div>
         </article>
+      `;
+    }).join("");
+
+    grid.querySelectorAll("[data-name]").forEach(link => {
+      link.addEventListener("click", () => {
+        document.getElementById("interestType").value =
+          "Filhote disponível";
+
+        document.getElementById("interestMessage").value =
+          `Olá! Gostaria de saber mais sobre ${link.dataset.name}.`;
+      });
+    });
+
+  } catch (error) {
+    console.error("Erro ao carregar Frenchies:", error);
+
+    grid.innerHTML = `
+      <p class="empty">
+        Não foi possível carregar os Frenchies agora.
+        Você pode enviar sua mensagem pelo formulário.
+      </p>
     `;
+  }
 }
 
-
-async function loadPuppies() {
-
-    if (!puppiesGrid) {
-        return;
-    }
-
-
-    try {
-
-        const snapshot =
-            await getDocs(
-                collection(
-                    db,
-                    "filhotes"
-                )
-            );
-
-
-        if (snapshot.empty) {
-
-            puppiesGrid.innerHTML = `
-                <div class="public-empty">
-
-                    <i class="fa-solid fa-paw"></i>
-
-                    <h3>
-                        Novidades em breve
-                    </h3>
-
-                    <p>
-                        Entre em contato para consultar
-                        próximas ninhadas e disponibilidade.
-                    </p>
-
-                </div>
-            `;
-
-            return;
-        }
-
-
-        let html = "";
-
-
-        snapshot.forEach(document => {
-
-            html +=
-                createPuppyCard(
-                    document.data()
-                );
-
-        });
-
-
-        puppiesGrid.innerHTML =
-            html;
-
-
-        setupInterestButtons();
-
-    }
-
-    catch (error) {
-
-        console.error(
-            "Erro ao carregar filhotes:",
-            error
-        );
-
-
-        puppiesGrid.innerHTML = `
-            <div class="public-empty">
-
-                <i class="fa-solid fa-paw"></i>
-
-                <h3>
-                    Rinno Frenchies
-                </h3>
-
-                <p>
-                    Entre em contato para consultar
-                    nossos Frenchies e próximas ninhadas.
-                </p>
-
-            </div>
-        `;
-
-    }
-
-}
-
-
-function setupInterestButtons() {
-
-    document
-        .querySelectorAll(
-            "[data-puppy]"
-        )
-        .forEach(button => {
-
-            button.addEventListener(
-                "click",
-                () => {
-
-                    const puppyName =
-                        button.dataset.puppy;
-
-
-                    const type =
-                        document.getElementById(
-                            "interestType"
-                        );
-
-
-                    const message =
-                        document.getElementById(
-                            "interestMessage"
-                        );
-
-
-                    if (type) {
-
-                        type.value =
-                            "Filhote disponível";
-
-                    }
-
-
-                    if (message) {
-
-                        message.value =
-                            `Olá! Tenho interesse em ${puppyName}. Gostaria de receber mais informações.`;
-
-                    }
-
-                }
-            );
-
-        });
-
-}
-
-
-loadPuppies();
+carregarFrenchies();
