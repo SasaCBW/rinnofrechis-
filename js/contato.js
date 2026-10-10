@@ -1,194 +1,50 @@
 import { db } from "./firebase.js";
 
 import {
-    collection,
-    addDoc,
-    serverTimestamp
+  addDoc,
+  collection,
+  serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
 
+const form = document.getElementById("interestForm");
+const button = document.getElementById("sendInterestButton");
+const status = document.getElementById("interestMessageStatus");
 
-const form =
-    document.getElementById(
-        "interestForm"
-    );
+form.addEventListener("submit", async event => {
+  event.preventDefault();
 
-const statusMessage =
-    document.getElementById(
-        "interestMessageStatus"
-    );
+  if (!form.reportValidity()) return;
 
-const submitButton =
-    document.getElementById(
-        "sendInterestButton"
-    );
+  const valor = id => document.getElementById(id).value.trim();
 
+  button.disabled = true;
+  status.textContent = "Enviando...";
 
-function showMessage(
-    message,
-    success = false
-) {
+  try {
+    await addDoc(collection(db, "interessados"), {
+      nome: valor("interestName"),
+      telefone: valor("interestPhone"),
+      email: valor("interestEmail"),
+      interesse: valor("interestType"),
+      mensagem: valor("interestMessage"),
+      status: "novo",
+      criadoEm: serverTimestamp()
+    });
 
-    if (!statusMessage) {
-        return;
-    }
+    form.reset();
 
-    statusMessage.textContent =
-        message;
+    status.textContent = "Mensagem enviada com sucesso! ♡";
+    status.style.color = "#357451";
 
-    statusMessage.style.color =
-        success
-            ? "#315a43"
-            : "#a53d3d";
-}
+  } catch (error) {
+    console.error("Erro ao enviar mensagem:", error);
 
+    status.textContent =
+      "Não foi possível enviar. Verifique as regras do Firestore.";
 
-form?.addEventListener(
-    "submit",
-    async event => {
+    status.style.color = "#b43b52";
 
-        event.preventDefault();
-
-
-        const nome =
-            document
-                .getElementById(
-                    "interestName"
-                )
-                .value
-                .trim();
-
-
-        const telefone =
-            document
-                .getElementById(
-                    "interestPhone"
-                )
-                .value
-                .trim();
-
-
-        const email =
-            document
-                .getElementById(
-                    "interestEmail"
-                )
-                .value
-                .trim();
-
-
-        const interesse =
-            document
-                .getElementById(
-                    "interestType"
-                )
-                .value;
-
-
-        const mensagem =
-            document
-                .getElementById(
-                    "interestMessage"
-                )
-                .value
-                .trim();
-
-
-        if (
-            !nome ||
-            !telefone ||
-            !interesse
-        ) {
-
-            showMessage(
-                "Preencha os campos obrigatórios."
-            );
-
-            return;
-        }
-
-
-        try {
-
-            if (submitButton) {
-
-                submitButton.disabled =
-                    true;
-
-                submitButton.innerHTML = `
-                    <i class="fa-solid fa-circle-notch fa-spin"></i>
-                    ENVIANDO...
-                `;
-            }
-
-
-            showMessage(
-                "Enviando..."
-            );
-
-
-            await addDoc(
-                collection(
-                    db,
-                    "interessados"
-                ),
-                {
-                    nome,
-                    telefone,
-                    email,
-                    interesse,
-                    mensagem,
-
-                    status:
-                        "novo",
-
-                    criadoEm:
-                        serverTimestamp()
-                }
-            );
-
-
-            form.reset();
-
-
-            showMessage(
-                "Mensagem enviada com sucesso! Obrigado pelo interesse.",
-                true
-            );
-
-        }
-
-        catch (error) {
-
-            console.error(
-                "Erro ao enviar interesse:",
-                error
-            );
-
-
-            showMessage(
-                "Não foi possível enviar agora. Tente novamente."
-            );
-
-        }
-
-        finally {
-
-            if (submitButton) {
-
-                submitButton.disabled =
-                    false;
-
-                submitButton.innerHTML = `
-                    <span>
-                        ENVIAR INTERESSE
-                    </span>
-
-                    <i class="fa-solid fa-arrow-right"></i>
-                `;
-
-            }
-
-        }
-
-    }
-);
+  } finally {
+    button.disabled = false;
+  }
+});
