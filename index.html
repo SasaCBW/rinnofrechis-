@@ -1,191 +1,124 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Conheça a Rinno Frenchies, nossos Bulldogs Franceses e momentos especiais.">
-  <title>Rinno Frenchies | Bulldog Francês</title>
-
+  <meta name="theme-color" content="#56102d">
+  <meta name="description" content="Rinno Frenchies: conheça nossos Bulldogs Franceses, nossa história e nossa galeria.">
+  <title>Rinno Frenchies | Amor de quatro patas</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./style.css?v=20261010-1">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-
 <header class="header">
-  <div class="container top">
-    <a class="brand" href="#inicio">✿ RINNO <em>Frenchies</em></a>
-    <button id="menuButton" class="menu-button" aria-label="Abrir menu" aria-expanded="false">☰</button>
-    <nav id="nav">
-      <a href="#inicio">Início</a>
+  <nav class="container nav">
+    <a href="index.html" class="logo">
+      <small>RINNO</small>
+      <strong>Frenchies</strong>
+    </a>
+    <button class="menu-btn" aria-label="Abrir menu" aria-expanded="false">☰</button>
+    <div class="nav-links">
+      <a href="index.html">Início</a>
       <a href="#sobre">Sobre</a>
-      <a href="#filhotes">Frenchies</a>
-      <a href="#galeria">Galeria</a>
-      <a class="nav-cta" href="#contato">Fale conosco ↗</a>
-    </nav>
-  </div>
+      <a href="filhotes.html">Frenchies</a>
+      <a href="galeria.html">Galeria</a>
+      <a href="agendamento.html">Contato</a>
+    </div>
+    <a class="nav-action" href="agendamento.html">Fale conosco ↗</a>
+  </nav>
 </header>
 
 <main>
-  <section id="inicio" class="hero">
+  <section class="hero">
+    <div class="spark s1">✦</div>
+    <div class="spark s2">✧</div>
+    <div class="spark s3">✦</div>
     <div class="container hero-grid">
-      <div>
-        <span class="eyebrow">✦ BULLDOG FRANCÊS ✦</span>
+      <div class="hero-text">
+        <div class="eyebrow">✧ RINNO FRENCHIES ✧</div>
         <h1>Pequenos no tamanho.<br><em>Gigantes no amor.</em></h1>
-        <p>Conheça a Rinno Frenchies, nossos cães e os momentos especiais que fazem parte da nossa história.</p>
-        <div class="buttons">
-          <a class="btn primary" href="#filhotes">Conheça nossos Frenchies ↗</a>
-          <a class="btn outline" href="#sobre">Nossa história</a>
+        <p>Conheça nossos Bulldogs Franceses e descubra o carinho, a personalidade e a alegria que tornam cada Frenchie tão especial.</p>
+        <div class="hero-buttons">
+          <a href="filhotes.html" class="btn btn-light">Conheça nossos Frenchies ↗</a>
+          <a href="#sobre" class="btn btn-outline">Nossa história →</a>
         </div>
-        <div class="hero-foot">♡ Carinho em cada detalhe &nbsp; ✧ Amor de quatro patas</div>
+        <div class="hero-details">
+          <span>♡ Amor por Frenchies</span>
+          <span>✧ Atendimento personalizado</span>
+        </div>
       </div>
-      <div class="hero-photo">
-        <img src="./imagens/cachorro-01.jpeg" alt="Bulldog Francês Rinno">
-        <span class="photo-label">♡ Amor que encanta</span>
+      <div class="hero-visual">
+        <img data-rinno-photo="0" alt="Bulldog Francês da Rinno">
+        <div class="photo-tag">♡ <span>Amor em cada detalhe</span></div>
       </div>
     </div>
   </section>
 
-  <div class="strip">
-    ✦ RINNO FRENCHIES &nbsp; ♡ &nbsp; BULLDOG FRANCÊS &nbsp; ✦ &nbsp; AMOR EM CADA HISTÓRIA &nbsp; ♡ &nbsp; RINNO FRENCHIES ✦
-  </div>
+  <div class="ribbon">✦ RINNO FRENCHIES &nbsp; ♡ &nbsp; BULLDOG FRANCÊS &nbsp; ✦ &nbsp; AMOR DE QUATRO PATAS</div>
 
   <section id="sobre" class="section">
-    <div class="container about-grid">
-      <div class="about-photo">
-        <img src="./imagens/cachorro-02.jpeg" alt="Frenchie da Rinno" loading="lazy">
-        <span>feito com<br><b>♡ carinho</b></span>
-      </div>
-      <div>
-        <span class="eyebrow">SOBRE A RINNO</span>
-        <h2>Uma paixão que<br><em>faz parte da família.</em></h2>
-        <p>O Bulldog Francês encanta com sua personalidade, companheirismo e jeito único de demonstrar carinho.</p>
-        <p>Na Rinno Frenchies, compartilhamos nossos cães e informações para quem deseja conhecer melhor esses companheiros.</p>
-        <div class="benefit">♡ Carinho em cada momento</div>
-        <div class="benefit">✿ Personalidades especiais</div>
-        <div class="benefit">✧ Atendimento próximo</div>
+    <div class="container two-columns">
+      <div class="portrait"><img data-rinno-photo="1" alt="Frenchie da Rinno" loading="lazy"></div>
+      <div class="section-copy">
+        <span class="kicker">CONHEÇA A RINNO</span>
+        <h2>Uma paixão que faz parte da <em>família.</em></h2>
+        <p>Os Bulldogs Franceses conquistam corações com seu jeito divertido, companheiro e carinhoso.</p>
+        <p>Na Rinno Frenchies, compartilhamos nossa paixão pela raça e apresentamos nossos cães com atenção e cuidado.</p>
+        <a href="filhotes.html" class="btn btn-wine">Conhecer os Frenchies →</a>
       </div>
     </div>
   </section>
 
-  <section id="filhotes" class="section tint">
+  <section class="section section-soft" id="destaques">
     <div class="container">
-      <div class="center">
-        <span class="eyebrow">CONHEÇA NOSSOS FRENCHIES</span>
-        <h2>Pequenos companheiros,<br><em>grandes histórias.</em></h2>
-        <p>Veja os Frenchies cadastrados e consulte as informações.</p>
+      <div class="section-heading">
+        <span class="kicker">NOSSOS COMPANHEIROS</span>
+        <h2>Conheça nossos <em>Frenchies.</em></h2>
+        <p>Veja alguns dos cães apresentados pela Rinno.</p>
       </div>
-      <div id="puppiesGrid" class="puppy-grid">
-        <p class="empty">Carregando nossos Frenchies...</p>
+      <div class="cards-grid" id="home-dogs"></div>
+      <div class="center-action">
+        <a class="btn btn-wine" href="filhotes.html">Ver todos os Frenchies ↗</a>
       </div>
     </div>
   </section>
 
-  <section id="galeria" class="section">
+  <section class="section" id="galeria">
     <div class="container">
-      <div class="center">
-        <span class="eyebrow">NOSSA GALERIA</span>
+      <div class="section-heading">
+        <span class="kicker">NOSSA GALERIA</span>
         <h2>Momentos que <em>encantam.</em></h2>
         <p>Um pouquinho do universo Rinno Frenchies.</p>
       </div>
-      <div class="gallery">
-        <button class="gallery-item" type="button"><img src="./imagens/cachorro-03.jpeg" alt="Frenchie 03" loading="lazy"></button>
-        <button class="gallery-item" type="button"><img src="./imagens/cachorro-04.jpeg" alt="Frenchie 04" loading="lazy"></button>
-        <button class="gallery-item" type="button"><img src="./imagens/cachorro-05.jpeg" alt="Frenchie 05" loading="lazy"></button>
-        <button class="gallery-item" type="button"><img src="./imagens/cachorro-06.jpeg" alt="Frenchie 06" loading="lazy"></button>
-        <button class="gallery-item" type="button"><img src="./imagens/cachorro-07.jpeg" alt="Frenchie 07" loading="lazy"></button>
-        <button class="gallery-item" type="button"><img src="./imagens/cachorro-08.jpeg" alt="Frenchie 08" loading="lazy"></button>
-        <button class="gallery-item" type="button"><img src="./imagens/cachorro-09.jpeg" alt="Frenchie 09" loading="lazy"></button>
-        <button class="gallery-item" type="button"><img src="./imagens/cachorro-10.jpeg" alt="Frenchie 10" loading="lazy"></button>
-        <button class="gallery-item" type="button"><img src="./imagens/cachorro-11.jpeg" alt="Frenchie 11" loading="lazy"></button>
-        <button class="gallery-item" type="button"><img src="./imagens/cachorro-12.jpeg" alt="Frenchie 12" loading="lazy"></button>
-        <button class="gallery-item" type="button"><img src="./imagens/cachorro-13.jpeg" alt="Frenchie 13" loading="lazy"></button>
-        <button class="gallery-item" type="button"><img src="./imagens/cachorro-14.jpeg" alt="Frenchie 14" loading="lazy"></button>
+      <div id="home-gallery" class="photo-grid"></div>
+      <div class="center-action">
+        <a href="galeria.html" class="btn btn-wine">Explorar galeria →</a>
       </div>
     </div>
   </section>
 
-  <section class="banner">
-    <div class="container banner-grid">
-      <div>
-        <span class="eyebrow">SEU NOVO AMIGO PODE ESTAR AQUI</span>
-        <h2>Quer conhecer melhor<br>nossos Frenchies?</h2>
-      </div>
-      <a href="#contato" class="btn white">Fale com a Rinno ↗</a>
-    </div>
-  </section>
-
-  <section id="contato" class="section">
-    <div class="container contact-grid">
-      <div>
-        <span class="eyebrow">ENTRE EM CONTATO</span>
-        <h2>Vamos <em>conversar?</em></h2>
-        <p>Quer saber mais sobre nossos cães ou consultar disponibilidade? Envie sua mensagem pelo formulário.</p>
-        <p class="pink">♡ Sua mensagem será recebida pela equipe Rinno Frenchies.</p>
-      </div>
-
-      <form id="interestForm" class="form">
-        <h3>Envie seu interesse ✦</h3>
-        <div class="two">
-          <label>Seu nome *
-            <input id="interestName" required maxlength="100" autocomplete="name" placeholder="Seu nome">
-          </label>
-          <label>WhatsApp *
-            <input id="interestPhone" required maxlength="30" type="tel" placeholder="(00) 00000-0000">
-          </label>
-        </div>
-        <label>E-mail
-          <input id="interestEmail" type="email" maxlength="150" placeholder="voce@exemplo.com">
-        </label>
-        <label>Assunto *
-          <select id="interestType" required>
-            <option value="">Selecione</option>
-            <option>Filhote disponível</option>
-            <option>Próxima ninhada</option>
-            <option>Informações</option>
-            <option>Outro</option>
-          </select>
-        </label>
-        <label>Mensagem
-          <textarea id="interestMessage" rows="4" maxlength="1500" placeholder="Conte para nós..."></textarea>
-        </label>
-        <button id="sendInterestButton" class="btn primary full" type="submit">Enviar mensagem ↗</button>
-        <p id="interestMessageStatus" role="status"></p>
-      </form>
+  <section class="contact-banner">
+    <div class="container">
+      <span class="eyebrow">VAMOS CONVERSAR?</span>
+      <h2>Seu próximo contato começa <em>aqui.</em></h2>
+      <p>Fale com a equipe Rinno Frenchies para conhecer melhor nossos cães.</p>
+      <a href="agendamento.html" class="btn btn-light">Entrar em contato ↗</a>
     </div>
   </section>
 </main>
 
-<footer>
+<footer class="footer">
   <div class="container footer-grid">
-    <div>
-      <a class="brand" href="#inicio">✿ RINNO <em>Frenchies</em></a>
-      <p>Amor por Bulldog Francês, uma história de cada vez.</p>
-    </div>
-    <div>
-      <b>Explore</b>
-      <a href="#sobre">Sobre</a>
-      <a href="#filhotes">Frenchies</a>
-      <a href="#galeria">Galeria</a>
-    </div>
-    <div>
-      <b>Contato</b>
-      <a href="#contato">Envie uma mensagem</a>
-    </div>
+    <div><a class="logo" href="index.html"><small>RINNO</small><strong>Frenchies</strong></a><p>Amor por Bulldogs Franceses.</p></div>
+    <div><b>Navegação</b><a href="filhotes.html">Frenchies</a><a href="galeria.html">Galeria</a><a href="agendamento.html">Contato</a></div>
+    <div><b>Administração</b><a href="admin-login.html">Acesso administrativo</a></div>
   </div>
-  <div class="container footer-bottom">
-    © <span id="year"></span> Rinno Frenchies
-    <a href="./admin-login.html">Administração</a>
-  </div>
+  <div class="container footer-end">© <span id="year"></span> Rinno Frenchies. Todos os direitos reservados.</div>
 </footer>
-
-<dialog id="lightbox">
-  <button id="closeLightbox" aria-label="Fechar">✕</button>
-  <img id="lightboxImg" alt="Foto ampliada">
-</dialog>
-
-<script src="./script.js?v=20261010-1"></script>
-<script type="module" src="./js/filhotes.js?v=20261010-1"></script>
-<script type="module" src="./js/contato.js?v=20261010-1"></script>
+<script src="js/config.js"></script>
+<script type="module" src="js/script.js"></script>
 </body>
 </html>
