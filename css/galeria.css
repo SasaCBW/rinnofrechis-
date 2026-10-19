@@ -1,0 +1,8 @@
+.gallery-full{grid-template-columns:repeat(3,1fr)}
+.gallery-full button{border:0;background:none;padding:0;cursor:pointer}
+.gallery-full img{height:310px;width:100%;object-fit:cover}
+#lightbox{border:0;border-radius:18px;padding:12px;max-width:92vw;max-height:92vh}
+#lightbox::backdrop{background:#1d0717dd}
+#large-photo{max-width:85vw;max-height:75vh;object-fit:contain}
+#close-photo{display:block;margin:0 0 10px auto;background:none;border:0;font-size:23px}
+@media(max-width:650px){.gallery-full{grid-template-columns:repeat(2,1fr)}.gallery-full img{height:180px}}
