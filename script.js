@@ -1,90 +1,101 @@
 
-import { db } from "./firebase.js";
-import {
-  collection, getDocs, query, orderBy, limit
-} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+document.addEventListener("DOMContentLoaded", function () {
+  const menuButton = document.querySelector(".menu-btn");
+  const nav = document.querySelector(".nav-links");
 
-const fallback = "data:image/svg+xml," +
-  encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600"><rect width="100%" height="100%" fill="#ead1dc"/><text x="50%" y="50%" text-anchor="middle" font-size="35" fill="#87415f">Rinno Frenchies</text></svg>');
+  // Menu para celular
+  if (menuButton && nav) {
+    menuButton.addEventListener("click", function () {
+      const isOpen = nav.classList.toggle("active");
 
-export function photo(src) {
-  return src || fallback;
-}
-
-export function makeCard(dog) {
-  const card = document.createElement("article");
-  card.className = "dog-card";
-  const img = document.createElement("img");
-  img.src = photo(dog.foto);
-  img.alt = dog.nome || "Bulldog Francês";
-  img.loading = "lazy";
-  img.onerror = () => { img.onerror = null; img.src = fallback; };
-
-  const body = document.createElement("div");
-  body.className = "dog-card-body";
-  const title = document.createElement("h3");
-  title.textContent = dog.nome || "Frenchie";
-  const desc = document.createElement("p");
-  desc.textContent = dog.descricao || "Conheça este Frenchie.";
-  const link = document.createElement("a");
-  link.href = "agendamento.html";
-  link.textContent = "Solicitar informações →";
-  body.append(title, desc, link);
-  card.append(img, body);
-  return card;
-}
-
-export async function loadDogs(element, max = 100) {
-  if (!element) return;
-  element.textContent = "Carregando Frenchies...";
-  try {
-    const q = query(collection(db, "frenchies"), orderBy("nome"), limit(max));
-    const snapshot = await getDocs(q);
-    element.replaceChildren();
-    snapshot.forEach(doc => {
-      const dog = doc.data();
-      if (dog.publicado === true) element.append(makeCard(dog));
+      menuButton.setAttribute("aria-expanded", String(isOpen));
+      menuButton.setAttribute(
+        "aria-label",
+        isOpen ? "Fechar menu" : "Abrir menu"
+      );
     });
-    if (!element.children.length) {
-      element.innerHTML = '<div class="empty-state">Entre em contato para conhecer nossos Frenchies.</div>';
-    }
-  } catch (error) {
-    console.error(error);
-    element.textContent = "Não foi possível carregar os Frenchies.";
+
+    nav.querySelectorAll("a").forEach(function (link) {
+      link.addEventListener("click", function () {
+        nav.classList.remove("active");
+        menuButton.setAttribute("aria-expanded", "false");
+        menuButton.setAttribute("aria-label", "Abrir menu");
+      });
+    });
+
+    document.addEventListener("click", function (event) {
+      if (
+        nav.classList.contains("active") &&
+        !nav.contains(event.target) &&
+        !menuButton.contains(event.target)
+      ) {
+        nav.classList.remove("active");
+        menuButton.setAttribute("aria-expanded", "false");
+        menuButton.setAttribute("aria-label", "Abrir menu");
+      }
+    });
   }
-}
 
-export function loadGallery(element, max = 100) {
-  if (!element) return;
-  const photos = (window.RINNO?.fotos || []).filter(Boolean).slice(0, max);
-  element.replaceChildren();
-  photos.forEach((src, i) => {
-    const img = document.createElement("img");
-    img.src = src;
-    img.alt = `Fotografia Rinno Frenchies ${i + 1}`;
-    img.loading = "lazy";
-    img.onerror = () => { img.onerror = null; img.src = fallback; };
-    element.append(img);
+  // Atualiza o ano automaticamente no rodapé
+  const yearElement = document.getElementById("year");
+
+  if (yearElement) {
+    yearElement.textContent = new Date().getFullYear();
+  }
+
+  // Verifica se as fotografias carregaram
+  const galleryImages = document.querySelectorAll(".gallery-item img");
+
+  galleryImages.forEach(function (img) {
+    img.addEventListener("error", function () {
+      console.error("Não foi possível carregar esta fotografia:", img.src);
+      img.closest(".gallery-item")?.classList.add("image-error");
+    });
   });
-}
 
-document.querySelectorAll("[data-rinno-photo]").forEach(img => {
-  const index = Number(img.dataset.rinnoPhoto);
-  img.src = photo(window.RINNO?.fotos?.[index]);
-  img.onerror = () => { img.onerror = null; img.src = fallback; };
+  // Permite usar Escape para fechar o menu
+  document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape" && nav && menuButton) {
+      nav.classList.remove("active");
+      menuButton.setAttribute("aria-expanded", "false");
+      menuButton.setAttribute("aria-label", "Abrir menu");
+    }
+  });
+
+  // Configuração opcional do WhatsApp.
+  // Coloque o número com código do país e DDD, somente números.
+  // Exemplo de formato: 55 + DDD + número.
+  const whatsappNumero = "";
+
+  const whatsappLink = document.getElementById("whatsapp-link");
+
+  if (whatsappLink) {
+    const numero = whatsappNumero.replace(/\D/g, "");
+
+    if (numero.length >= 12 && numero.length <= 13) {
+      whatsappLink.href = "https://wa.me/" + numero;
+      whatsappLink.target = "_blank";
+      whatsappLink.rel = "noopener noreferrer";
+      whatsappLink.hidden = false;
+    } else {
+      whatsappLink.hidden = true;
+    }
+  }
+
+  // Não exibe o botão de e-mail enquanto não houver um endereço configurado.
+  // Para ativá-lo, informe o e-mail comercial na variável abaixo.
+  const emailComercial = "";
+
+  const emailLink = document.querySelector(
+    '.contact-actions a[href^="mailto:"]'
+  );
+
+  if (emailLink) {
+    if (emailComercial.trim() !== "") {
+      emailLink.href = "mailto:" + emailComercial.trim();
+      emailLink.hidden = false;
+    } else {
+      emailLink.hidden = true;
+    }
+  }
 });
-
-const menu = document.querySelector(".menu-btn");
-const links = document.querySelector(".nav-links");
-if (menu && links) {
-  menu.addEventListener("click", () => {
-    const open = links.classList.toggle("open");
-    menu.setAttribute("aria-expanded", String(open));
-  });
-}
-
-const year = document.getElementById("year");
-if (year) year.textContent = new Date().getFullYear();
-
-loadDogs(document.getElementById("home-dogs"), 3);
-loadGallery(document.getElementById("home-gallery"), 8);
