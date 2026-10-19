@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Galeria | Rinno Frenchies</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:ital,wght@0,500;1,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/galeria.css">
+</head>
+<body>
+<header class="header page-header">
+<nav class="container nav">
+<a class="logo" href="index.html"><small>RINNO</small><strong>Frenchies</strong></a>
+<button class="menu-btn" aria-label="Abrir menu" aria-expanded="false">☰</button>
+<div class="nav-links">
+<a href="index.html">Início</a><a href="filhotes.html">Frenchies</a>
+<a href="galeria.html">Galeria</a><a href="agendamento.html">Contato</a>
+</div>
+</nav>
+</header>
+<main>
+<section class="page-hero">
+<span class="eyebrow">NOSSA GALERIA</span>
+<h1>Momentos <em>especiais.</em></h1>
+<p>Um olhar sobre o universo Rinno Frenchies.</p>
+</section>
+<section class="section">
+<div class="container">
+<div class="photo-grid gallery-full" id="full-gallery"></div>
+</div>
+</section>
+</main>
+<dialog id="lightbox">
+<button id="close-photo" aria-label="Fechar">✕</button>
+<img id="large-photo" alt="Fotografia ampliada">
+</dialog>
+<footer class="footer"><div class="container">© Rinno Frenchies · <a href="index.html">Início</a></div></footer>
+<script src="js/config.js"></script>
+<script type="module" src="js/galeria.js"></script>
+</body>
+</html>
