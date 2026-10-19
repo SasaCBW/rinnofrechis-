@@ -1,0 +1,6 @@
+
+#dogs-list{align-items:stretch}
+#dogs-list .dog-card{transition:transform .25s,box-shadow .25s}
+#dogs-list .dog-card:hover{transform:translateY(-6px);box-shadow:0 22px 45px #69263d22}
+#dogs-list .dog-card img{height:320px}
+#dogs-list .dog-card-body{min-height:170px}
