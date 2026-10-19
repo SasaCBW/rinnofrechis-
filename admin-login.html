@@ -1,226 +1,31 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <meta name="robots" content="noindex, nofollow">
-
-    <title>Admin | Rinno Frenchies</title>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <link
-        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap"
-        rel="stylesheet"
-    >
-
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-    >
-
-    <link
-        rel="stylesheet"
-        href="./css/admin.css?v=10"
-    >
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Administração | Rinno Frenchies</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:ital,wght@0,500;1,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/admin-login.css">
 </head>
-
 <body class="login-page">
-
-    <main class="login-layout">
-
-        <section class="login-visual">
-
-            <div class="login-visual-overlay"></div>
-
-            <a
-                href="./index.html"
-                class="login-site-logo"
-            >
-                <span class="login-site-logo-icon">
-                    <i class="fa-solid fa-paw"></i>
-                </span>
-
-                <span>
-                    <strong>RINNO</strong>
-                    <small>FRENCHIES</small>
-                </span>
-            </a>
-
-            <div class="login-visual-content">
-
-                <span class="login-eyebrow">
-                    ÁREA ADMINISTRATIVA
-                </span>
-
-                <h1>
-                    Gestão
-                    <em>Rinno.</em>
-                </h1>
-
-                <p>
-                    Acesso exclusivo para administração
-                    dos Frenchies e contatos recebidos
-                    pelo site.
-                </p>
-
-            </div>
-
-            <div class="login-visual-footer">
-                <i class="fa-solid fa-lock"></i>
-                Acesso restrito
-            </div>
-
-        </section>
-
-
-        <section class="login-form-area">
-
-            <div class="login-card">
-
-                <a
-                    href="./index.html"
-                    class="back-site"
-                >
-                    <i class="fa-solid fa-arrow-left"></i>
-                    Voltar ao site
-                </a>
-
-
-                <div class="login-mobile-logo">
-
-                    <span>
-                        <i class="fa-solid fa-paw"></i>
-                    </span>
-
-                    <div>
-                        <strong>RINNO</strong>
-                        <small>FRENCHIES</small>
-                    </div>
-
-                </div>
-
-
-                <div class="login-heading">
-
-                    <span>
-                        BEM-VINDO
-                    </span>
-
-                    <h2>
-                        Painel administrativo
-                    </h2>
-
-                    <p>
-                        Entre com a conta autorizada
-                        para administrar o site.
-                    </p>
-
-                </div>
-
-
-                <form id="loginForm">
-
-                    <div class="admin-field">
-
-                        <label for="email">
-                            E-mail
-                        </label>
-
-                        <div class="input-wrapper">
-
-                            <i class="fa-regular fa-envelope"></i>
-
-                            <input
-                                type="email"
-                                id="email"
-                                autocomplete="username"
-                                placeholder="E-mail do administrador"
-                                required
-                            >
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="admin-field">
-
-                        <label for="password">
-                            Senha
-                        </label>
-
-                        <div class="input-wrapper">
-
-                            <i class="fa-solid fa-lock"></i>
-
-                            <input
-                                type="password"
-                                id="password"
-                                autocomplete="current-password"
-                                placeholder="Sua senha"
-                                required
-                            >
-
-                            <button
-                                type="button"
-                                class="password-toggle"
-                                id="togglePassword"
-                                aria-label="Mostrar ou ocultar senha"
-                            >
-                                <i class="fa-regular fa-eye"></i>
-                            </button>
-
-                        </div>
-
-                    </div>
-
-
-                    <button
-                        type="submit"
-                        class="login-submit"
-                        id="loginButton"
-                    >
-                        <span>
-                            ENTRAR NO PAINEL
-                        </span>
-
-                        <i class="fa-solid fa-arrow-right"></i>
-                    </button>
-
-
-                    <p
-                        class="login-message"
-                        id="loginMessage"
-                    ></p>
-
-                </form>
-
-
-                <div class="login-security">
-
-                    <i class="fa-solid fa-shield-halved"></i>
-
-                    <p>
-                        Esta área é protegida e destinada
-                        somente ao administrador autorizado.
-                    </p>
-
-                </div>
-
-            </div>
-
-        </section>
-
-    </main>
-
-
-    <script
-        type="module"
-        src="./js/admin-login.js?v=10"
-    ></script>
-
+<main class="login-card">
+<a href="index.html" class="login-brand">
+<small>RINNO</small>
+<strong>Frenchies</strong>
+</a>
+<h1>Painel <em>administrativo.</em></h1>
+<p>Entre com sua conta autorizada para gerenciar o site.</p>
+<form id="login-form">
+<label class="field">E-mail
+<input type="email" id="email" required autocomplete="username"></label>
+<label class="field">Senha
+<input type="password" id="password" required autocomplete="current-password"></label>
+<button class="btn btn-wine" type="submit">Entrar no painel ↗</button>
+<p class="form-message" id="login-status" role="status"></p>
+</form>
+<a class="back-link" href="index.html">← Voltar ao site</a>
+</main>
+<script type="module" src="js/admin-login.js"></script>
 </body>
 </html>
