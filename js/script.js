@@ -1,174 +1,147 @@
 
-import { db } from "./firebase.js";
-import {
-  collection,
-  getDocs,
-  query,
-  limit,
-  where
-} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
-
 const FALLBACK_IMAGE =
-  "https://placehold.co/800x600/f5dce7/59102f?text=Rinno+Frenchies";
+  "https://placehold.co/800x600/F5F0E6/24382F?text=Rinno+Frenchies";
 
 function getPhotos() {
   return Array.isArray(window.RINNO?.fotos)
-    ? window.RINNO.fotos.filter(Boolean)
+    ? window.RINNO.fotos
     : [];
 }
 
-function createImage(src, alt, className = "") {
-  const img = document.createElement("img");
-  img.src = src || FALLBACK_IMAGE;
+function setImage(img, src, alt) {
   img.alt = alt;
   img.loading = "lazy";
-
-  if (className) img.className = className;
+  img.src = src;
 
   img.onerror = () => {
     img.onerror = null;
     img.src = FALLBACK_IMAGE;
   };
-
-  return img;
 }
 
-export function makeCard(dog) {
-  const card = document.createElement("article");
-  card.className = "dog-card";
+function loadHeroPhotos() {
+  const photos = getPhotos();
 
-  const image = createImage(
-    dog.foto,
-    dog.nome || "Bulldog Francês"
-  );
+  document.querySelectorAll("[data-rinno-photo]").forEach(img => {
+    const index = Number(img.dataset.rinnoPhoto);
+    const photo = photos[index];
 
-  const body = document.createElement("div");
-  body.className = "dog-card-body";
-
-  const title = document.createElement("h3");
-  title.textContent = dog.nome || "Nosso Frenchie";
-
-  const description = document.createElement("p");
-  description.textContent =
-    dog.descricao || "Conheça este integrante da Rinno Frenchies.";
-
-  const link = document.createElement("a");
-  link.href = "agendamento.html";
-  link.textContent = "Solicitar informações →";
-
-  body.append(title, description, link);
-  card.append(image, body);
-
-  return card;
+    if (photo) {
+      setImage(img, photo, "Bulldog Francês da Rinno Frenchies");
+    }
+  });
 }
 
-export async function loadDogs(element, max = 100) {
-  if (!element) return;
+function loadGallery() {
+  const gallery = document.getElementById("home-gallery");
+  if (!gallery) return;
 
-  element.replaceChildren();
+  const photos = getPhotos();
+  gallery.replaceChildren();
 
-  try {
-    const dogsQuery = query(
-      collection(db, "frenchies"),
-      where("publicado", "==", true),
-      limit(max)
+  photos.slice(0, 8).forEach((photo, index) => {
+    const img = document.createElement("img");
+
+    setImage(
+      img,
+      photo,
+      `Bulldog Francês — fotografia ${index + 1}`
     );
 
-    const snapshot = await getDocs(dogsQuery);
+    gallery.appendChild(img);
+  });
 
-    snapshot.forEach(documentSnapshot => {
-      element.append(makeCard(documentSnapshot.data()));
-    });
-
-    if (!element.children.length) {
-      element.innerHTML = `
-        <div class="empty-state">
-          <h3>Em breve, nossos Frenchies</h3>
-          <p>Entre em contato para saber mais sobre os nossos cães.</p>
-          <a class="btn btn-wine" href="agendamento.html">
-            Fale conosco →
-          </a>
-        </div>
-      `;
-    }
-  } catch (error) {
-    console.error("Erro ao carregar os Frenchies:", error);
-
-    element.innerHTML = `
-      <div class="empty-state">
-        <h3>Conheça nossos Frenchies</h3>
-        <p>Entre em contato para receber informações sobre nossos cães.</p>
-        <a class="btn btn-wine" href="agendamento.html">
-          Fale conosco →
-        </a>
-      </div>
-    `;
+  if (photos.length === 0) {
+    gallery.textContent = "As fotografias serão exibidas em breve.";
   }
 }
 
-export function loadGallery(element, max = 100) {
-  if (!element) return;
-
-  const photos = getPhotos().slice(0, max);
-  element.replaceChildren();
-
-  photos.forEach((src, index) => {
-    const image = createImage(
-      src,
-      `Fotografia ${index + 1} da Rinno Frenchies`
-    );
-
-    element.append(image);
-  });
-}
-
-function initializeHeroPhotos() {
-  document.querySelectorAll("[data-rinno-photo]").forEach(img => {
-    const index = Number(img.dataset.rinnoPhoto);
-    const photos = getPhotos();
-
-    img.src = photos[index] || FALLBACK_IMAGE;
-    img.alt = index === 0
-      ? "Bulldog Francês da Rinno Frenchies"
-      : "Conheça os cães da Rinno Frenchies";
-
-    img.onerror = () => {
-      img.onerror = null;
-      img.src = FALLBACK_IMAGE;
-    };
-  });
-}
-
 function initializeMenu() {
-  const menuButton = document.querySelector(".menu-btn");
-  const navigation = document.querySelector(".nav-links");
+  const button = document.querySelector(".menu-btn");
+  const menu = document.querySelector(".nav-links");
 
-  if (!menuButton || !navigation) return;
+  if (!button || !menu) return;
 
-  menuButton.addEventListener("click", () => {
-    const isOpen = navigation.classList.toggle("open");
-    menuButton.setAttribute("aria-expanded", String(isOpen));
+  button.addEventListener("click", () => {
+    const opened = menu.classList.toggle("open");
+    button.setAttribute("aria-expanded", String(opened));
   });
 
-  navigation.querySelectorAll("a").forEach(link => {
+  menu.querySelectorAll("a").forEach(link => {
     link.addEventListener("click", () => {
-      navigation.classList.remove("open");
-      menuButton.setAttribute("aria-expanded", "false");
+      menu.classList.remove("open");
+      button.setAttribute("aria-expanded", "false");
     });
   });
 }
 
 function initializeYear() {
   const year = document.getElementById("year");
+  if (year) year.textContent = new Date().getFullYear();
+}
 
-  if (year) {
-    year.textContent = new Date().getFullYear();
+async function loadDogs() {
+  const area = document.getElementById("home-dogs");
+  if (!area) return;
+
+  try {
+    const { db } = await import("./firebase.js");
+
+    const {
+      collection,
+      getDocs,
+      query,
+      limit,
+      where
+    } = await import(
+      "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js"
+    );
+
+    const result = await getDocs(
+      query(
+        collection(db, "frenchies"),
+        where("publicado", "==", true),
+        limit(3)
+      )
+    );
+
+    area.replaceChildren();
+
+    result.forEach(item => {
+      const dog = item.data();
+      const card = document.createElement("article");
+      card.className = "dog-card";
+
+      const img = document.createElement("img");
+      setImage(img, dog.foto || FALLBACK_IMAGE, dog.nome || "Frenchie");
+
+      const body = document.createElement("div");
+      body.className = "dog-card-body";
+
+      const title = document.createElement("h3");
+      title.textContent = dog.nome || "Nosso Frenchie";
+
+      const description = document.createElement("p");
+      description.textContent = dog.descricao || "";
+
+      body.append(title, description);
+      card.append(img, body);
+      area.append(card);
+    });
+
+    if (!area.children.length) {
+      area.textContent = "Em breve, novidades sobre nossos Frenchies.";
+    }
+  } catch (error) {
+    console.error("Não foi possível carregar o catálogo:", error);
+
+    area.textContent =
+      "Consulte nossa equipe para conhecer os Frenchies disponíveis.";
   }
 }
 
-initializeHeroPhotos();
+loadHeroPhotos();
+loadGallery();
 initializeMenu();
 initializeYear();
-
-loadDogs(document.getElementById("home-dogs"), 3);
-loadGallery(document.getElementById("home-gallery"), 8);
+loadDogs();
