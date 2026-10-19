@@ -1,63 +1,48 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="robots" content="noindex, nofollow">
+import { auth, db } from "./firebase.js";
+import {
+  signInWithEmailAndPassword, signOut, onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+import {
+  doc, getDoc
+} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
 
-  <title>Admin | Rinno Frenchies</title>
+const form = document.getElementById("login-form");
+const status = document.getElementById("login-status");
 
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./css/admin.css?v=20261010-1">
-</head>
+async function isAdmin(user) {
+  const snap = await getDoc(doc(db, "admins", user.uid));
+  return snap.exists() && snap.data().ativo === true;
+}
 
-<body class="login-body">
-  <main class="login-shell">
+onAuthStateChanged(auth, async user => {
+  if (!user) return;
+  try {
+    if (await isAdmin(user)) location.replace("admin.html");
+  } catch (error) {
+    console.error(error);
+  }
+});
 
-    <div class="login-image">
-      <a href="./index.html">✿ RINNO Frenchies</a>
-      <h1>Um cantinho especial para cuidar de tudo.</h1>
-      <p>Painel exclusivo da Rinno Frenchies.</p>
-    </div>
+form.addEventListener("submit", async event => {
+  event.preventDefault();
+  status.textContent = "Verificando acesso...";
 
-    <div class="login-panel">
-      <form id="loginForm" class="login-card">
-        <a href="./index.html">← Voltar ao site</a>
+  try {
+    const result = await signInWithEmailAndPassword(
+      auth,
+      document.getElementById("email").value.trim(),
+      document.getElementById("password").value
+    );
 
-        <span class="eyebrow">ACESSO RESTRITO</span>
-        <h2>Bem-vindo de volta ♡</h2>
-        <p>Entre com a conta administrativa.</p>
+    if (!(await isAdmin(result.user))) {
+      await signOut(auth);
+      status.textContent = "Esta conta não possui autorização administrativa.";
+      return;
+    }
 
-        <label>
-          E-mail
-          <input
-            id="email"
-            type="email"
-            autocomplete="username"
-            required
-          >
-        </label>
-
-        <label>
-          Senha
-          <input
-            id="password"
-            type="password"
-            autocomplete="current-password"
-            required
-          >
-        </label>
-
-        <button class="btn" id="loginButton" type="submit">
-          Entrar no painel ↗
-        </button>
-
-        <p id="loginMessage" role="status"></p>
-      </form>
-    </div>
-
-  </main>
-
-  <script type="module" src="./js/admin-login.js?v=20261010-1"></script>
-</body>
-</html>
+    location.replace("admin.html");
+  } catch (error) {
+    console.error(error);
+    status.textContent = "Não foi possível entrar. Confira seus dados e permissões.";
+  }
+});
