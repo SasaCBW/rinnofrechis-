@@ -1,101 +1,89 @@
 
 document.addEventListener("DOMContentLoaded", function () {
-  const menuButton = document.querySelector(".menu-btn");
-  const nav = document.querySelector(".nav-links");
-
   // Menu para celular
-  if (menuButton && nav) {
-    menuButton.addEventListener("click", function () {
-      const isOpen = nav.classList.toggle("active");
+  const menuButton = document.querySelector(".menu-toggle");
+  const navigation = document.querySelector(".navigation");
 
-      menuButton.setAttribute("aria-expanded", String(isOpen));
-      menuButton.setAttribute(
-        "aria-label",
-        isOpen ? "Fechar menu" : "Abrir menu"
-      );
+  if (menuButton && navigation) {
+    menuButton.addEventListener("click", function () {
+      const open = navigation.classList.toggle("open");
+      menuButton.setAttribute("aria-expanded", String(open));
+      menuButton.setAttribute("aria-label", open ? "Fechar menu" : "Abrir menu");
+      menuButton.textContent = open ? "✕" : "☰";
     });
 
-    nav.querySelectorAll("a").forEach(function (link) {
+    navigation.querySelectorAll("a").forEach(function (link) {
       link.addEventListener("click", function () {
-        nav.classList.remove("active");
+        navigation.classList.remove("open");
         menuButton.setAttribute("aria-expanded", "false");
         menuButton.setAttribute("aria-label", "Abrir menu");
+        menuButton.textContent = "☰";
       });
     });
 
-    document.addEventListener("click", function (event) {
-      if (
-        nav.classList.contains("active") &&
-        !nav.contains(event.target) &&
-        !menuButton.contains(event.target)
-      ) {
-        nav.classList.remove("active");
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape") {
+        navigation.classList.remove("open");
         menuButton.setAttribute("aria-expanded", "false");
         menuButton.setAttribute("aria-label", "Abrir menu");
+        menuButton.textContent = "☰";
       }
     });
   }
 
-  // Atualiza o ano automaticamente no rodapé
-  const yearElement = document.getElementById("year");
-
-  if (yearElement) {
-    yearElement.textContent = new Date().getFullYear();
+  // Ano automático no rodapé
+  const year = document.getElementById("year");
+  if (year) {
+    year.textContent = new Date().getFullYear();
   }
 
-  // Verifica se as fotografias carregaram
-  const galleryImages = document.querySelectorAll(".gallery-item img");
-
-  galleryImages.forEach(function (img) {
-    img.addEventListener("error", function () {
-      console.error("Não foi possível carregar esta fotografia:", img.src);
-      img.closest(".gallery-item")?.classList.add("image-error");
+  // Verifica se cada fotografia existe
+  document.querySelectorAll(".gallery-card img, .hero-image img, .story-photo img, .feature-image img")
+    .forEach(function (image) {
+      image.addEventListener("error", function () {
+        console.error("Imagem não encontrada:", image.getAttribute("src"));
+        image.classList.add("photo-missing");
+        image.alt = "Não foi possível carregar esta fotografia";
+      });
     });
-  });
 
-  // Permite usar Escape para fechar o menu
-  document.addEventListener("keydown", function (event) {
-    if (event.key === "Escape" && nav && menuButton) {
-      nav.classList.remove("active");
-      menuButton.setAttribute("aria-expanded", "false");
-      menuButton.setAttribute("aria-label", "Abrir menu");
-    }
-  });
-
-  // Configuração opcional do WhatsApp.
-  // Coloque o número com código do país e DDD, somente números.
-  // Exemplo de formato: 55 + DDD + número.
+  // Configure os contatos comerciais abaixo.
+  // WhatsApp: código do país + DDD + número, somente dígitos.
+  // Exemplo de formato brasileiro: 55 + DDD + número.
   const whatsappNumero = "";
-
-  const whatsappLink = document.getElementById("whatsapp-link");
-
-  if (whatsappLink) {
-    const numero = whatsappNumero.replace(/\D/g, "");
-
-    if (numero.length >= 12 && numero.length <= 13) {
-      whatsappLink.href = "https://wa.me/" + numero;
-      whatsappLink.target = "_blank";
-      whatsappLink.rel = "noopener noreferrer";
-      whatsappLink.hidden = false;
-    } else {
-      whatsappLink.hidden = true;
-    }
-  }
-
-  // Não exibe o botão de e-mail enquanto não houver um endereço configurado.
-  // Para ativá-lo, informe o e-mail comercial na variável abaixo.
   const emailComercial = "";
 
-  const emailLink = document.querySelector(
-    '.contact-actions a[href^="mailto:"]'
-  );
+  const whatsappButton = document.getElementById("whatsapp-button");
+  const emailButton = document.getElementById("email-button");
+  const contactNote = document.getElementById("contact-note");
 
-  if (emailLink) {
-    if (emailComercial.trim() !== "") {
-      emailLink.href = "mailto:" + emailComercial.trim();
-      emailLink.hidden = false;
+  let contactConfigured = false;
+
+  if (whatsappButton) {
+    const number = whatsappNumero.replace(/\D/g, "");
+
+    if (/^\d{12,13}$/.test(number)) {
+      whatsappButton.href = "https://wa.me/" + number;
+      whatsappButton.hidden = false;
+      contactConfigured = true;
     } else {
-      emailLink.hidden = true;
+      whatsappButton.hidden = true;
     }
+  }
+
+  if (emailButton) {
+    const email = emailComercial.trim();
+
+    if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      emailButton.href = "mailto:" + email;
+      emailButton.hidden = false;
+      contactConfigured = true;
+    } else {
+      emailButton.hidden = true;
+    }
+  }
+
+  if (contactNote && contactConfigured) {
+    contactNote.hidden = true;
   }
 });
